@@ -1,0 +1,897 @@
+---
+title: "Week 3: (Descriptive) Fairness in AI"
+subtitle: "*DSAN 5450: Data Ethics and Policy*<br><span class='subsubtitle'>Spring 2024, Georgetown University</span>"
+author: "Jeff Jacobs"
+institute: "<a href='mailto:jj1088@georgetown.edu' target='_blank'>`jj1088@georgetown.edu`</a>"
+bibliography: "../_DSAN5450.bib"
+date: 2024-01-31
+date-format: full
+lecnum: 3
+categories:
+  - "Class Sessions"
+format:
+  revealjs:
+    df-print: kable
+    footer: "DSAN 5450 Week 3: (Descriptive) Fairness in AI"
+    include-in-header:
+      text: "<link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css'>"
+    output-file: "slides.html"
+    html-math-method: mathjax
+    theme: ["../_jjslides.scss"]
+    scrollable: true
+    slide-number: true
+    simplemenu:
+      flat: true
+      barhtml:
+        header: "<div class='menubar'><span style='position: absolute; left: 8; padding-left: 8px;'><a href='./index.html'>&larr; Return to Notes</a></span><ul class='menu'></ul></div>"
+      scale: 0.5
+    revealjs-plugins:
+      - simplemenu
+  html:
+    df-print: kable
+    output-file: "index.html"
+    html-math-method: mathjax
+---
+
+::: {.content-visible unless-format="revealjs"}
+
+<center>
+<a class="h2" href="./slides.html" target="_blank">Open slides in new window &rarr;</a>
+</center>
+
+:::
+
+# Recap / Loose Ends {data-stack-name="Week 2 Wrapup"}
+
+## Loose Ends {.smaller .crunch-title}
+
+* Normative vs. Descriptive **"Exploitation"**: How can we disentangle these in our understanding of the term? [@roemer_free_1988]
+  * Under descriptive definition, one can "exploit" **corn** or **land** in the exact same way one "exploits" **human labor** (just another type of input into the production process)
+  * Utility-wise, an economy **with** exploitation can be **unambiguously better** than one **without** exploitation: if 10 people $H$ own means of production, and 990 people $S$ own only their labor power (landless peasants, for example), allowing $H$ to exploit $S$ for a wage increases utility for both: $H$ acquires profits, $S$ doesn't starve to death
+* "Tracing back" causes / **unraveling history**
+  * *"The result [of modern 24-hour news cycles] is a litany of events with no beginning and no real end, thrown together only because they occurred at the same time[,] cut off from their **antecedents** and **consequenes**"* [@bourdieu_sociology_2010]
+
+## Ethics of Eliciting Sensitive Linguistic Data {.smaller .crunch-title .title-12}
+
+::: {layout="[1,1]" layout-valign="center"}
+::: {#labov-left}
+
+![From @labov_language_2013, pg. 4](images/labov_interview.jpeg){fig-align="center"}
+
+:::
+::: {#labov-right}
+
+![From "80 Years On, Dominicans And Haitians Revisit Painful Memories Of Parsley Massacre", *NPR Parallels*, 7 Oct 2017 [@bishop_80_2017]](images/parsley.jpeg){fig-align="center"}
+
+:::
+:::
+
+# (Recap) Three Component Parts of Machine Learning
+
+1. [A cool algorithm ✅]{.cbg}
+2. [[Possibly benign but possibly biased] Training data ✅]{.cbg}
+3. $\Longrightarrow$ Exploitation of below-minimum-wage human labor 😞🤐 [@dube_monopsony_2020]
+
+## Part 3: The "Training Data Bottleneck" {.smaller .crunch-title .crunch-quarto-layout-panel .crunch-figures .crunch-quarto-figure .title-12}
+
+::: {layout="[1,1]"}
+
+![](images/snorkel_1.svg){fig-align="center"}
+
+::: {#snorkel-right}
+
+![Snorkel.AI, <a href='assets/snorkel.pdf' target='_blank'>*An Introduction to Snorkel and Data-Centric AI*</a>](images/snorkel_2.svg){fig-align="center"}
+
+::: {#fig-snorkel-quote}
+
+> With so much technical progress [...] why is there so little real enterprise success? The answer all too often is that many enterprises continue to be **bottlenecked** by one key ingredient: the large amounts of **labeled data** [needed] to train these new systems.
+
+*ibid. (PS, if it seems like I'm picking on them: these are the 'good guys' IMO! W.r.t. foregrounding training data as labor)*
+:::
+
+:::
+
+:::
+
+## Human Labor {.smaller .crunch-title .crunch-quarto-layout-panel .crunch-quarto-figure .crunch-figcaption}
+
+::: {layout="[1,1]"}
+
+::: {#fig-human-labor-left}
+
+![](images/snorkel_human_labelers.jpg){fig-align="center" width="450"}
+
+![](images/snorkel_training_data.jpg){fig-align="center" width="450"}
+
+From Snorkel AI, <a href='https://www.youtube.com/watch?v=cb9DP3_QooA' target='_blank'>"The Principles of Data-Centric AI Development by Alex Ratner"</a> (YouTube)
+:::
+::: {#human-labor-right}
+
+![@gray_ghost_2019](images/ghost_work.jpg){fig-align="center" width="360"}
+
+:::
+:::
+
+
+## Computer Scientists Being Responsible (At Georgetown!) {.smaller .crunch-title .crunch-iframe .title-09}
+
+![<a href='' target='_blank'>Dr. Redmiles' homepage</a> (Since Quarto also freezes when I try to embed it...)](images/dr_redmiles_homepage.jpeg){fig-align="center"}
+
+* *(PS... UMD undergrad CS class of 2013 extremely overrepresented here* 😜*)*
+
+## Computer Scientists Being Responsible (At Georgetown!) {.smaller .crunch-title .crunch-iframe .title-09}
+
+![<a href='https://gufaculty360.georgetown.edu/s/course-catalog/a1oHp00000GvwGnIAJ/cosc882001?id=003Hp00002jN3TsIAK' target='_blank'>GU360 Course Page</a>](images/dr_redmiles_class.jpeg){fig-align="center"}
+
+## So, What Comes With Human Labels? Human Biases! {.smaller .title-10 .crunch-quarto-layout-panel .crunch-quarto-figure .crunch-title .crunch-ul .crunch-figcaption}
+
+::: {layout="[2,1]" layout-valign="center"}
+
+![@crawford_excavating_2019](images/imagenet_jezebel.jpg){fig-align="center" width="660"}
+
+![Image tagged in ImageNet with the label **"BOLSHEVIK"**. From @crawford_excavating_2019](images/bolshevik.JPEG){fig-align="center"}
+
+:::
+
+## Biases In Our Brains $\rightarrow$ Biases in Our Models $\rightarrow$ Material Effects {.smaller .crunch-title .title-08 .crunch-p .crunch-quarto-layout-panel .crunch-ul}
+
+::: {layout="[1,1]"}
+
+::: {#biases-text}
+
+* **"Reification"**: Pretentious word for an important phenomenon, whereby talking about something (e.g., race) *as if* it was real ends up leading to it **becoming real** (having real impacts on people's lives)^[@fields_racecraft_2012, for example, coined **"racecraft"** to describe reification of blackness in US... *much* more on this later!]
+
+> On average, being classified as a White man as opposed to a Coloured man would have more than quadrupled a person's income. [@pellicer_understanding_2023]
+
+![](images/permit_crop.jpeg){fig-align="center"}
+
+:::
+
+![](images/passport.webp){fig-align="center" width="380"}
+
+:::
+
+## Reification in Science {.crunch-title .crunch-quarto-layout-panel .crunch-figcaption}
+
+::: {layout="[1,1]"}
+
+::: {#intelligence-testing}
+
+<center>*"""Intelligence""" Testing*</center>
+
+![@gould_mismeasure_1980](images/mismeasure.webp){fig-align="center" width="340"}
+
+:::
+::: {#goodhart}
+
+<center>*More Generally*</center>
+
+* <a href='https://en.wikipedia.org/wiki/Goodhart%27s_law' target='_blank'>Goodhart's Law</a>: "When a measure becomes a target, it ceases to be a good measure"
+* Cat-and-mouse game between **goals** (🚩) and ways of **measuring** progress towards goals (also 🚩)
+
+:::
+:::
+
+# Metaethics {data-stack-name="Metaethics"}
+
+A scary-sounding word that just means:
+
+> "What we talk about when we talk about ethics",
+
+in contrast to
+
+> "What we talk about when we talk about [insert particular ethical framework here]"
+
+## Reflective Equilibrium {.crunch-title}
+
+* Most criticisms of any framework boil down to, "great in theory, but doesn't work in practice"
+* The way to take this seriously: **reflective equilibrium** 
+* Introduced by @rawls_outline_1951, but popularized by @rawls_theory_1971
+
+![From @awad_computational_2022](images/reflective.jpg){fig-align="center"}
+
+# Descriptive vs. Normative Judgements {.not-title-page .title-11}
+
+| Descriptive (Is) | Normative (Ought) |
+| - | - |
+| Grass is green (true) | Grass ought to be green (?) |
+| Grass is blue (false) | Grass ought to be blue (?) |
+
+## Easy Mode: Descriptive Judgements {.smaller .crunch-title .crunch-p}
+
+**How did you acquire the concept "red"?**
+
+* People pointed to stuff with certain properties and said "red" (or "rojo" or "红"), as pieces of an **intersubjective** communication system
+* These **descriptive** labels enable *coordination*, like driving on left or right side of road!
+* Nothing very profound or difficult in **committing** to this descriptive coordination: *"for **ease of communication**, I'll vibrate my vocal chords like this (or write these symbols) to indicate $x$, and vibrate them like this (or write these other symbols) to indicate $y$"*
+<!-- * Technically you have the free will to **refuse** this prescription. But, nothing very "" -->
+* Linguistic choices, when it comes to **description**, are arbitrary*: Our mouths can make <a href='https://en.wikipedia.org/wiki/International_Phonetic_Alphabet' target='_blank'>these sounds</a>, and each language is a mapping: [combinations of sounds] $\leftrightarrow$ [things]
+  * diːsˈæn ˈfɪfti fɔr ˈfɪfti [<a href='http://ipa-reader.xyz/?text=dis%C3%A6n%CB%88f%C9%AAfdif%C9%94%C9%B9%CB%88f%C9%AAfti' target='_blank'>US Accent <i class='bi bi-box-arrow-up-right'></i></a> / <a href='http://ipa-reader.xyz/?text=dis%C3%A6n%CB%88f%C9%AAfdif%C9%94%C9%B9%CB%88f%C9%AAfti&voice=Dora' target='_blank'>Icelandic Accent <i class='bi bi-box-arrow-up-right'></i></a>]
+
+<!-- disænˈfɪfdifɔɹˈfɪfti  / disænˈfɪfdifɔɹˈfɪfti -->
+<!-- * Our lives/the world would not be very different if "red" was switched with "green"; i.e., the main change would just be vibrating different vocal chords or writing different symbols to communicate the concept -->
+
+\**(Tiny text footnote: Except for, perhaps, a few <a href='https://en.wikipedia.org/wiki/Bouba/kiki_effect' target='_blank'>fun but rare onomatopoetic cases</a>)*
+
+## What Makes Ethical Judgements "More Difficult"? {.smaller .title-11 .crunch-title .crunch-p}
+
+**How did you acquire the concept "good"?**
+
+* People pointed to **actions** with certain properties and said "good" (and pointed at others and said "bad"), as part of instilling **values** in you
+* "Grass is green" just links two **descriptive** referents together, while "Honesty is good" takes the **descriptive** concept "honesty" and *links it* with the **normative** concept "good"
+* In doing this, parents/teachers/friends are doing way more than just linking sounds and things in the world (**de**scribing): they are also **prescribing** rules of moral conduct!
+* **Normative** concepts go beyond "mere" communication: course of your life / future / [things that matter deeply to people] differ if you **act on** one set of norms vs. another
+* $\implies$ Ethics centrally involves non-arbitrarily-chosen **commitments**!
+
+## Tl;dr
+
+* **Languages** are **arbitrary conventions** for communication
+* **Ethical systems** **build on** this language to **non-arbitrarily** mark out things that are good/bad
+* Life would **not** be very different if we "shuffled" words (we'd just vibrate our vocal chords differently), but **would** be very different if we "shuffled" good/bad labeling
+
+## Quick Aside: Top 10 Linguist Beefs {.smaller .crunch-title .crunch-figcaption .crunch-quarto-layout-panel .crunch-ul .crunch-images}
+
+* Statement on previous slide (*"Life would not be very different if we shuffled words"*), might seem weird/closed-minded/dismissive if you have a certain popular prior belief...
+
+::: {layout="[1,1]"}
+
+![@deutscher_language_2010](images/language_glass.jpg){fig-align="center" width="300"}
+
+![@mcwhorter_language_2014](images/language_hoax.jpg){fig-align="center" width="325"}
+
+:::
+
+## The Last Time I Use This, I Promise
+
+![](images/yells_at_sapir.jpeg)
+
+## Historical Example: Capitalism and the "Protestant Ethic" {.crunch-title .smaller .title-09 .crunch-quarto-layout-panel .crunch-p .crunch-ul .crunch-quarto-layout-cell .crunch-blockquote}
+
+* Big changes in history are associated with changes in this **good/bad labeling**!
+* Max Weber (<a href='https://www.researchgate.net/figure/Top-50-sociologists-according-to-aggregate-weighted-citation-scores-normalized-score_fig1_332447162' target='_blank'>second most-cited</a> sociologist of all time\*): *Protestant value system* gave rise to *capitalist system* by **relabeling** what things are good vs. bad [@weber_protestant_1904]:
+
+::: {layout="[1,1]"}
+
+::: {#bible-money}
+
+> Jesus said to his disciples, "Truly, I say to you, only with difficulty will a rich person enter the kingdom of heaven. Again I tell you, it is easier for a camel to go through the eye of a needle than for a rich person to enter the kingdom of God." (<a href='https://www.biblegateway.com/passage/?search=Matthew%2019&version=ESV' target='_blank'>Matthew 19:23-24</a>)
+
+> Oh, were we loving God worthily, we should have no love at all for money! [@st.augustine_works_1874, pg. 28]
+
+[\**(...jumpscare: REIFICATION!)*]{.fn-span}
+
+:::
+::: {#protestant-ethic}
+
+> The earliest capitalists lacked legitimacy in the moral climate in which they found themselves. One of the means they found [to legitimize their behavior] was to appropriate the evaluative vocabulary of Protestantism. [@skinner_visions_2012, pg. 157]
+
+> Calvinism added [to Luther's doctrine] the necessity of **proving one's faith** in worldly activity, [replacing] spiritual aristocracy of monks outside of/above the world with spiritual aristocracy of predestined saints within it. (pg. 121). 
+
+:::
+:::
+
+## Contemporary Example: Palestine {.smaller .crunch-quarto-layout-panel .crunch-title .crunch-ul .crunch-blockquote .crunch-li .crunch-p}
+
+* Very few of the relevant **empirical** facts are in dispute, since opening of crucial archives to three so-called "New Historians" in the 1980s. So why do people still argue?
+
+::: {layout="[1,1]"}
+::: {#pappe-text}
+
+* **Ilan Pappe**, one of these historians, concluded from this material that:
+  * The Israeli state was built upon a massive ethnic cleansing, and
+  * Is not morally justifiable [@pappe_ethnic_2006]
+
+> The immunity Israel has received over the last fifty years encourages others, regimes and oppositions alike, to believe that human and civil rights are irrelevant in the Middle East. The dismantling of the mega-prison in Palestine will send a different, and more hopeful, message.
+
+:::
+::: {#morris-text}
+
+* **Benny Morris**, another of these historians, concluded that:
+  * The Israeli state was built upon a massive ethnic cleansing, and
+  * Is morally justifiable [@morris_birth_1987]
+
+> A Jewish state would not have come into being without the uprooting of 700,000 Palestinians. Therefore it was necessary to uproot them. There was no choice but to expel that population. It was necessary to cleanse the hinterland and cleanse the border areas and cleanse the main roads.
+
+<!-- [...] The term "cleanse" doesn't sound nice but that's the term they used at the time. I adopted it from the 1948 documents. -->
+
+:::
+:::
+
+# Individual Ethics $\rightarrow$ Social Ethics {data-stack-name="Individual vs. Social Ethics"}
+
+## (From Week 1) Counterargument to Consequentialism {.crunch-title .title-07 .crunch-quarto-layout-panel .crunch-ul .crunch-quarto-figure .crunch-images}
+
+::: {layout="[1,1]"}
+
+::: {#omelas-text}
+
+> Millions are kept permanently happy, on the one simple condition that a certain lost soul on the far-off edge of things should lead a life of lonely torture [@james_moral_1891]
+
+* Modern example: people "out there" suffer so we can have iPhones, etc.
+
+:::
+
+![@leguin_ones_1973](images/omelas.jpg){fig-align="center" width="360"}
+
+:::
+
+## One Solution: Individual Rights {.smaller .crunch-title .crunch-quarto-layout-panel .crunch-quarto-figure .crunch-figcaption .crunch-images .crunch-math .crunch-ul}
+
+::: {layout="[2,1]" layout-valign="center"}
+
+::: {#rights-text}
+
+* Rights are **vetoes** which **individuals** can use to cancel out **collective**/institutional decisions which affect them (key example for us: right to **privacy**)
+* Rawls/liberalism: individual rights are **lexically prior to** "efficiency" and/or distributional concerns
+* Why the buzzword "lexically"? Enter (non-scary) math!
+* We can put *lowercase* letters of English alphabet in an **order**: $\texttt{a} \prec \texttt{b} \prec \cdots \texttt{z}$
+* We can put *capital* letters of English alphabet in an order: $\texttt{A} \prec \texttt{B} \prec \cdots \prec \texttt{Z}$
+* What if we need to sort stuff with **both** types? We can decide that capital letters are **lexically prior** to lowercase letters, giving us a combined ordering:
+
+:::
+
+![@dworkin_taking_1977](images/dworkin.jpg){fig-align="center" width="300"}
+
+:::
+
+$$
+\boxed{\texttt{A} \prec \texttt{B} \prec \cdots \prec \texttt{Z} \prec \texttt{a} \prec \texttt{b} \prec \cdots \prec \texttt{z}}
+$$
+
+## Lexical Ordering (I Tricked You 😈)
+
+::: {layout="[2,1]"}
+::: {#trick-left}
+
+* You thought I was just talking about *letters*, but they're actually **variables**: capital letters are rights, lowercase letters are distributive principles
+
+$$
+\underbrace{\texttt{A} \prec \texttt{B} \prec \cdots \prec \texttt{Z}}_{\mathclap{\substack{\text{Individual Rights} \\ \text{Basic Goods}}}} \phantom{\prec} \prec \phantom{\prec} \underbrace{\texttt{a} \prec \texttt{b} \prec \cdots \prec \texttt{z}}_{\mathclap{\substack{\text{Distributive Principles} \\ \text{Money and whatnot}}}}
+$$
+
+:::
+::: {#trick-right}
+
+![](images/atrick_nocap.jpg){fig-align="center"}
+
+:::
+:::
+
+## Better Metaphor Than Letters {.smaller .crunch-title .crunch-ul .crunch-math}
+
+* Letters are where Rawls gets "lexically prior" from, but letters are **total orderings** (we know where *every* letter "stands" in relation to *every* other letter)
+* Better metaphor: a **high school** with a hierarchy such that
+
+$$
+\text{Seniors} \prec \text{Juniors} \prec \text{Sophomores}  \prec \text{Freshmen} 
+$$
+
+* $\implies$ If you're a Freshman, whether at the "top" or "bottom" of a ranking of Freshmen, you're still **prior to** all Sophomores...
+* Why is this more helpful? Because **we don't need to define** the **rankings *within* classes** to know the **rankings *between* classes** in this case
+
+![](images/ordinal_numbers.svg){fig-align="center" width="300"}
+
+## Counterargument(s) to Deontology {.smaller .crunch-title .crunch-ul .crunch-figcaption .shift-ul .crunch-li-3 .crunch-images}
+
+::: {layout="[7,3]"}
+::: {#deontology-counter-left}
+
+* Deontological **rule**: *"Don't lie"*
+  * But then: Nazis come to your house, ask you if you're harboring any Jews
+* k, new deontological **rule**: *"Don't lie unless necessary"*
+  * Who decides when it's necessary?
+* Deontological commitment: *Pacifism / Nonviolence*
+  * But then: someone swingin on you
+* k, new deontological **commitment**: *Pacifism / Nonviolence Except In Self-Defense*
+  * Who decides what counts as self-defense?
+* Deontological **maxim**: *"The master's tools will never dismantle the master's house"*
+  * Who conceded "ownership" to the master?
+* (Trolley problems, etc.)
+
+:::
+::: {#deontology-counter-right}
+
+![@churchill_pacifism_1998 *(Derrick Jensen intro removed from later editions so... I <a href='https://github.com/jpowerj/mdb/blob/main/1998_Churchill_PacifismAsPathology.md' target='_blank'>put it on dang GitHub</a>)*](images/pacifism.jpg){fig-align="center" width="340"}
+
+:::
+:::
+
+## A Synthesis: Two-Level Utilitarianism {.title-09 .crunch-title .crunch-quarto-layout-panel .crunch-quarto-figure .crunch-images .crunch-figcaption}
+
+::: {layout="[1,1]"}
+
+::: {#two-level-text}
+
+* It would be exhausting to compute Nash equilibrium strategies for every scenario
+* Instead, we can develop **heuristics** that work for most cases, then **reevaluate** and **update** when we encounter tough cases
+* (Brings us back to **reflective equilibrium**!)
+
+:::
+
+![@kahneman_thinking_2011](images/thinking.jpg){fig-align="center" width="360"}
+
+:::
+
+## Individual vs. Social Morality {.smaller .crunch-title .crunch-ul .crunch-figcaption .crunch-images .crunch-quarto-figure}
+
+* That was all already hard enough, to reason about **individual** morality
+* Now add in the fact that we live in a society 😰
+* Things that happen depend not only on **our** choices but also the choices of others
+
+[![<a href='https://www.youtube.com/watch?v=LHhbdXCzt_A' target='_blank'>Seinfeld: Living in a Society (Clip) | TBS</a>](images/seinfeld_society.jpeg){fig-align="center" width="700"}](https://www.youtube.com/watch?v=LHhbdXCzt_A)
+
+## Enter Game Theory {.smaller .crunch-title .crunch-quarto-layout-panel .crunch-figcaption .crunch-ul}
+
+* A tool for analyzing how **individual choices** + **choices of others** $\rightarrow$ **outcomes**!
+
+::: {layout="[1,1]" layout-valign="center"}
+
+::: {#game-theory-text}
+
+* Example: You ($A$) and a friend ($B$) committed a robbery, and you're brought into the police station for questioning.
+* You're placed in separate rooms, and each of you is offered a **plea deal**: if you **testify** while your partner **stays silent**, you go free and they go to jail for 3 years.
+* Otherwise, if you **both stay silent**, they have very little evidence and can only jail you for **1 year**
+* However, there's a catch: if you **both confess**, you both get **two years** in jail, since they now have maximal evidence
+
+:::
+
+![Source: <a href='https://commons.wikimedia.org/wiki/File:Prisoners_dilemma.svg' target='_blank'>Wikimedia Commons</a>](images/prisoners_dilemma.svg){fig-align="center"}
+
+:::
+
+## Individual Decision-Making {.smaller .title-11}
+
+::: {layout="[1,1]" layout-valign="center"}
+
+::: {#step-by-step}
+
+* Let's think through $A$'s **best responses** to the possible choices $B$ could make:
+* If $B$ **stays silent**, what is $A$'s best option?
+  * **Staying silent** results in **1 year** of jail
+  * **Testifying** results in **0 years** of jail
+  * So it is **better to testify**
+* If $B$ **testifies**, what is $A$'s best option?
+  * **Staying silent** results in **3 years** of jail
+  * **Testifying** results in **2 years** of jail
+  * So it is **better to testify**
+* The result: **regardless of what $B$ does**, $A$ is **better off testifying**!
+
+:::
+
+![Source: <a href='https://commons.wikimedia.org/wiki/File:Prisoners_dilemma.svg' target='_blank'>Wikimedia Commons</a>](images/prisoners_dilemma.svg){fig-align="center"}
+
+:::
+
+## The Social Outcome {.crunch-title .crunch-ul}
+
+::: {layout="[1,1]" layout-valign="center"}
+
+::: {#social-outcome-text}
+
+* The game is **symmetric**, so the same logic applies for $B$
+* Conclusion: **the outcome of the game will be $s^* = (\text{Testify}, \text{Testify})$**
+* This is called a **Nash equilibrium**: no player $i$ can make themselves better off by **deviating** from $s_i$
+
+:::
+
+![Source: <a href='https://commons.wikimedia.org/wiki/File:Prisoners_dilemma.svg' target='_blank'>Wikimedia Commons</a>](images/prisoners_dilemma.svg){fig-align="center"}
+
+:::
+
+## How Do We Fix This? *Conventions!* {.crunch-title .inline-08 .crunch-quarto-layout-cell .crunch-quarto-layout-panel}
+
+::: {layout="[1,1]" layout-valign="center"}
+
+::: {#conventions-left}
+
+* We encounter this type of problem every day if we **drive**! You ($A$) and another driver ($B$) arrive at an **intersection**:
+
+:::
+
+```{=html}
+<table class='game-table'>
+<thead>
+</thead>
+<tbody>
+<tr>
+  <td class='game-label'></td>
+  <td class='game-label'></td>
+  <td colspan="2" align="center" class='game-label'><span data-qmd="$B$"></span></td>
+</tr>
+<tr>
+  <td class='game-label'></td>
+  <td class='game-label'></td>
+  <td class='game-label'>Stop</td>
+  <td class='game-label'>Drive</td>
+</tr>
+<tr>
+  <td rowspan="2" style="vertical-align: middle;" class='game-label'><span data-qmd="$A$"></span></td>
+  <td class='game-label'>Stop</td>
+  <td class='game-cell'><span data-qmd="$-1,-1$"></span></td>
+  <td class='game-cell'><span data-qmd="$-3,\phantom{-}0$"></span></td>
+</tr>
+<tr>
+  <td class='game-label'>Drive</td>
+  <td class='game-cell'><span data-qmd="$\phantom{-}0, -3$"></span></td>
+  <td class='game-cell'><span data-qmd="$-10,-10$"></span></td>
+</tr>
+</tbody>
+</table>
+```
+
+:::
+
+* If **both stop**, we're mostly bored: $u_A = -1$
+* If we stop and the other person drives, we're mad that they got to go and we didn't: $u_A = -3$
+* If **both drive**, we crash: $u_A = -10$
+
+## Without A Convention {.smaller .crunch-title .crunch-quarto-layout-panel .crunch-ul .crunch-math}
+
+::: {layout="[6,4]" layout-valign="center"}
+
+::: {#no-convention-text}
+
+* We're "frozen": this game has **no unique Nash equilibrium**, so we cannot say (on the basis of individual rationality) what will happen!
+* Without a convention: **power**/aggression takes over. "War of all against all", only the strong survive, etc. (life is "nasty, brutish, and short")
+
+:::
+::: {#no-convention-table}
+
+```{=html}
+<table class='game-table'>
+<thead>
+</thead>
+<tbody>
+<tr>
+  <td class='game-label'></td>
+  <td class='game-label'></td>
+  <td colspan="2" align="center" class='game-label'><span data-qmd="$B$"></span></td>
+</tr>
+<tr>
+  <td class='game-label'></td>
+  <td class='game-label'></td>
+  <td class='game-label'>Stop</td>
+  <td class='game-label'>Drive</td>
+</tr>
+<tr>
+  <td rowspan="2" style="vertical-align: middle;" class='game-label'><span data-qmd="$A$"></span></td>
+  <td class='game-label'>Stop</td>
+  <td class='game-cell'><span data-qmd="${\color{orange}\cancel{\color{black}-1}},{\color{lightblue}\cancel{\color{black}-1}}$"></span></td>
+  <td class='game-cell'><span data-qmd="$\boxed{-3},\boxed{0}$"></span></td>
+</tr>
+<tr>
+  <td class='game-label'>Drive</td>
+  <td class='game-cell'><span data-qmd="$\boxed{0}, \boxed{-3}$"></span></td>
+  <td class='game-cell'><span data-qmd="${\color{orange}\cancel{\color{black}-10}},{\color{lightblue}\cancel{\color{black}-10}}$"></span></td>
+</tr>
+</tbody>
+</table>
+```
+
+:::
+:::
+
+* If $A$'s aggression is $\Pr(s_A = \textsf{Drive}) = X \sim \mathcal{U}[0,1]$, $B$'s aggression is $\Pr(s_B = \textsf{Drive}) = Y \sim \mathcal{U}[0,1]$, what happens at individual and societal levels?
+
+$$
+\begin{align*}
+\mathbb{E}[u_A] = \mathbb{E}[u_B] &= \int_{0}^{1}\int_{0}^{1}\left(x - 2y -8xy - 1\right)dy \, dx = -3.5 \\
+\underbrace{\mathbb{E}\mkern-3mu\left[u_A + u_B\right]}_{\mathclap{\text{Utilitarian Social Welfare}}} &= -3.5
+\end{align*}
+$$
+
+## The Convention of Traffic Lights {.smaller .crunch-title}
+
+* If we don't want a world where $\text{Happiness}(i) \propto \Pr(i \text{ more aggro than }j)$, we can introduce **traffic lights**: 
+
+::: {layout="[1,1]"}
+::: {#traffic-light-text}
+
+* Now in **"correlated equilibrium"**, where we ensure* coordinated $\Pr((\textsf{Drive}, \textsf{Stop})) = 0.5$, $\Pr((\textsf{Stop}, \textsf{Drive})) = 0.5$
+* $\mathbb{E}[u_A] = (0.5)(0) + (0.5)(-3) = -1.5$
+* $\mathbb{E}[u_B] = (0.5)(-3) + (0.5)(0) = -1.5$
+
+:::
+::: {#traffic-light-table}
+
+```{=html}
+<table class='game-table'>
+<thead>
+</thead>
+<tbody>
+<tr>
+  <td class='game-label'></td>
+  <td class='game-label'></td>
+  <td colspan="2" align="center" class='game-label'><span data-qmd="$B$"></span></td>
+</tr>
+<tr>
+  <td class='game-label'></td>
+  <td class='game-label'></td>
+  <td class='game-label'>Stop</td>
+  <td class='game-label'>Drive</td>
+</tr>
+<tr>
+  <td rowspan="2" style="vertical-align: middle;" class='game-label'><span data-qmd="$A$"></span></td>
+  <td class='game-label'>Stop</td>
+  <td class='game-cell'><span data-qmd="${\color{orange}\cancel{\color{black}-1}},{\color{lightblue}\cancel{\color{black}-1}}$"></span></td>
+  <td class='game-cell'><span data-qmd="$\boxed{-3},\boxed{0}$"></span></td>
+</tr>
+<tr>
+  <td class='game-label'>Drive</td>
+  <td class='game-cell'><span data-qmd="$\boxed{0}, \boxed{-3}$"></span></td>
+  <td class='game-cell'><span data-qmd="${\color{orange}\cancel{\color{black}-10}},{\color{lightblue}\cancel{\color{black}-10}}$"></span></td>
+</tr>
+</tbody>
+</table>
+```
+
+:::
+:::
+
+* Empirical (anthropological) findings across literally thousands of different cultures throughout the world: people are willing to **give up rewards** to **ensure fairness** (see, e.g., @henrich_search_2001)
+
+[\**(through, for example, traffic laws: equal in theory... In practice? Another story)*]{.fn-span}
+
+## So How Should We Make/Choose Conventions? {.title-08}
+
+* @hobbes_leviathan_1651: Only way out of "war of all against all" is to surrender all power to one **sovereign** (the *Leviathan*)
+* @rousseau_social_1762: Social contract
+* *[Big big ~200 year gap here... can you think of why? Hint: French Revolution in 1789]*
+* @rawls_theory_1971: Social contract **behind the "veil of ignorance"**
+  * If we didn't know **where we were going to end up** in society, how would we set it up?
+<!-- * @dworkin_what_1981: Yes, plus also people can **buy insurance** against ending up in a bad place $\rightarrow$ level of "just" redistribution -->
+
+## Rawls' Veil of Ignorance {.crunch-title}
+
+* Probably the most important tool for policy whitepapers!
+* "Justice as fairness" (next week: fairness in AI 😜)
+* We don't know whether we'll be $A$ or $B$ in the intersection game, so we'd choose the **traffic light**!
+* More profoundly: We don't know what **race**, **gender**, **class**, **ethnicity**, **sexuality**, **disability status** we'll have; We don't know whether we'll be **Israeli** or **Palestinian**; we don't know whether we'll own **means of production** or own only our **labor power** (and thus have to sell it on a market to survive)... 🤔
+
+# Nuts and Bolts for Fairness {data-stack-name="Fairness"}
+
+## One Final Reminder {.crunch-title}
+
+* Industry rule #4080: Cannot "prove" $q(x) = \text{``Algorithm }x\text{ is fair''}$! Only $p(x) \implies q(y)$:
+
+$$
+\underbrace{p(x)}_{\substack{\text{Accept ethical} \\ \text{framework }x}} \implies \underbrace{q(y)}_{\substack{\text{Algorithms should} \\ \text{satisfy condition }y}}
+$$
+
+* Before: **possible ethical frameworks** (values for $x$)
+* Now: **possible fairness criteria** (values for $y$)
+
+## Categories of Fairness Criteria {.smaller .crunch-title}
+
+```{=html}
+<style>
+#fairness-box .columns {
+  display: flex !important;
+  height: 100% !important;
+}
+
+#fairness-box .column {
+  /* border: 2px solid black !important; */
+  padding: 14px !important;
+  box-sizing: border-box !important;
+  /* height: 100% !important; */
+}
+</style>
+```
+
+Roughly, approaches to fairness/bias in AI can be categorized as follows:
+
+<div id="fairness-box" style="border: 2px solid black !important; box-sizing: border-box !important;">
+
+<center>
+**Fairness**
+</center>
+
+<!-- start columns -->
+::: {.columns}
+::: {.column width="46%"}
+
+<div style="border: 2px solid black !important; height: 100% !important;">
+<center>
+**Context-Free**
+</center>
+
+* Single-Threshold Fairness
+* Equal Prediction
+* Equal Decision
+
+</div>
+
+:::
+::: {.column width="8%"}
+
+<center>
+<span style="font-size: 180% !important;"><i class='bi bi-repeat'></i>
+</center>
+
+:::
+::: {.column width="46%"}
+
+<div style="border: 2px solid black !important; height: 100% !important;">
+<center style="margin: 0px !important;">
+**Context-Sensitive**
+</center>
+
+* Fairness via Similarity Metric(s)
+* Causal Definitions
+
+</div>
+
+:::
+:::
+
+</div>
+<!-- end quarto box -->
+
+* [Today] **Context-Free** Fairness: Easier to grasp from CS/data science perspective; rooted in "language" of Machine Learning (you already know much of it, given DSAN 5000!)
+* But **easy-to-grasp notion** $\neq$ **"good" notion**!
+* Your job: push yourself to (a) consider what is getting **left out of** the context-free definitions, and (b) the **loopholes** that are thus introduced into them, whereby people/computers can discriminate while remaining "technically fair"
+
+## Laws: Often Perfectly "Technically Fair" {.title-09}
+
+> *Ah, la majestueuse égalité des lois, qui interdit au riche comme au pauvre de coucher sous les ponts, de mendier dans les rues et de voler du pain!*
+
+> (Ah, the majestic equality of the law, which prohibits rich and poor alike from sleeping under bridges, begging in the streets, and stealing loaves of bread!)
+
+Anatole France, *Le Lys Rouge* [@france_lys_1894]
+
+# Context-Free Fairness {.smaller .not-title-slide .crunch-title}
+
+![From <a href='https://www.cs.sfu.ca/~anoop/courses/MACM-300-Spring-2006/complexity.pdf' target='_blank'>*Introduction to Formal Languages and Automata*</a>, Simon Fraser University (2006). This figure summarizes the **Chomsky Hierarchy** of Languages, developed by Noam Chomsky, who also has a lot to say about Ethics and Policy...](images/chomsky-hierarchy.jpeg){.no-stretch fig-align="center" width="200"}
+
+## The Brogrammer's Criterion {.crunch-title .crunch-ul}
+
+```python
+df.drop(columns=["race"], inplace=True)
+```
+
+* Racism solved, folks! 🥳🎊🎉 End of the course, have a great rest of your data science career ✌️
+
+![](images/flocka.jpeg){fig-align="center"}
+
+## (No) Fairness Through Unawareness {.smaller .crunch-title .crunch-ul .crunch-figcaption}
+
+* **HW1**: Using tiny sample ($N < 10K$) of Florida voter registrations... <a href='https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestClassifier.html' target='_blank'>RandomForestClassifier</a> (default settings, no hyperparameter tuning, no cross-validation, no ensembling with other methods) will predict self-reported race with $>90\%$ accuracy (in balanced sample) from just **surname** and **county of residence**
+  * Can reach $70\text{-}75\%$ with **just** surname or **just** county of residence
+* Also in HW1: **Facebook** ad matching service provides **over 1,000 different user attributes** for **(micro)targeting**
+
+![From @datta_proxy_2017](images/proxy.svg){fig-align="center"}
+
+## To Make It Even More Concrete... {.smaller .crunch-title}
+
+* *Bloomberg* analysis of neighborhoods with same-day delivery from Amazon:
+
+::: {#fig-bloomberg layout="[1,1,1]" layout-valign="center"}
+
+![](images/amazon-six-cities-at.png){fig-align="center"}
+
+![](images/amazon-six-cities-ch.png){fig-align="center"}
+
+![](images/amazon-six-cities-dc.png){fig-align="center"}
+
+Figures from @ingold_amazon_2016
+:::
+
+## We Can Do (A Bit) Better... {.smaller}
+
+* Use **random variables** to model inferences made by an algorithm (or a human!)
+* $\implies$ fairness by statistically **equalizing** loan rejections, error rate, etc. between groups
+* Obvious **societal** drawback: **equality** does not ameliorate the effects of **past injustices** (see: police contact vs. trust-in-government plot from last week)
+  * This one we saw coming, given "context-free" nature!
+* Less obvious **mathematical** drawback: **impossibility results** (because algebra 😳)
+  * Roughly: can't satisfy [more than] two statistical fairness criteria at once; similar to how setting $\Pr(X) = p$ also determines $\Pr(\text{not }X) = 1 - p$, or how plugging $x = 3$ into $x + y = 5$ leaves only one possibility $y = 2$
+* **BUT**, "impossibility" $\neq$ impossibility: (a) one criteria may be "all you need" in given setting; (b) can derive **more robust** measures by "relaxing" confusion-matrix measures
+
+## What the Fairness Measures Will Feel Like For Now {.smaller .crunch-title .title-10}
+
+![](images/rock_on_rich_brian.jpeg){fig-align="center"}
+
+* (They will get more robust and will **incorporate context** soon, I promise!)
+
+## Who Remembers... 🎉*Confusion Matrices!!!*🎉 {.smaller .crunch-title .title-11}
+
+* Terrifyingly higher stakes than in DSAN 5000, however!
+* Now $D = 1$ could literally mean *"shoot this person"* or *"throw this person in jail for life"*
+
+![From @mitchell_algorithmic_2021](images/mitchell_et_al.svg){fig-align="center"}
+
+## Our First Fairness Measure (Finally)! {.crunch-title .smaller .crunch-ul .crunch-math}
+
+* Standard across the literature: Random Variable $A_i$ "encoding" membership in protected/sensitive group. In HW1, for example:
+
+$$
+A_i = \begin{cases}
+0 &\text{if }i\text{ self-reported ``white''} \\
+1 &\text{if }i\text{ self-reported ``black''}
+\end{cases}
+$$
+
+* **Notice**: choice of mapping into $\{0, 1\}$ here **non-arbitrary**!
+* We want our models/criteria to be **descriptively** but also **normatively robust**; e.g.:
+* **If** (antecedent I hold, though <a href='https://www.pewresearch.org/politics/2021/08/12/deep-divisions-in-americans-views-of-nations-racial-history-and-how-to-address-it/' target='_blank'>majority in US</a> do not) one believes that ending (much less repairing) centuries of unrelenting white supremacist violence here might require asymmetric race-based policies,
+* **Then** our model should allow different **normative labels** and differential **weights** on
+
+  $$
+  \begin{align*}
+  \Delta &= (\text{Fairness} \mid A = 1) - (\text{Fairness} \mid A = 0) \\
+  \nabla &= (\text{Fairness} \mid A = 0) - (\text{Fairness} \mid A = 1)
+  \end{align*}
+  $$
+
+  despite the **descriptive** fact that $\Delta = -\nabla$.
+
+## Where Descriptive and Normative Become Intertwined {.crunch-title .title-07}
+
+* Allowing this **asymmetry** is precisely what enables bring **descriptive** facts to bear on **normative** concerns!
+* **Mathematically** we can always "flip" the mapping from racial labels into $\{0, 1\}$...
+* But this (in a precise, mathematical sense: namely, *isomorphism*) implies that we're treating **racial categorization** as the same type of phenomenon as **driving on left or right side of road** (see: prev slides on why we make the descriptive vs. normative distinction)
+* (See also: Sweden's <a href='https://en.wikipedia.org/wiki/Dagen_H' target='_blank'>Dagen H</a>!)
+
+## "Fairness" Through Equalized *Positive* Rates {.crunch-title .crunch-ul .title-08}
+
+$$
+\Pr(D = 1 \mid A = 0) = \Pr(D = 1 \mid A = 1)
+$$
+
+* This works specifically for discrete, **binary**-valued categories
+* For general attributes (whether discrete or continuous!), generalizes to:
+
+$$
+D \perp A \iff \Pr(D = d, A = a) = \Pr(D = d)\Pr(A = a)
+$$
+
+## "Fairness" Through Equalized *Error* Rates {.smaller .crunch-title .title-12}
+
+* Equalized **False Positive Rate**:
+
+$$
+\Pr(D = 1 \mid Y = 0, A = 0) = \Pr(D = 1 \mid Y = 0, A = 1)
+$$
+
+* Equalized **False Negative Rate**:
+
+$$
+\Pr(D = 0 \mid Y = 1, A = 0) = \Pr(D = 0 \mid Y = 1, A = 1)
+$$
+
+* For general (non-binary) attributes: $(D \perp A) \mid Y$:
+
+$$
+\Pr(D = d, A = a \mid Y = y) = \Pr(D = d \mid Y = y)\Pr(A = a \mid Y = y)
+$$
+
+## NO MORE EQUATIONS! 😤 {.smaller}
+
+* Depending on your background and/or learning style (say, visual vs. auditory), you may be able to look at equations on previous slides and "see" what they're "saying"
+* If your brain works similarly to **mine**, however, your eyes glazed over, you began dissociating, planning an escape route, etc.
+* If you're in the latter group, welcome to the **cult of Probabilistic Graphical Models** 😈
+
+## Baby Steps: A Real-World Confusion Matrix {.title-11 .crunch-title .smaller}
+
+| | Labeled Low-Risk | Labeled High-Risk |
+| - | - | - |
+| **Didn't Do More Crimes** | *True Negative* | *False Positive* |
+**Did More Crimes** | *False Negative* | *True Positive* |
+
+: {tbl-colwidths="[30,40,40]"}
+
+* What kinds of **causal connections** and/or **feedback loops** might there be between our **decision variable** (low vs. high risk) and our **outcome variable** (did vs. didn't do more crimes)
+* What types of **policy implications** might this process have, after it "runs" for several "iterations"?
+* Why might some segments of society, with some shared ethical framework(s), **weigh** the **"costs"** of false negatives and false positives **differently** from other segments of society with different shared ethical framework(s)?
+* (Non-rhetorical questions!)
+
+<!-- ## Minimizing Loss Function Penalizing (Only) These Errors $\iff$ Single-Threshold Fairness {.smaller .crunch-title .title-09}
+
+* Loss function: $\ell(d, \widehat{d})$
+* An **optimal classifier** minimizes the expected loss: $\mathbb{E}[\ell(\widehat{d},d)]$
+* A **decision** is considered to be fair if individuals with the same score $s_i = \psi(v_i)$ are treated equally, regardless of group membership (Corbett-Davies & Goel 2018). -->
+
+## References
+
+::: {#refs}
+:::

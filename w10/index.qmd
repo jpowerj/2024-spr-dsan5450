@@ -1,0 +1,174 @@
+---
+title: "Week 10: {{< var w10.title >}}"
+subtitle: "*DSAN 5450: Data Ethics and Policy*<br><span class='subsubtitle'>Spring 2024, Georgetown University</span>"
+author: "Jeff Jacobs"
+institute: "<a href='mailto:jj1088@georgetown.edu' target='_blank'>`jj1088@georgetown.edu`</a>"
+bibliography: "../_DSAN5450.bib"
+date: 2024-03-27
+date-format: full
+lecnum: 10
+categories:
+  - "Class Sessions"
+format:
+  revealjs:
+    df-print: kable
+    footer: "DSAN 5450 Week 10: {{< var w10.footer >}}"
+    output-file: "slides.html"
+    html-math-method: mathjax
+    theme: ["../_jjslides.scss"]
+    include-in-header:
+      text: "<link href='https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css' rel='stylesheet' integrity='sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN' crossorigin='anonymous'><link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css'>"
+    scrollable: true
+    slide-number: true
+    simplemenu:
+      flat: true
+      barhtml:
+        header: "<div class='menubar'><span style='position: absolute; left: 8; padding-left: 8px;'><a href='./index.html'>&larr; Return to Notes</a></span><ul class='menu'></ul></div>"
+      scale: 0.5
+    revealjs-plugins:
+      - simplemenu
+  html:
+    df-print: kable
+    output-file: "index.html"
+    html-math-method: mathjax
+---
+
+::: {.content-visible unless-format="revealjs"}
+
+<center>
+<a class="h2" href="./slides.html" target="_blank">Open slides in new window &rarr;</a>
+</center>
+
+:::
+
+# Policy Evaluation in General {data-stack-name="The Master's Tools"}
+
+## Why Call It "Econometric" Policy Evaluation? {.crunch-title .title-08 .crunch-ul}
+
+* In the same way that data science can be used for good or for not-so-good...
+* Economics provides methods that allow us to **evaluate** a policy with respect to an **ethical framework**
+* Typically **efficiency** and/or **profit maximization**, but just as easily **Rawlsian** or **Roemerian**
+* "The master's tools will never dismantle the master's house"❓❓❓
+* ("It's certainly true that the master uses the tool of [data science], but that doesn't mean he owns it.")
+
+## The Tools of Economics as Wielded by Economists {.smaller .crunch-title .title-11}
+
+* Fun in-class pop quiz!
+
+![](images/economist1.jpeg){fig-align="center"}
+
+## The Tools of Economics as Wielded by Economists {.smaller .crunch-title .title-11}
+
+* Did you answer correctly???
+
+![](images/economist2.jpeg){fig-align="center"}
+
+## The Tools of Economics as Wielded by Economists {.smaller .crunch-title .title-11}
+
+* Addendum / reminder (<a href='https://psmag.com/magazine/cellphone-revolutionary-objects' target='_blank'>see also</a>)
+
+![](images/no_iphone.png){fig-align="center"}
+
+## EAAMO 2023 Accepted Papers {.smaller .crunch-title .crunch-ul}
+
+* <a href='https://conference2023.eaamo.org/papers/' target='_blank'>Equity and Access in Algorithms, Mechanisms, and Optimization</a>
+* <a href='https://arxiv.org/abs/2305.14537' target='_blank'>"Disincentivizing Polarization in Social Networks"</a>
+* <a href='https://papers.ssrn.com/sol3/papers.cfm?abstract_id=4603146' target='_blank'>"30 Million Canvas Grading Records Reveal Widespread Sequential Bias and System-Induced Surname Initial Disparity"</a>
+
+  > Assignments graded later in the sequence tend to (1) receive lower grades, (2) receive comments that are notably more negative and less polite, and (3) exhibit lower grading quality measured by post-grade complaints.
+* <a href='https://guaguakai.github.io/aasg2022/assets/AASG2022_paper_8.pdf' target='_blank'>"Potty Parity: Process Flexibility via Unisex Restroom"</a>
+
+  > Having a one-unit unisex restroom, either by converting a unit of the men's restroom or building an additional one, goes a long way toward improving wait time or user utility, and reducing their disparities
+* <a href='https://www.youtube.com/watch?v=FpaRGZkdnWo' target='_blank'>"Overbooking with Priority-Respecting Reassignment"</a>
+
+## Co-Founder of MD4SG $\rightarrow$ EAAMO: Rediet Abebe
+
+![From <a href='https://aclanthology.org/2023.emnlp-main.415/'>"When the Majority is Wrong: Modeling Annotator Disagreement for Subjective Tasks"</a>, *EMNLP* 2023](images/abebe.jpeg)
+
+## Lily Hu {.smaller .crunch-title .crunch-ul .crunch-quarto-layout-panel}
+
+::: {layout="[4,3]"}
+::: {#hu-left}
+
+* CS excludes ethical considerations "by design", via focus on how computers **do** work, not how they **ought to work**.
+* The latter "falls within the purview of the normative disciplines, most notably ethics, a subfield of philosophy. For students to succeed at learning not only how to build innovative computing systems, but also how to determine whether they should build those systems or how ethical considerations should constrain their design, it is imperative that these two disciplines work together. To this end, Harvard CS and Philosophy faculty have been partnering to develop the Embedded EthiCS curriculum."
+
+:::
+::: {#hu-right}
+
+![<a href='https://dl.acm.org/doi/pdf/10.1145/3330794' target='_blank'>Embedded EthiCS</a>](images/hu.jpeg){fig-align="center" width="380"}
+
+:::
+:::
+
+## Ninja Coder Hackerz / Think It! Dream It! Do It!
+
+* CS: Learn The Coolest, Newest Stuff, Move Fast And Break Things!!!
+* Ethics: Listen to a man in a tweed jacket with elbow pads pontificate about Kant for 3 hours
+* The <a href='https://www.youtube.com/watch?v=KTJn_DBTnrY' target='_blank'>TED Talk Circuit</a>
+
+# Social Welfare Functionals {data-stack-name="Social Welfare Functionals"}
+
+## Functionals?
+
+* You probably know what a **function** $f(x)$ is; a **functional** is a function of functions: $\mathscr{G}(f)$
+* It's from math, which is scary, but it's just notation to remind us that we're analyzing **functions of functions**
+* In our case, they "work the same way" as regular functions, e.g., $\mathscr{G}(f,g) = f^2 + g^2$, so $f(x) = x, g(x) = 2x \Rightarrow \mathscr{G}(f,g)(x) = x^2 + 4x^2 = 5x^2$
+
+## We Live In A Society, Part 2 {.crunch-title .crunch-ul .crunch-math .crunch-p .crunch-ul-top .inline-95 .math-95}
+
+* Utilitarianism, Kantian Ethics, and Rawls can all be modeled as **Social Welfare Functionals**
+
+$$
+W(\mathbf{u}) = W(u_1, \ldots, u_n) \Rightarrow W(\mathbf{u})(x) = W(u_1(x), \ldots, u_n(x))
+$$
+
+* $u_i(x)$: Given bundle of resources $x$, how much utility does $i$ experience? $u_i: \mathcal{X} \rightarrow \mathbb{R}$
+* $W(\mathbf{u})$: **Aggregates** $u_i(x)$ over all $i$, to produce measure of **overall welfare of society**. $W: (\mathcal{X} \rightarrow \mathbb{R})^N \rightarrow \mathbb{R}$.
+* $W(\mathbf{u}) = \sum_{i=1}^n \omega_iu_i(x)$. $\omega_i$ is $i$'s **welfare weight**
+* (Preview) Decomposition: evaluate **policies** by estimating **marginal utility** $u'_i(x)$ compared to $\omega_i$)
+
+## Alternative SWF Specifications {.crunch-title .crunch-ul .smaller}
+
+* Social values
+
+$$
+W(\underbrace{v_1, \ldots, v_n}_{\text{Values}})(x) \overset{\text{e.g.}}{=} \omega_1\underbrace{v_1(x)}_{\text{Privacy}} + \omega_2\underbrace{v_2(x)}_{\mathclap{\text{Public Health}}}
+$$
+
+* Stakeholder Analysis
+
+$$
+W(\underbrace{s_1, \ldots, s_n}_{\text{Stakeholders}})(x) = \omega_1\underbrace{u_{s_1}(x)}_{\text{Teachers}} + \omega_2\underbrace{u_{s_2}(x)}_{\text{Parents}} + \omega_3\underbrace{u_{s_3}(x)}_{\text{Students}} + \omega_4\underbrace{u_{s_4}(x)}_{\mathclap{\text{Community}}}
+$$
+
+* (Adapted from this <a href='https://www.youtube.com/watch?v=9VQw5N4qkhM&list=PLL6RiAl2WHXH1AdhB3fT5dxKIRbijvl34&index=18' target='_blank'>great intro video</a>!)
+
+## Utilitarian SWF
+
+* Easy mode (possibly/probably your intuition?): Everyone's welfare weight should be **equal**, $\omega_i = \frac{1}{n}$
+
+$$
+W(u_1, \ldots, u_n)(x) = \frac{1}{n}u_1(x) + \cdots + \frac{1}{n}u_n(x)
+$$
+
+* $\implies$ **Utilitarian** Social Welfare Functional!
+* The Silly Problem of Utilitarian SWF: What if everyone is made happy by $u_{\text{Jeef}} = -\infty$?
+
+## The Hard Problem of Utilitarian SWF
+
+> While the rhetoric of "all men [sic] are born equal" is typically taken to be part and parcel of egalitarianism, the effect of ignoring the interpersonal variations can, in fact, be deeply inegalitarian, in hiding the fact that equal consideration for all may demand very unequal treatment in favour of the disadvantaged [@sen_inequality_1992]
+
+* $\implies$ "Equality of What?"
+* What is the "thing" that egalitarianism obligates us to equalize (the equilisandum/equilisanda): **Utility**? **Opportunity**? **Resources**? **Money**? **Freedom**?
+
+# Policy Evaluation via Inverse Fairness {data-stack-name="Inverse Fairness"}
+
+## We Can Finally Understand This Image from Week 1! {.smaller .crunch-title .title-10}
+
+![](images/inverse_fairness.jpeg){fig-align="center"}
+
+## References
+
+::: {#refs}
+:::

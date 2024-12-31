@@ -1,0 +1,980 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.5.23">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Jeff Jacobs">
+
+<title>DSAN 5450 – Week 10: Econometric Policy Evaluation and Inverse Fairness</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../favicon.png" rel="icon" type="image/png">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script><script src="../jjcustom.js"></script>
+
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../styles.css">
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../w10/index.html">Week 10: {{&lt; var w10.date-md &gt;}}</a></li></ol></nav>
+        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../">DSAN 5450: Data Ethics and Policy</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><i class="bi bi-house pe-1"></i> Home</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../syllabus.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Syllabus</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../writeups/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Writeups</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../assignments.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Assignments</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../final.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Final Project</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../recordings/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Recordings</span></a>
+  </div>
+</li>
+        <li class="px-0"><hr class="sidebar-divider hi "></li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../w01/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Week 1: Jan 17</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../w02/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Week 2: Jan 24</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../w03/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Week 3: Jan 31</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../w04/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Week 4: Feb 7</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../w05/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Week 5: Feb 14</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../w06/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Week 6: Feb 21</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../w07/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Week 7: Feb 28</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../w08/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Week 8: Mar 13</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../w09/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Week 9: Mar 20</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../w10/index.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Week 10: Mar 27</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../w11/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Week 11: Apr 3</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../w12/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Week 12: Apr 10</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../w13/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Week 13: Apr 17</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../w14/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Week 14: Apr 24</span></a>
+  </div>
+</li>
+        <li class="px-0"><hr class="sidebar-divider hi "></li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="https://forms.gle/LLQsiwGy5kkH5n3PA" class="sidebar-item-text sidebar-link" target="&quot;_blank&quot;">
+ <span class="menu-text">Anonymous Suggestions<i class="bi bi-box-arrow-up-right ps-1"></i></span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#policy-evaluation-in-general" id="toc-policy-evaluation-in-general" class="nav-link active" data-scroll-target="#policy-evaluation-in-general">Policy Evaluation in General</a>
+  <ul class="collapse">
+  <li><a href="#why-call-it-econometric-policy-evaluation" id="toc-why-call-it-econometric-policy-evaluation" class="nav-link" data-scroll-target="#why-call-it-econometric-policy-evaluation">Why Call It “Econometric” Policy Evaluation?</a></li>
+  <li><a href="#the-tools-of-economics-as-wielded-by-economists" id="toc-the-tools-of-economics-as-wielded-by-economists" class="nav-link" data-scroll-target="#the-tools-of-economics-as-wielded-by-economists">The Tools of Economics as Wielded by Economists</a></li>
+  <li><a href="#the-tools-of-economics-as-wielded-by-economists-1" id="toc-the-tools-of-economics-as-wielded-by-economists-1" class="nav-link" data-scroll-target="#the-tools-of-economics-as-wielded-by-economists-1">The Tools of Economics as Wielded by Economists</a></li>
+  <li><a href="#the-tools-of-economics-as-wielded-by-economists-2" id="toc-the-tools-of-economics-as-wielded-by-economists-2" class="nav-link" data-scroll-target="#the-tools-of-economics-as-wielded-by-economists-2">The Tools of Economics as Wielded by Economists</a></li>
+  <li><a href="#eaamo-2023-accepted-papers" id="toc-eaamo-2023-accepted-papers" class="nav-link" data-scroll-target="#eaamo-2023-accepted-papers">EAAMO 2023 Accepted Papers</a></li>
+  <li><a href="#co-founder-of-md4sg-rightarrow-eaamo-rediet-abebe" id="toc-co-founder-of-md4sg-rightarrow-eaamo-rediet-abebe" class="nav-link" data-scroll-target="#co-founder-of-md4sg-rightarrow-eaamo-rediet-abebe">Co-Founder of MD4SG <span class="math inline">\(\rightarrow\)</span> EAAMO: Rediet Abebe</a></li>
+  <li><a href="#lily-hu" id="toc-lily-hu" class="nav-link" data-scroll-target="#lily-hu">Lily Hu</a></li>
+  <li><a href="#ninja-coder-hackerz-think-it-dream-it-do-it" id="toc-ninja-coder-hackerz-think-it-dream-it-do-it" class="nav-link" data-scroll-target="#ninja-coder-hackerz-think-it-dream-it-do-it">Ninja Coder Hackerz / Think It! Dream It! Do It!</a></li>
+  </ul></li>
+  <li><a href="#social-welfare-functionals" id="toc-social-welfare-functionals" class="nav-link" data-scroll-target="#social-welfare-functionals">Social Welfare Functionals</a>
+  <ul class="collapse">
+  <li><a href="#functionals" id="toc-functionals" class="nav-link" data-scroll-target="#functionals">Functionals?</a></li>
+  <li><a href="#we-live-in-a-society-part-2" id="toc-we-live-in-a-society-part-2" class="nav-link" data-scroll-target="#we-live-in-a-society-part-2">We Live In A Society, Part 2</a></li>
+  <li><a href="#alternative-swf-specifications" id="toc-alternative-swf-specifications" class="nav-link" data-scroll-target="#alternative-swf-specifications">Alternative SWF Specifications</a></li>
+  <li><a href="#utilitarian-swf" id="toc-utilitarian-swf" class="nav-link" data-scroll-target="#utilitarian-swf">Utilitarian SWF</a></li>
+  <li><a href="#the-hard-problem-of-utilitarian-swf" id="toc-the-hard-problem-of-utilitarian-swf" class="nav-link" data-scroll-target="#the-hard-problem-of-utilitarian-swf">The Hard Problem of Utilitarian SWF</a></li>
+  </ul></li>
+  <li><a href="#policy-evaluation-via-inverse-fairness" id="toc-policy-evaluation-via-inverse-fairness" class="nav-link" data-scroll-target="#policy-evaluation-via-inverse-fairness">Policy Evaluation via Inverse Fairness</a>
+  <ul class="collapse">
+  <li><a href="#we-can-finally-understand-this-image-from-week-1" id="toc-we-can-finally-understand-this-image-from-week-1" class="nav-link" data-scroll-target="#we-can-finally-understand-this-image-from-week-1">We Can Finally Understand This Image from Week 1!</a></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
+  </ul></li>
+  </ul>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="slides.html"><i class="bi bi-file-slides"></i>RevealJS</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Week 10: Econometric Policy Evaluation and Inverse Fairness</h1>
+<p class="subtitle lead"><em>DSAN 5450: Data Ethics and Policy</em><br><span class="subsubtitle">Spring 2024, Georgetown University</span></p>
+  <div class="quarto-categories">
+    <div class="quarto-category">Class Sessions</div>
+  </div>
+  </div>
+
+
+<div class="quarto-title-meta-author">
+  <div class="quarto-title-meta-heading">Author</div>
+  <div class="quarto-title-meta-heading">Affiliation</div>
+  
+    <div class="quarto-title-meta-contents">
+    <p class="author">Jeff Jacobs </p>
+  </div>
+  <div class="quarto-title-meta-contents">
+        <p class="affiliation">
+            <a href="mailto:jj1088@georgetown.edu" target="_blank"><code>jj1088@georgetown.edu</code></a>
+          </p>
+      </div>
+  </div>
+
+<div class="quarto-title-meta">
+
+      
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">Wednesday, March 27, 2024</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<center>
+<a class="h2" href="./slides.html" target="_blank">Open slides in new window →</a>
+</center>
+<section id="policy-evaluation-in-general" class="level1" data-stack-name="The Master's Tools">
+<h1 data-stack-name="The Master's Tools">Policy Evaluation in General</h1>
+<section id="why-call-it-econometric-policy-evaluation" class="level2 crunch-title title-08 crunch-ul">
+<h2 class="crunch-title title-08 crunch-ul anchored" data-anchor-id="why-call-it-econometric-policy-evaluation">Why Call It “Econometric” Policy Evaluation?</h2>
+<ul>
+<li>In the same way that data science can be used for good or for not-so-good…</li>
+<li>Economics provides methods that allow us to <strong>evaluate</strong> a policy with respect to an <strong>ethical framework</strong></li>
+<li>Typically <strong>efficiency</strong> and/or <strong>profit maximization</strong>, but just as easily <strong>Rawlsian</strong> or <strong>Roemerian</strong></li>
+<li>“The master’s tools will never dismantle the master’s house”❓❓❓</li>
+<li>(“It’s certainly true that the master uses the tool of [data science], but that doesn’t mean he owns it.”)</li>
+</ul>
+</section>
+<section id="the-tools-of-economics-as-wielded-by-economists" class="level2 smaller crunch-title title-11">
+<h2 class="smaller crunch-title title-11 anchored" data-anchor-id="the-tools-of-economics-as-wielded-by-economists">The Tools of Economics as Wielded by Economists</h2>
+<ul>
+<li>Fun in-class pop quiz!</li>
+</ul>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/economist1.jpeg" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+</section>
+<section id="the-tools-of-economics-as-wielded-by-economists-1" class="level2 smaller crunch-title title-11">
+<h2 class="smaller crunch-title title-11 anchored" data-anchor-id="the-tools-of-economics-as-wielded-by-economists-1">The Tools of Economics as Wielded by Economists</h2>
+<ul>
+<li>Did you answer correctly???</li>
+</ul>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/economist2.jpeg" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+</section>
+<section id="the-tools-of-economics-as-wielded-by-economists-2" class="level2 smaller crunch-title title-11">
+<h2 class="smaller crunch-title title-11 anchored" data-anchor-id="the-tools-of-economics-as-wielded-by-economists-2">The Tools of Economics as Wielded by Economists</h2>
+<ul>
+<li>Addendum / reminder (<a href="https://psmag.com/magazine/cellphone-revolutionary-objects" target="_blank">see also</a>)</li>
+</ul>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/no_iphone.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+</section>
+<section id="eaamo-2023-accepted-papers" class="level2 smaller crunch-title crunch-ul">
+<h2 class="smaller crunch-title crunch-ul anchored" data-anchor-id="eaamo-2023-accepted-papers">EAAMO 2023 Accepted Papers</h2>
+<ul>
+<li><p><a href="https://conference2023.eaamo.org/papers/" target="_blank">Equity and Access in Algorithms, Mechanisms, and Optimization</a></p></li>
+<li><p><a href="https://arxiv.org/abs/2305.14537" target="_blank">“Disincentivizing Polarization in Social Networks”</a></p></li>
+<li><p><a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=4603146" target="_blank">“30 Million Canvas Grading Records Reveal Widespread Sequential Bias and System-Induced Surname Initial Disparity”</a></p>
+<blockquote class="blockquote">
+<p>Assignments graded later in the sequence tend to (1) receive lower grades, (2) receive comments that are notably more negative and less polite, and (3) exhibit lower grading quality measured by post-grade complaints.</p>
+</blockquote></li>
+<li><p><a href="https://guaguakai.github.io/aasg2022/assets/AASG2022_paper_8.pdf" target="_blank">“Potty Parity: Process Flexibility via Unisex Restroom”</a></p>
+<blockquote class="blockquote">
+<p>Having a one-unit unisex restroom, either by converting a unit of the men’s restroom or building an additional one, goes a long way toward improving wait time or user utility, and reducing their disparities</p>
+</blockquote></li>
+<li><p><a href="https://www.youtube.com/watch?v=FpaRGZkdnWo" target="_blank">“Overbooking with Priority-Respecting Reassignment”</a></p></li>
+</ul>
+</section>
+<section id="co-founder-of-md4sg-rightarrow-eaamo-rediet-abebe" class="level2">
+<h2 class="anchored" data-anchor-id="co-founder-of-md4sg-rightarrow-eaamo-rediet-abebe">Co-Founder of MD4SG <span class="math inline">\(\rightarrow\)</span> EAAMO: Rediet Abebe</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/abebe.jpeg" class="img-fluid figure-img"></p>
+<figcaption>From <a href="https://aclanthology.org/2023.emnlp-main.415/">“When the Majority is Wrong: Modeling Annotator Disagreement for Subjective Tasks”</a>, <em>EMNLP</em> 2023</figcaption>
+</figure>
+</div>
+</section>
+<section id="lily-hu" class="level2 smaller crunch-title crunch-ul crunch-quarto-layout-panel">
+<h2 class="smaller crunch-title crunch-ul crunch-quarto-layout-panel anchored" data-anchor-id="lily-hu">Lily Hu</h2>
+<div>
+
+</div>
+<div class="quarto-layout-panel" data-layout="[4,3]">
+<div class="quarto-layout-row">
+<div id="hu-left" class="quarto-layout-cell" style="flex-basis: 57.1%;justify-content: flex-start;">
+<ul>
+<li>CS excludes ethical considerations “by design”, via focus on how computers <strong>do</strong> work, not how they <strong>ought to work</strong>.</li>
+<li>The latter “falls within the purview of the normative disciplines, most notably ethics, a subfield of philosophy. For students to succeed at learning not only how to build innovative computing systems, but also how to determine whether they should build those systems or how ethical considerations should constrain their design, it is imperative that these two disciplines work together. To this end, Harvard CS and Philosophy faculty have been partnering to develop the Embedded EthiCS curriculum.”</li>
+</ul>
+</div>
+<div id="hu-right" class="quarto-layout-cell" style="flex-basis: 42.9%;justify-content: flex-start;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/hu.jpeg" class="img-fluid figure-img" width="380"></p>
+<figcaption><a href="https://dl.acm.org/doi/pdf/10.1145/3330794" target="_blank">Embedded EthiCS</a></figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="ninja-coder-hackerz-think-it-dream-it-do-it" class="level2">
+<h2 class="anchored" data-anchor-id="ninja-coder-hackerz-think-it-dream-it-do-it">Ninja Coder Hackerz / Think It! Dream It! Do It!</h2>
+<ul>
+<li>CS: Learn The Coolest, Newest Stuff, Move Fast And Break Things!!!</li>
+<li>Ethics: Listen to a man in a tweed jacket with elbow pads pontificate about Kant for 3 hours</li>
+<li>The <a href="https://www.youtube.com/watch?v=KTJn_DBTnrY" target="_blank">TED Talk Circuit</a></li>
+</ul>
+</section>
+</section>
+<section id="social-welfare-functionals" class="level1" data-stack-name="Social Welfare Functionals">
+<h1 data-stack-name="Social Welfare Functionals">Social Welfare Functionals</h1>
+<section id="functionals" class="level2">
+<h2 class="anchored" data-anchor-id="functionals">Functionals?</h2>
+<ul>
+<li>You probably know what a <strong>function</strong> <span class="math inline">\(f(x)\)</span> is; a <strong>functional</strong> is a function of functions: <span class="math inline">\(\mathscr{G}(f)\)</span></li>
+<li>It’s from math, which is scary, but it’s just notation to remind us that we’re analyzing <strong>functions of functions</strong></li>
+<li>In our case, they “work the same way” as regular functions, e.g., <span class="math inline">\(\mathscr{G}(f,g) = f^2 + g^2\)</span>, so <span class="math inline">\(f(x) = x, g(x) = 2x \Rightarrow \mathscr{G}(f,g)(x) = x^2 + 4x^2 = 5x^2\)</span></li>
+</ul>
+</section>
+<section id="we-live-in-a-society-part-2" class="level2 crunch-title crunch-ul crunch-math crunch-p crunch-ul-top inline-95 math-95">
+<h2 class="crunch-title crunch-ul crunch-math crunch-p crunch-ul-top inline-95 math-95 anchored" data-anchor-id="we-live-in-a-society-part-2">We Live In A Society, Part 2</h2>
+<ul>
+<li>Utilitarianism, Kantian Ethics, and Rawls can all be modeled as <strong>Social Welfare Functionals</strong></li>
+</ul>
+<p><span class="math display">\[
+W(\mathbf{u}) = W(u_1, \ldots, u_n) \Rightarrow W(\mathbf{u})(x) = W(u_1(x), \ldots, u_n(x))
+\]</span></p>
+<ul>
+<li><span class="math inline">\(u_i(x)\)</span>: Given bundle of resources <span class="math inline">\(x\)</span>, how much utility does <span class="math inline">\(i\)</span> experience? <span class="math inline">\(u_i: \mathcal{X} \rightarrow \mathbb{R}\)</span></li>
+<li><span class="math inline">\(W(\mathbf{u})\)</span>: <strong>Aggregates</strong> <span class="math inline">\(u_i(x)\)</span> over all <span class="math inline">\(i\)</span>, to produce measure of <strong>overall welfare of society</strong>. <span class="math inline">\(W: (\mathcal{X} \rightarrow \mathbb{R})^N \rightarrow \mathbb{R}\)</span>.</li>
+<li><span class="math inline">\(W(\mathbf{u}) = \sum_{i=1}^n \omega_iu_i(x)\)</span>. <span class="math inline">\(\omega_i\)</span> is <span class="math inline">\(i\)</span>’s <strong>welfare weight</strong></li>
+<li>(Preview) Decomposition: evaluate <strong>policies</strong> by estimating <strong>marginal utility</strong> <span class="math inline">\(u'_i(x)\)</span> compared to <span class="math inline">\(\omega_i\)</span>)</li>
+</ul>
+</section>
+<section id="alternative-swf-specifications" class="level2 crunch-title crunch-ul smaller">
+<h2 class="crunch-title crunch-ul smaller anchored" data-anchor-id="alternative-swf-specifications">Alternative SWF Specifications</h2>
+<ul>
+<li>Social values</li>
+</ul>
+<p><span class="math display">\[
+W(\underbrace{v_1, \ldots, v_n}_{\text{Values}})(x) \overset{\text{e.g.}}{=} \omega_1\underbrace{v_1(x)}_{\text{Privacy}} + \omega_2\underbrace{v_2(x)}_{\mathclap{\text{Public Health}}}
+\]</span></p>
+<ul>
+<li>Stakeholder Analysis</li>
+</ul>
+<p><span class="math display">\[
+W(\underbrace{s_1, \ldots, s_n}_{\text{Stakeholders}})(x) = \omega_1\underbrace{u_{s_1}(x)}_{\text{Teachers}} + \omega_2\underbrace{u_{s_2}(x)}_{\text{Parents}} + \omega_3\underbrace{u_{s_3}(x)}_{\text{Students}} + \omega_4\underbrace{u_{s_4}(x)}_{\mathclap{\text{Community}}}
+\]</span></p>
+<ul>
+<li>(Adapted from this <a href="https://www.youtube.com/watch?v=9VQw5N4qkhM&amp;list=PLL6RiAl2WHXH1AdhB3fT5dxKIRbijvl34&amp;index=18" target="_blank">great intro video</a>!)</li>
+</ul>
+</section>
+<section id="utilitarian-swf" class="level2">
+<h2 class="anchored" data-anchor-id="utilitarian-swf">Utilitarian SWF</h2>
+<ul>
+<li>Easy mode (possibly/probably your intuition?): Everyone’s welfare weight should be <strong>equal</strong>, <span class="math inline">\(\omega_i = \frac{1}{n}\)</span></li>
+</ul>
+<p><span class="math display">\[
+W(u_1, \ldots, u_n)(x) = \frac{1}{n}u_1(x) + \cdots + \frac{1}{n}u_n(x)
+\]</span></p>
+<ul>
+<li><span class="math inline">\(\implies\)</span> <strong>Utilitarian</strong> Social Welfare Functional!</li>
+<li>The Silly Problem of Utilitarian SWF: What if everyone is made happy by <span class="math inline">\(u_{\text{Jeef}} = -\infty\)</span>?</li>
+</ul>
+</section>
+<section id="the-hard-problem-of-utilitarian-swf" class="level2">
+<h2 class="anchored" data-anchor-id="the-hard-problem-of-utilitarian-swf">The Hard Problem of Utilitarian SWF</h2>
+<blockquote class="blockquote">
+<p>While the rhetoric of “all men [sic] are born equal” is typically taken to be part and parcel of egalitarianism, the effect of ignoring the interpersonal variations can, in fact, be deeply inegalitarian, in hiding the fact that equal consideration for all may demand very unequal treatment in favour of the disadvantaged <span class="citation" data-cites="sen_inequality_1992">(<a href="#ref-sen_inequality_1992" role="doc-biblioref">Sen 1992</a>)</span></p>
+</blockquote>
+<ul>
+<li><span class="math inline">\(\implies\)</span> “Equality of What?”</li>
+<li>What is the “thing” that egalitarianism obligates us to equalize (the equilisandum/equilisanda): <strong>Utility</strong>? <strong>Opportunity</strong>? <strong>Resources</strong>? <strong>Money</strong>? <strong>Freedom</strong>?</li>
+</ul>
+</section>
+</section>
+<section id="policy-evaluation-via-inverse-fairness" class="level1" data-stack-name="Inverse Fairness">
+<h1 data-stack-name="Inverse Fairness">Policy Evaluation via Inverse Fairness</h1>
+<section id="we-can-finally-understand-this-image-from-week-1" class="level2 smaller crunch-title title-10">
+<h2 class="smaller crunch-title title-10 anchored" data-anchor-id="we-can-finally-understand-this-image-from-week-1">We Can Finally Understand This Image from Week 1!</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/inverse_fairness.jpeg" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+</section>
+<section id="references" class="level2">
+<h2 class="anchored" data-anchor-id="references">References</h2>
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-sen_inequality_1992" class="csl-entry" role="listitem">
+Sen, Amartya. 1992. <em>Inequality <span>Reexamined</span></em>. Clarendon Press.
+</div>
+</div>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

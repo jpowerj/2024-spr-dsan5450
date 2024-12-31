@@ -1,0 +1,298 @@
+---
+title: "Week 12: Final Projects, Causality and Racecraft"
+subtitle: "*DSAN 5450: Data Ethics and Policy*<br><span class='subsubtitle'>Spring 2024, Georgetown University</span>"
+author: "Jeff Jacobs"
+institute: "<a href='mailto:jj1088@georgetown.edu' target='_blank'>`jj1088@georgetown.edu`</a>"
+bibliography: "../_DSAN5450.bib"
+date: 2024-04-10
+date-format: full
+lecnum: 12
+categories:
+  - "Class Sessions"
+format:
+  revealjs:
+    df-print: kable
+    footer: "DSAN 5450 Week 12: {{< var w12.footer >}}"
+    output-file: "slides.html"
+    html-math-method: mathjax
+    theme: ["../_jjslides.scss"]
+    include-in-header:
+      text: "<link href='https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css' rel='stylesheet' integrity='sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN' crossorigin='anonymous'><link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css'><link rel='preconnect' href='https://fonts.googleapis.com'><link rel='preconnect' href='https://fonts.gstatic.com' crossorigin><link href='https://fonts.googleapis.com/css2?family=Honk&display=swap' rel='stylesheet'>"
+    scrollable: true
+    slide-number: true
+    simplemenu:
+      flat: true
+      barhtml:
+        header: "<div class='menubar'><span style='position: absolute; left: 8; padding-left: 8px;'><a href='./index.html'>&larr; Return to Notes</a></span><ul class='menu'></ul></div>"
+      scale: 0.5
+    revealjs-plugins:
+      - simplemenu
+  html:
+    df-print: kable
+    output-file: "index.html"
+    html-math-method: mathjax
+---
+
+::: {.content-visible unless-format="revealjs"}
+
+<center>
+<a class="h2" href="./slides.html" target="_blank">Open slides in new window &rarr;</a>
+</center>
+
+:::
+
+# Making Projects Less Scary {data-stack-name="Final Projects"}
+
+## How Do I Pick A Topic?
+
+* I know that "whatever is interesting to you" can be way overly-vague!
+* So, one approach is: imagine yourself in a job interview for your dream job, and they bring up DSAN 5450: "Interesting, what did you do in that class?" 
+* [Insert final project elevator pitch] "Wow, that's such a cool project, we really want someone who can [say] take a data-driven approach to a policy question like that. You're hired!"
+* (Jeff gets a commission: 10% of your salary)
+
+## The Rating System {.crunch-title .smaller .crunch-images}
+
+::: {#fig-ratings}
+
+<a href='https://jpj.georgetown.domains/dsan5450-scratch/cinema.mp4' target='_blank'>![](images/rating.png)</a>
+
+<a href='https://jpj.georgetown.domains/dsan5450-scratch/cinema.mp4' target='_blank'>On Cinema at the Cinema S1E09 <i class='bi bi-box-arrow-up-right ps-1'></i></a>
+:::
+
+## Discussing Fairness {.crunch-title .smaller}
+
+```{=html}
+<table>
+<thead>
+</thead>
+<tbody>
+<tr>
+    <td><span data-qmd="**Below Expectations**"></span><br><span data-qmd="![](images/1_bag.png){width='50'}"></span></td>
+    <td>"This algorithm is unfair"</td>
+</tr>
+<tr>
+    <td><span data-qmd="**Meets Expectations**"></span><br><span data-qmd="![](images/1_bag.png){width='50'}![](images/1_bag.png){width='50'}![](images/1_bag.png){width='50'}"></span></td>
+    <td>"This algorithm violates the Predictive Parity criterion of fairness when run on this dataset"</td>
+</tr>
+<tr>
+    <td><span data-qmd="**Exceeds Expectations**"></span><br><span data-qmd="![](images/1_bag.png){width='50'}![](images/1_bag.png){width='50'}![](images/1_bag.png){width='50'}![](images/1_bag.png){width='50'}![](images/1_bag.png){width='50'}"></span></td>
+    <td>"<span data-qmd="This algorithm violates the Predictive Parity criterion when run on this dataset, but that's because [other mitigating factor]. It still satisfies Within-$\varepsilon$ Predictive Parity, for $\varepsilon = 0.02$"></span>"</td>
+</tr>
+<tr>
+    <td><span data-qmd="**Doing Too Much**"></span><br><span data-qmd="![](images/1_bag.png){width='50'}![](images/1_bag.png){width='50'}![](images/1_bag.png){width='50'}![](images/1_bag.png){width='50'}![](images/1_bag.png){width='50'} ![](images/soda.png){width='20'} ![](images/soda.png){width='20'}"></span></td>
+    <td>All of the above, plus I developed a new better algorithm that is more fair</td>
+</tr>
+</tbody>
+</table>
+```
+
+## Evaluating Policy {.crunch-title .smaller}
+
+```{=html}
+<table>
+<thead>
+</thead>
+<tbody>
+<tr>
+    <td><span data-qmd="**Below Expectations**"></span><br><span data-qmd="![](images/1_bag.png){width='50'}"></span></td>
+    <td>"This policy is bad"</td>
+</tr>
+<tr>
+    <td><span data-qmd="**Meets Expectations**"></span><br><span data-qmd="![](images/1_bag.png){width='50'}![](images/1_bag.png){width='50'}![](images/1_bag.png){width='50'}"></span></td>
+    <td>"This policy is bad bc it's biased towards [group 1], and doesn't take sufficient account of the welfare of [group 2]"</td>
+</tr>
+<tr>
+    <td><span data-qmd="**Exceeds Expectations**"></span><br><span data-qmd="![](images/1_bag.png){width='50'}![](images/1_bag.png){width='50'}![](images/1_bag.png){width='50'}![](images/1_bag.png){width='50'}![](images/1_bag.png){width='50'}"></span></td>
+    <td>"This policy is bad bc it's biased towards [group 1], and doesn't take sufficient account of the welfare of [group 2], which violates the Rawlsian notion of what would be chosen by rational agents behind a 'veil of ignorance'"</td>
+</tr>
+<tr>
+    <td><span data-qmd="**Doing Too Much**"></span><br><span data-qmd="![](images/1_bag.png){width='50'}![](images/1_bag.png){width='50'}![](images/1_bag.png){width='50'}![](images/1_bag.png){width='50'}![](images/1_bag.png){width='50'} ![](images/soda.png){width='20'} ![](images/soda.png){width='20'}"></span></td>
+    <td>"<span data-qmd="This policy is bad bc the inferred welfare weights $\omega_i$ are $0.1632$ off from the optimal welfare weights $\omega_i^*$"></span>"</td>
+</tr>
+</tbody>
+</table>
+```
+
+## Frequently Awesome Questions {.crunch-title .crunch-ul .crunch-li-6}
+
+* *How much data-processing/R/Python is required?* None!
+  * You can think of it like: In every other DSAN class, we plop a dataset in front of you and say "do the thing"
+  * Here you can (and should) first ask, "is [data sci technique] an **effective way to address** this issue?"
+* Example: **archive of missing datasets**
+* Sometimes the problem is not "We haven't trained a neural net on this yet!" but instead "nobody with power cares enough about this to make a dataset in the first place [or they purposefully prevent it]"
+
+<!-- ## Fruitfully Asked Questions {.crunch-title .crunch-ul .crunch-li-6}
+
+* * -->
+
+## Getting From Here to There
+
+```{=html}
+<style>
+.honk-honk {
+  font-size: 180% !important;
+  /* font-family: "Bungee Spice", sans-serif; */
+  font-family: "Honk", sans-serif;
+  /* font-optical-sizing: auto; */
+  font-weight: 400;
+  font-style: normal;
+}
+</style>
+```
+
+* [**Minimum Viable Product**]{.honk-honk} (**MVP**) 
+* $\leadsto$ Final Product (but... Hofstadter's Law)
+
+::: {.callout-note title="<i class='bi bi-info-circle pe-1'></i> Hofstadter's Law (Paraphrase)" icon="false"}
+
+The pieces of your DSAN final project will take longer than you expect, even if you take Hofstadter's Law into account
+
+:::
+
+# Causality and Identity Formation {data-stack-name="Racecraft"}
+
+* Race as a **Noun** vs. Race as a **Verb** ("Racecraft")
+* Race as a static property vs. race as a **social practice**
+
+## But First... Phenomenology {.crunch-title .crunch-blockquote .smaller .crunch-ul .crunch-quarto-figure}
+
+* "Objective" account: Roquentin sits down on a bus seat; <a href='https://jpj.georgetown.domains/dsan5450-scratch/nausea.mp3' target='_blank'>"Subjective" account</a>:
+
+> I lean my hand on **the seat** but pull it back hurriedly: it exists. This thing I’m sitting on, leaning my hand on, is called a seat. They made it purposely for people to sit on, they took leather, springs and cloth, they went to work with the idea of making a seat and when they finished, that was what they had made. They carried it here, into this car and the car is now rolling and jolting with its rattling windows, carrying this red thing in its bosom. I murmur: “It’s a seat,” a little like an exorcism. But the word stays on my lips: it refuses to go and put itself on the thing. It stays what it is, with its red plush, thousands of little red paws in the air, all still, little dead paws...
+
+![(From <a href='https://eternalisedofficial.com/2021/04/21/book-review-nausea-jean-paul-sartre/' target='_blank'>"Book Review: Nausea - Jean-Paul Sartre</a>)](images/train_seat.webp){fig-align="center"}
+
+## W.E.B. Du Bois and the Epistemological One-Way Mirror {.smaller .crunch-title .title-09}
+
+> Black people in America are [...] born with a veil [...] in this
+American world---a world which yields him no true self-consciousness, but only lets him see himself through the revelation of the other world. It is a peculiar sensation, this double-consciousness, this sense of always looking at oneself through the eyes of others, of measuring one’s soul by the tape of a world that looks on in amused contempt and pity. One ever feels his two-ness—an American, a Negro; two souls, two thoughts, two unreconciled strivings; two warring ideals in one dark body. [@dubois_souls_1903]
+
+* The veil: the world is seen and **experienced differently** on either side of the color line
+* **One-way mirror**: Whites project their constructions of Blacks onto the veil and see their projections reflected on it $\Rightarrow$ the power to **define themselves and others**
+* The projections of whites onto the veil **become realities** that Black subjects have to contend with in their self-formation.
+* **Twoness**: in process of self-formation, the racialized subject **must account for** the views of two different social worlds—the Black world, constructed behind the veil, and the white world, which dehumanizes via lack of recognition of their humanity. 
+
+## $\textsf{Race}_{\textsf{Variable}}$ vs. $\textsf{Race}_{\textsf{Construct}}$ {.crunch-title .crunch-ul}
+
+* Careful scientific, causal studies measure the effect that **changing $X$** ($do(X)$) has on $Y$, controlling for $C$ (via, at least under the hood, "Do-Calculus")
+* But, even the most careful, controlled (and thus informative!) experiments must, at some level, partition variables into "race" and "not race"
+* Keep in back of your mind as we look at example of how (measured by thorough, statistically-principled experiment), **race can have direct, measurable, causal impacts on important aspects of our everyday lives**
+
+## Racial Discrimination {.smaller .crunch-title}
+
+* Marianne Bertrand and Sendhil Mullainathan. 2004. "Are Emily and Greg More Employable Than Lakisha and Jamal? A Field Experiment on Labor Market Discrimination." *American Economic Review*. [@bertrand_are_2004]
+
+> We study **race** in the labor market by sending fictitious resumes to help-wanted ads in Boston and Chicago newspapers. To manipulate perceived race, resumes are **randomly assigned** African-American- or White-sounding **names**. **White names** receive **50 percent more callbacks** for interviews. Callbacks are also more responsive to resume quality for White names than for African-American ones. The racial gap is uniform across occupation, industry, and employer size. We also find little evidence that employers are inferring social class from the names. Differential treatment by race still appears to still be prominent in the U.S. labor market.
+
+## "Controlling for" Everything Besides Race {.smaller .crunch-title .title-11}
+
+::: {layout="[1,1]" layout-valign="center"}
+
+![](images/resume_greg_baker.jpeg){fig-align="center"}
+
+![](images/resume_jamal_jones.jpeg){fig-align="center"}
+
+:::
+
+## Age Discrimination? {.smaller .crunch-title}
+
+::: {layout="[1,1]" layout-valign="center"}
+
+![](images/resume_age_12.jpeg){fig-align="center"}
+
+![](images/resume_age_22.jpeg){fig-align="center"}
+
+:::
+
+* Based on Lily Hu, <a href='https://www.youtube.com/watch?v=8qMC1fZJMi4' target='_blank'>*What is 'Race' in Algorithmic Discrimination on the Basis of Race? - IPAM at UCLA*</a> (YouTube)
+
+## "Cool Theory, I Guess..." {.smaller .crunch-title .crunch-quarto-layout-panel}
+
+* "Good luck measuring ideas inside of people's heads... I'll be over here measuring real things and doing real data science!" -My Opps
+
+::: {layout="[1,1]"}
+
+![](images/representations.jpeg){fig-align="center"}
+
+![](images/sperber.jpg){fig-align="center" width="320"}
+
+:::
+
+## "Cool Theory, I Guess..." {.smaller .crunch-title}
+
+![](images/representations_bilingual.jpeg){fig-align="center"}
+
+## Opening A Big Can Of Worms {.smaller .crunch-title .crunch-quarto-layout-panel .crunch-quarto-figure .crunch-quarto-layout-cell}
+
+::: {layout="[1,1]"}
+
+::: {#worms1-left}
+
+* Social interactions among $t^e_0$, $t^e_1$, $t^e_2$...
+
+:::
+::: {#worms-right}
+
+![](images/race_graph_step1.svg){fig-align="center" width="500"}
+
+:::
+:::
+
+## Opening A Big Can Of Worms {.smaller .crunch-title .crunch-quarto-layout-panel .crunch-quarto-figure .crunch-quarto-layout-cell}
+
+::: {layout="[1,1]"}
+::: {#worms2-left}
+
+* Social interactions among $t^e_0$, $t^e_1$, $t^e_2$...
+* **Mediated** by external things $o^e_3$ to $o^e_8$ (giving rise to **patterns of interaction**)...
+
+:::
+::: {#worms2-right}
+
+![](images/race_graph_step2.svg){fig-align="center" width="500"}
+
+:::
+:::
+
+## Opening A Big Can Of Worms {.smaller .crunch-title .crunch-quarto-figure .crunch-quarto-layout-panel .crunch-quarto-layout-cell}
+
+::: {layout="[1,1]"}
+::: {#worms3-left}
+
+* Social interactions among $t^e_0$, $t^e_1$, $t^e_2$...
+* **Mediated** by external things $o^e_3$ to $o^e_8$ (giving rise to **patterns of interaction**)...
+* Each person $x$ forming their own **internal representations** $\widetilde{t^x_0}$, $\widetilde{t^x_1}$, $\widetilde{t^x_2}$ of one another based on **patterns of interaction**, then
+* Generalizing to an internal representation of a **"type of person" $\widetilde{t^x_9}$**...
+
+:::
+::: {#worms3-right}
+
+![](images/race_graph_step3.svg){fig-align="center" width="600"}
+
+:::
+:::
+
+## Opening A Big Can Of Worms {.smaller .crunch-title .crunch-quarto-figure .crunch-quarto-layout-panel .crunch-quarto-layout-cell .crunch-ul}
+
+::: {layout="[1,1]"}
+::: {#worms4-left}
+
+* Social interactions among $t^e_0$, $t^e_1$, $t^e_2$
+* **Mediated** by external things $o^e_3$ to $o^e_8$ (giving rise to **patterns of interaction**)
+* Each person $x$ forming their own **internal representations** $\widetilde{t^x_0}$, $\widetilde{t^x_1}$, $\widetilde{t^x_2}$ based on **patterns of interaction**, then
+* Generalizing to an internal representation of a **"type of person" $\widetilde{t^x_9}$**
+* Which they then **externalize** as $t^x_9$.
+* $t^0_9$, $t^1_9$, $t^2_9$ "congeal" into a **shared external representation** $t_9^e$ via social mechanism (discussion, media, culture, propaganda, parenting, religion, education, ...) $\Rightarrow t^e_9$ **"reified"** (causal effects on $t_0$, $t_1$, $t_2$)
+
+:::
+::: {#worms4-right}
+
+![](images/race_graph_step4.svg){fig-align="center" width="600"}
+
+:::
+:::
+
+## References
+
+::: {#refs}
+:::

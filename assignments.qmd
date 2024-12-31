@@ -1,0 +1,18 @@
+---
+title: "Assignment Point Distributions"
+subtitle: "DSAN 5450: Data Ethics and Policy, Spring 2024"
+author: "Jeff Jacobs"
+institute: "<a href='mailto:jj1088@georgetown.edu' target='_blank'>`jj1088@georgetown.edu`</a>"
+sidebar: mainnav
+format:
+  html:
+    df-print: kable
+---
+
+Use the **tabs at the bottom of the spreadsheet** (e.g., click the label **HW1**) to view the point distributions for different assignments.
+
+The distributions are imported from a Google Sheet mainly for transparency: so that you can see exactly how totals are computed as a sum of the individual points allocated for each test!
+
+```{=html}
+<iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vQWs7NZn1S7KM9ll42EDxOeKn3FdXPFhK1mQynjbT2QguOQu6o0NOnQUJgn38m_uRlkPONbhDfnLBpw/pubhtml?widget=true&amp;headers=false" width="100%" height="400"></iframe>
+```

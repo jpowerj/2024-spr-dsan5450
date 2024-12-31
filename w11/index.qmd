@@ -1,0 +1,162 @@
+---
+title: "Week 11: Fairness vs. Social Welfare"
+subtitle: "*DSAN 5450: Data Ethics and Policy*<br><span class='subsubtitle'>Spring 2024, Georgetown University</span>"
+author: "Jeff Jacobs"
+institute: "<a href='mailto:jj1088@georgetown.edu' target='_blank'>`jj1088@georgetown.edu`</a>"
+bibliography: "../_DSAN5450.bib"
+date: 2024-04-03
+date-format: full
+lecnum: 11
+categories:
+  - "Class Sessions"
+format:
+  revealjs:
+    df-print: kable
+    footer: "DSAN 5450 Week 11: {{< var w11.footer >}}"
+    output-file: "slides.html"
+    html-math-method: mathjax
+    theme: ["../_jjslides.scss"]
+    include-in-header:
+      text: "<link href='https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css' rel='stylesheet' integrity='sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN' crossorigin='anonymous'><link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css'>"
+    scrollable: true
+    slide-number: true
+    simplemenu:
+      flat: true
+      barhtml:
+        header: "<div class='menubar'><span style='position: absolute; left: 8; padding-left: 8px;'><a href='./index.html'>&larr; Return to Notes</a></span><ul class='menu'></ul></div>"
+      scale: 0.5
+    revealjs-plugins:
+      - simplemenu
+  html:
+    df-print: kable
+    output-file: "index.html"
+    html-math-method: mathjax
+---
+
+::: {.content-visible unless-format="revealjs"}
+
+<center>
+<a class="h2" href="./slides.html" target="_blank">Open slides in new window &rarr;</a>
+</center>
+
+:::
+
+# Utility $\rightarrow$ Social Welfare {data-stack-name="Utility and Social Welfare"}
+
+## Externalities {.crunch-title .smaller .crunch-quarto-figure}
+
+* **Jeef** and **Keef** are roommates: Jeef loves listening to <a href='https://www.youtube.com/watch?v=OlQTn7gI8cw' target='_blank'>Tony Danza Tapdance Extravaganza</a>, but Keef is normal and slowly dies inside with each additional song
+
+::: {.columns}
+::: {.column width="50%"}
+
+```{r}
+#| label: externalities
+library(tidyverse)
+source("../_globals.r")
+music_df <- tribble(
+  ~Songs, ~Jeef, ~Keef,
+  0, 0, 0,
+  1, 13, -2,
+  2, 18, -6,
+  3, 24, -13,
+  4, 28, -20,
+  5, 30, -42
+)
+music_df <- music_df |>
+  mutate(Total = Jeef + Keef)
+music_df
+```
+
+:::
+::: {.column width="50%"}
+
+```{r}
+#| label: roommate-plot
+#| fig-height: 4.5
+long_df <- music_df |>
+  pivot_longer(!Songs, names_to="Roommate", values_to="Utility")
+util_df <- long_df |>
+  filter(Roommate != "Total")
+ggplot(util_df, aes(x=Songs, y=Utility, color=Roommate)) +
+  geom_line(linewidth=g_linewidth) +
+  geom_point(size=g_pointsize) +
+  labs(
+    title="Individual Utility: Jeef vs. Keef",
+    x="Number of Songs Played",
+    y="Utility"
+  ) +
+  dsan_theme("quarter")
+```
+
+```{r}
+#| label: welfare-plot
+#| fig-height: 4.5
+welfare_df <- long_df |>
+  filter(Roommate == "Total")
+ggplot(welfare_df, aes(x=Songs, y=Utility, color=Roommate)) +
+  geom_line(linewidth=g_linewidth) +
+  geom_point(size=g_pointsize) +
+  labs(
+    title="Social Welfare: Jeef and Keef",
+    x="Number of Songs Played",
+    y="Social Welfare"
+  ) +
+  scale_color_manual(values=c(cbPalette[3]), labels=c("Total      ")) +
+  dsan_theme("quarter") +
+  remove_legend_title()
+```
+
+:::
+:::
+
+## So What's the Issue?
+
+* These utility values are **not observed**
+* If we try to **elicit** them, both Jeef and Keef have **strategic incentives** to **lie** (over-exaggerate)
+* Jeef maximizes own utility by reporting $u_j(s) = \infty$
+* Keef maximizes own utility by reporting $u_k(s) = -\infty$
+* (...Second price auctions tho)
+
+## Now with Scarce Resources {.crunch-title .crunch-ul .crunch-math}
+
+* In a given week, Jeef and Keef have **14 meals** and **7 aux hours** to divide amongst them
+
+$$
+\begin{align*}
+\max_{m_1,m_2,a_1,a_2}& W(u_1(m_1,a_1),u_2(m_2,a_2)) \\
+\text{s.t. }& m_1 + m_2 \leq 14 \\
+\phantom{\text{s.t. }} & ~ \, a_1 + a_2 \; \leq 7
+\end{align*}
+$$
+
+* Let's assume $u_i(m_i, a_i) = m_i + a_i$ for both
+* $\Rightarrow$ One solution: $m_1 = 14, m_2 = 0, a_1 = 7, a_2 = 0$...
+* $\Rightarrow$ Another: $m_1 = 0, m_2 = 14, a_1 = 0, a_2 = 7$...
+* Who decides? Any decision implies $\omega_1, \omega_2$ ($\omega_1 + \omega_2 = 1$)
+
+# The Dark Secret Behind Fairness in AI {data-stack-name="Fairness vs. Welfare"}
+
+## The Conveniently-Left-Out Detail {.crunch-title .crunch-ul}
+
+* Recall **predictive parity**:
+
+$$
+\mathbb{E}[Y \mid D = 1, A = 1] = \mathbb{E}[Y \mid D = 1, A = 0]
+$$
+
+* Who decides which $Y$ to pick?
+* Answer: Whoever picks the **objective function**!
+* For **profit-maximizing firm**: $\mathbb{E}[D (Y - c)]$
+* For **welfare-maximizing society**: $W(u_1(D), \ldots, u_n(D))$
+* Do these align? Sometimes yes, often no (affirmative action!)
+
+## Remaining (Challenging) Details
+
+* Who gets included in the SWF?
+* People in one community? One state? One country?
+* People in the future?
+* Animals?
+
+# Let's Talk Projects!
+

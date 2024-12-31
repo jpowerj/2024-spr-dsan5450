@@ -1,0 +1,61 @@
+---
+title: "Week 7: Public Policy"
+subtitle: "*DSAN 5450: Data Ethics and Policy*<br><span class='subsubtitle'>Spring 2024, Georgetown University</span>"
+author: "Jeff Jacobs"
+institute: "<a href='mailto:jj1088@georgetown.edu' target='_blank'>`jj1088@georgetown.edu`</a>"
+bibliography: "../_DSAN5450.bib"
+date: 2024-03-13
+date-format: full
+lecnum: 7
+#categories:
+#  - "Class Sessions"
+format:
+  revealjs:
+    df-print: kable
+    footer: "DSAN 5450 Week 7: Public Policy"
+    output-file: "slides.html"
+    html-math-method: mathjax
+    theme: ["../_jjslides.scss"]
+    scrollable: true
+    slide-number: true
+    simplemenu:
+      flat: true
+      barhtml:
+        header: "<div class='menubar'><span style='position: absolute; left: 8; padding-left: 8px;'><a href='./index.html'>&larr; Return to Notes</a></span><ul class='menu'></ul></div>"
+      scale: 0.5
+    revealjs-plugins:
+      - simplemenu
+  html:
+    df-print: kable
+    output-file: "index.html"
+    html-math-method: mathjax
+---
+
+::: {.content-visible unless-format="revealjs"}
+
+<center>
+<a class="h2" href="./slides.html" target="_blank">Open slides in new window &rarr;</a>
+</center>
+
+:::
+
+# Descriptive Public Policy: What *Are* The Frameworks?
+
+* GDPR
+
+## GDPR: General Data Protection Regulation (EU)
+
+* Provides definitions of, e.g., "personal data", "data processing", "controller"
+
+# Normative Public Policy: What *Should* We Regulate?
+
+## UN Global Digital Compact (GDC) {.crunch-title .crunch-li-5}
+
+* Connecting the unconnected
+* Avoiding fragmentation of the Internet
+* Providing people with options as to how their data is used
+* Application of human rights online
+* Accountability for discrimination and misleading content.
+* Regulation of artificial intelligence to
+ensure alignment with shared global values
+* Amnesty International: "Transparency in acquisition and use of surveillance technolgoies by both public actors and private surveillance companies"

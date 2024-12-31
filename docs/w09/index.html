@@ -1,0 +1,1179 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.5.23">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Jeff Jacobs">
+
+<title>DSAN 5450 – Week 9: Privacy Policies, Incomplete Contracts, and Power</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../favicon.png" rel="icon" type="image/png">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script><script src="../jjcustom.js"></script>
+
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../styles.css">
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../w09/index.html">Week 9: {{&lt; var w09.date-md &gt;}}</a></li></ol></nav>
+        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../">DSAN 5450: Data Ethics and Policy</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><i class="bi bi-house pe-1"></i> Home</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../syllabus.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Syllabus</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../writeups/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Writeups</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../assignments.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Assignments</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../final.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Final Project</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../recordings/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Recordings</span></a>
+  </div>
+</li>
+        <li class="px-0"><hr class="sidebar-divider hi "></li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../w01/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Week 1: Jan 17</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../w02/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Week 2: Jan 24</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../w03/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Week 3: Jan 31</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../w04/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Week 4: Feb 7</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../w05/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Week 5: Feb 14</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../w06/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Week 6: Feb 21</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../w07/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Week 7: Feb 28</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../w08/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Week 8: Mar 13</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../w09/index.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Week 9: Mar 20</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../w10/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Week 10: Mar 27</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../w11/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Week 11: Apr 3</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../w12/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Week 12: Apr 10</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../w13/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Week 13: Apr 17</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../w14/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Week 14: Apr 24</span></a>
+  </div>
+</li>
+        <li class="px-0"><hr class="sidebar-divider hi "></li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="https://forms.gle/LLQsiwGy5kkH5n3PA" class="sidebar-item-text sidebar-link" target="&quot;_blank&quot;">
+ <span class="menu-text">Anonymous Suggestions<i class="bi bi-box-arrow-up-right ps-1"></i></span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#week-8-recap" id="toc-week-8-recap" class="nav-link active" data-scroll-target="#week-8-recap">Week 8 Recap</a>
+  <ul class="collapse">
+  <li><a href="#privacy-policies-take-a-long-time-to-read" id="toc-privacy-policies-take-a-long-time-to-read" class="nav-link" data-scroll-target="#privacy-policies-take-a-long-time-to-read">1. Privacy Policies Take a Long Time to Read!</a></li>
+  <li><a href="#reading-privacy-policies-neq-understanding-privacy-policies" id="toc-reading-privacy-policies-neq-understanding-privacy-policies" class="nav-link" data-scroll-target="#reading-privacy-policies-neq-understanding-privacy-policies">2. <em>Reading</em> Privacy Policies <span class="math inline">\(\neq\)</span> <em>Understanding</em> Privacy Policies!</a></li>
+  <li><a href="#the-intuitive-problem-of-contracts" id="toc-the-intuitive-problem-of-contracts" class="nav-link" data-scroll-target="#the-intuitive-problem-of-contracts">The Intuitive Problem of Contracts</a></li>
+  <li><a href="#understanding-rights-leftrightarrow-fighting-for-rights" id="toc-understanding-rights-leftrightarrow-fighting-for-rights" class="nav-link" data-scroll-target="#understanding-rights-leftrightarrow-fighting-for-rights">Understanding Rights <span class="math inline">\(\leftrightarrow\)</span> Fighting for Rights</a></li>
+  <li><a href="#the-adversarial-sisyphusian-problem-of-contracts" id="toc-the-adversarial-sisyphusian-problem-of-contracts" class="nav-link" data-scroll-target="#the-adversarial-sisyphusian-problem-of-contracts">The Adversarial-Sisyphusian Problem of Contracts</a></li>
+  <li><a href="#the-devastating-consequences-of-corporate-scandals" id="toc-the-devastating-consequences-of-corporate-scandals" class="nav-link" data-scroll-target="#the-devastating-consequences-of-corporate-scandals">The Devastating Consequences of Corporate Scandals</a></li>
+  <li><a href="#consequences-for-the-contractors" id="toc-consequences-for-the-contractors" class="nav-link" data-scroll-target="#consequences-for-the-contractors">Consequences for the Contractors</a></li>
+  <li><a href="#consequences-for-blackwater" id="toc-consequences-for-blackwater" class="nav-link" data-scroll-target="#consequences-for-blackwater">Consequences for Blackwater</a></li>
+  <li><a href="#no-logo-why-johnny-cant-dissent" id="toc-no-logo-why-johnny-cant-dissent" class="nav-link" data-scroll-target="#no-logo-why-johnny-cant-dissent"><em>No Logo</em> / Why Johnny Can’t Dissent</a></li>
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">Conclusion</a></li>
+  </ul></li>
+  <li><a href="#incomplete-contracts" id="toc-incomplete-contracts" class="nav-link" data-scroll-target="#incomplete-contracts">Incomplete Contracts</a>
+  <ul class="collapse">
+  <li><a href="#the-fundamental-problem-of-contracts" id="toc-the-fundamental-problem-of-contracts" class="nav-link" data-scroll-target="#the-fundamental-problem-of-contracts">The Fundamental Problem of Contracts</a></li>
+  <li><a href="#power" id="toc-power" class="nav-link" data-scroll-target="#power">…POWER!</a></li>
+  <li><a href="#descriptive-and-normative-considerations" id="toc-descriptive-and-normative-considerations" class="nav-link" data-scroll-target="#descriptive-and-normative-considerations">Descriptive and Normative Considerations</a></li>
+  <li><a href="#working-definition-of-power" id="toc-working-definition-of-power" class="nav-link" data-scroll-target="#working-definition-of-power">Working Definition of Power</a></li>
+  </ul></li>
+  <li><a href="#measuring-contractual-power" id="toc-measuring-contractual-power" class="nav-link" data-scroll-target="#measuring-contractual-power">Measuring Contractual Power</a>
+  <ul class="collapse">
+  <li><a href="#gist-of-wealth-power-correspondence-theorem" id="toc-gist-of-wealth-power-correspondence-theorem" class="nav-link" data-scroll-target="#gist-of-wealth-power-correspondence-theorem">(Gist of) Wealth-Power Correspondence Theorem</a></li>
+  <li><a href="#possible-steady-state-equilibria-skipping-lots-of-math" id="toc-possible-steady-state-equilibria-skipping-lots-of-math" class="nav-link" data-scroll-target="#possible-steady-state-equilibria-skipping-lots-of-math">Possible Steady-State Equilibria (Skipping Lots of Math)</a></li>
+  <li><a href="#the-crucial-input-initial-conditions" id="toc-the-crucial-input-initial-conditions" class="nav-link" data-scroll-target="#the-crucial-input-initial-conditions">The Crucial Input: Initial Conditions</a></li>
+  <li><a href="#tldr" id="toc-tldr" class="nav-link" data-scroll-target="#tldr">tldr</a></li>
+  </ul></li>
+  <li><a href="#contracts-in-the-wild" id="toc-contracts-in-the-wild" class="nav-link" data-scroll-target="#contracts-in-the-wild">Contracts in the Wild</a>
+  <ul class="collapse">
+  <li><a href="#section" id="toc-section" class="nav-link" data-scroll-target="#section"></a></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
+  </ul></li>
+  </ul>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="slides.html"><i class="bi bi-file-slides"></i>RevealJS</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Week 9: Privacy Policies, Incomplete Contracts, and Power</h1>
+<p class="subtitle lead"><em>DSAN 5450: Data Ethics and Policy</em><br><span class="subsubtitle">Spring 2024, Georgetown University</span></p>
+  <div class="quarto-categories">
+    <div class="quarto-category">Class Sessions</div>
+  </div>
+  </div>
+
+
+<div class="quarto-title-meta-author">
+  <div class="quarto-title-meta-heading">Author</div>
+  <div class="quarto-title-meta-heading">Affiliation</div>
+  
+    <div class="quarto-title-meta-contents">
+    <p class="author">Jeff Jacobs </p>
+  </div>
+  <div class="quarto-title-meta-contents">
+        <p class="affiliation">
+            <a href="mailto:jj1088@georgetown.edu" target="_blank"><code>jj1088@georgetown.edu</code></a>
+          </p>
+      </div>
+  </div>
+
+<div class="quarto-title-meta">
+
+      
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">Wednesday, March 20, 2024</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<center>
+<a class="h2" href="./slides.html" target="_blank">Open slides in new window →</a>
+</center>
+<section id="week-8-recap" class="level1" data-stack-name="Week 8 Recap">
+<h1 data-stack-name="Week 8 Recap">Week 8 Recap</h1>
+<div class="hidden">
+<div class="hidden">
+<p><span class="math display">\[
+\DeclareMathOperator*{\argmax}{argmax}
+\DeclareMathOperator*{\argmin}{argmin}
+\newcommand{\nimplies}{\;\;\not\!\!\!\!\implies}
+\]</span></p>
+</div>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/ronnie_the_bear.png" class="img-fluid figure-img"></p>
+<figcaption>Ronnie The Bear, <a href="https://www.reaganfoundation.org/ronald-reagan/reagan-quotes-speeches/inaugural-address-2/" target="_blank">Presidential Acceptance Speech</a>, 20 January 1981</figcaption>
+</figure>
+</div>
+<section id="privacy-policies-take-a-long-time-to-read" class="level2 crunch-title title-11 smaller nostretch">
+<h2 class="crunch-title title-11 smaller nostretch anchored" data-anchor-id="privacy-policies-take-a-long-time-to-read">1. Privacy Policies Take a Long Time to Read!</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/terms_of_service_info.jpg" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+</section>
+<section id="reading-privacy-policies-neq-understanding-privacy-policies" class="level2 smaller crunch-title crunch-ul">
+<h2 class="smaller crunch-title crunch-ul anchored" data-anchor-id="reading-privacy-policies-neq-understanding-privacy-policies">2. <em>Reading</em> Privacy Policies <span class="math inline">\(\neq\)</span> <em>Understanding</em> Privacy Policies!</h2>
+<ul>
+<li>Reading vs.&nbsp;understanding <strong>implications</strong> / <strong>contingencies</strong> / <strong>ambiguities</strong>…</li>
+<li>NLP <em>could</em> (and <em>should!</em>) be helpful (<em>“making privacy policies <strong>machine readable</strong> […] would help users match <strong>privacy preferences</strong> against <strong>policies</strong> offered by web services”</em>), but mostly just reveals how bad the problem is:</li>
+</ul>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/wagner_fig.svg" class="img-fluid figure-img"></p>
+<figcaption>Figure 15 from <span class="citation" data-cites="wagner_privacy_2023">Wagner (<a href="#ref-wagner_privacy_2023" role="doc-biblioref">2023</a>)</span>. “Obfuscatory words” are words like <em>acceptable</em>, <em>significant</em>, <em>mainly</em>, or <em>predominantly</em>, interpretated at the discretion of companies rather than users (see next slide!)</figcaption>
+</figure>
+</div>
+</section>
+<section id="the-intuitive-problem-of-contracts" class="level2 smaller crunch-ul crunch-title crunch-quarto-figure crunch-images">
+<h2 class="smaller crunch-ul crunch-title crunch-quarto-figure crunch-images anchored" data-anchor-id="the-intuitive-problem-of-contracts">The Intuitive Problem of Contracts</h2>
+<div>
+
+</div>
+<div class="quarto-layout-panel" data-layout="[60,40]">
+<div class="quarto-layout-row">
+<div id="intuitive-problem-left" class="quarto-layout-cell" style="flex-basis: 60.0%;justify-content: flex-start;">
+<ul>
+<li>Hard to read, harder to understand, possibly rly bad stuff in them, won’t know until you read + understand</li>
+<li>Solution (in theory… in modern liberal market-based democracies): Collective action!</li>
+<li>Option 1 (Exit): Find better platform, use it instead <span class="math inline">\(\Rightarrow\)</span> company dies (competitive market)</li>
+<li>Option 2 (Voice): Raise a fuss, hoot and holler, make a big stink about it, etc.
+<ul>
+<li><span class="math inline">\(\Rightarrow\)</span> (2a) Company will change/remove it to avoid embarrassment and/or prevent Option 1 becoming an option</li>
+<li><span class="math inline">\(\Rightarrow\)</span> (2b) Government intervention (hypothetical functional government)</li>
+</ul></li>
+</ul>
+</div>
+<div id="intuitive-problem-right" class="quarto-layout-cell" style="flex-basis: 40.0%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/exit-voice-page.jpeg" class="img-fluid quarto-figure quarto-figure-center figure-img" width="240"></p>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/corbyn_down.jpeg" class="img-fluid quarto-figure quarto-figure-center figure-img" width="240"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="understanding-rights-leftrightarrow-fighting-for-rights" class="level2 title-08 crunch-ul">
+<h2 class="title-08 crunch-ul anchored" data-anchor-id="understanding-rights-leftrightarrow-fighting-for-rights">Understanding Rights <span class="math inline">\(\leftrightarrow\)</span> Fighting for Rights</h2>
+<ul>
+<li>“Hohfeldian” framework <span class="citation" data-cites="hohfeld_fundamental_1913">(<a href="#ref-hohfeld_fundamental_1913" role="doc-biblioref">Hohfeld 1913</a>)</span></li>
+<li>A right <span class="math inline">\(r_i\)</span> granted to person <span class="math inline">\(i\)</span> <span class="math inline">\(\implies\)</span> A duty/obligation imposed on everyone in the world besides <span class="math inline">\(i\)</span> (to respect <span class="math inline">\(r_i\)</span>)</li>
+<li>A duty or obligation <span class="math inline">\(d_i\)</span> imposed on a person <span class="math inline">\(i\)</span> <span class="math inline">\(\implies\)</span> A right granted to everyone in the world besides <span class="math inline">\(i\)</span> (to… be a potential beneficiary of <span class="math inline">\(d_i\)</span>)</li>
+<li><span class="math inline">\(\implies\)</span> rough measures of <strong>relative power</strong> in a contract:</li>
+</ul>
+<p><span class="math display">\[
+\frac{\text{rights}_i}{\text{rights}_j} = \frac{\text{obligations}_j}{\text{rights}_j} = \frac{\text{rights}_i}{\text{obligations}_j} = \frac{\text{obligations}_j}{\text{obligations}_i}
+\]</span></p>
+</section>
+<section id="the-adversarial-sisyphusian-problem-of-contracts" class="level2 crunch-title title-07">
+<h2 class="crunch-title title-07 anchored" data-anchor-id="the-adversarial-sisyphusian-problem-of-contracts">The Adversarial-Sisyphusian Problem of Contracts</h2>
+<ul>
+<li>Recall Intuitive Problem of Causal Inference: Correlation <span class="math inline">\(\nimplies\)</span> Causation, <strong>but</strong> can do a bunch of work to overcome</li>
+<li>Adversarial-Sisyphusian Problem is <strong>one level worse</strong> 😱
+<ul>
+<li>IPCI: You vs.&nbsp;discovered correlation (inanimate)</li>
+<li>ASPC: You vs.&nbsp;companies investing <strong>resources</strong> 💰 into making the problem <strong>harder and harder for you</strong></li>
+</ul></li>
+<li>tldr: The moment you (<span class="math inline">\(N=1\)</span>, $) finally find and “fix” bad thing, company (<span class="math inline">\(N \gg 1\)</span>, $$$) adds more ambiguity to re-enable / sends your data to """new""", """different""" 3rd-party processor 🥸</li>
+</ul>
+</section>
+<section id="the-devastating-consequences-of-corporate-scandals" class="level2 crunch-title crunch-ul title-07">
+<h2 class="crunch-title crunch-ul title-07 anchored" data-anchor-id="the-devastating-consequences-of-corporate-scandals">The Devastating Consequences of Corporate Scandals</h2>
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Nisour_Square_massacre" target="_blank">Nisour Square Massacre</a> (16 Sept 2007): Four Blackwater private military contractors mow down unarmed Iraqi civilians, killing 17, injuring 20</li>
+<li>Devastating for innocent Iraqis, but… perhaps even more devastating for Blackwater?</li>
+<li>(TW for next slide: Horrific consequences for murdering 17 civilians in a country 6915 miles away)</li>
+</ul>
+</section>
+<section id="consequences-for-the-contractors" class="level2 crunch-title">
+<h2 class="crunch-title anchored" data-anchor-id="consequences-for-the-contractors">Consequences for the Contractors</h2>
+<ul>
+<li>All pardoned (#GodsPlan)</li>
+</ul>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/pardoned.jpeg" class="img-fluid figure-img"></p>
+<figcaption>From <a href="https://www.youtube.com/watch?v=DUvO0yO7N5I" target="_blank">The Shawn Ryan Show</a>, Episode 11</figcaption>
+</figure>
+</div>
+<ul>
+<li>Can make <a href="https://pipehitterfoundation.org/blackwater4/" target="_blank">tax-deductible donation</a> to charity supporting them (I couldn’t find the tax-deductible donation page for the Iraqi families, lmk if you find)</li>
+</ul>
+</section>
+<section id="consequences-for-blackwater" class="level2 crunch-images crunch-title crunch-ul crunch-quarto-figure">
+<h2 class="crunch-images crunch-title crunch-ul crunch-quarto-figure anchored" data-anchor-id="consequences-for-blackwater">Consequences for Blackwater</h2>
+<ul>
+<li>They had to, like, design a whole new logo and stuff</li>
+</ul>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/academi.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/Constellis_logo.svg" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:70.0%"></p>
+</figure>
+</div>
+</section>
+<section id="no-logo-why-johnny-cant-dissent" class="level2 crunch-title crunch-ul crunch-blockquote">
+<h2 class="crunch-title crunch-ul crunch-blockquote anchored" data-anchor-id="no-logo-why-johnny-cant-dissent"><em>No Logo</em> / Why Johnny Can’t Dissent</h2>
+<ul>
+<li>Naomi Klein’s <em>No Logo</em> (1999) sparked a nationwide boycott of companies employing sweatshop labor</li>
+<li>Great success; all companies responded and (out of the kindness of their hearts) cut ties with all of the sweatshops</li>
+<li>Instead, they established ties with supply chain management companies, who made the profit-maximizing decision to re-establish ties with all of the sweatshops</li>
+</ul>
+<blockquote class="blockquote">
+<p>“You can’t outrun them, or even stay ahead of them for very long: it’s their racetrack, and that’s them waiting at the finish line to congratulate you” <span class="citation" data-cites="frank_dark_1994">(<a href="#ref-frank_dark_1994" role="doc-biblioref">Frank 1994</a>)</span></p>
+</blockquote>
+</section>
+<section id="conclusion" class="level2">
+<h2 class="anchored" data-anchor-id="conclusion">Conclusion</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/my_life_dont_mean_shit.jpg" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+</section>
+</section>
+<section id="incomplete-contracts" class="level1" data-stack-name="Incomplete Contracts">
+<h1 data-stack-name="Incomplete Contracts">Incomplete Contracts</h1>
+<section id="the-fundamental-problem-of-contracts" class="level2 crunch-title crunch-ul title-09">
+<h2 class="crunch-title crunch-ul title-09 anchored" data-anchor-id="the-fundamental-problem-of-contracts">The Fundamental Problem of Contracts</h2>
+<ul>
+<li>Just as we can’t observe <strong>two simultaneous worlds</strong> <span class="math inline">\(W_{X = 0}\)</span> and <span class="math inline">\(W_{X = 1}\)</span> which differ only in the value of <span class="math inline">\(X\)</span>,</li>
+<li>We can’t <strong>foresee all possible contingencies</strong> that need to be included in a <strong>contract</strong>
+<ul>
+<li>(We can try, though! Hence use of obfuscatory words to <strong>minimize liability</strong>)</li>
+</ul></li>
+<li>So, when a situation arises which is not covered by a clause in the contract, what happens? What principle determines <strong>whose interpretation wins out</strong>?
+<ul>
+<li>(<em>Hint</em>: It is actually literally my legal middle name…)</li>
+</ul></li>
+</ul>
+</section>
+<section id="power" class="level2 crunch-title">
+<h2 class="crunch-title anchored" data-anchor-id="power">…POWER!</h2>
+<ul>
+<li>Examples from employment contracts (tooting own horn):</li>
+<li>In a private, cooperatively-owned, democratic firm, outcome determined by <em>conversation</em>, <em>majority vote</em>, <em>unanimity</em>, etc.
+<ul>
+<li>These technically exist in the US! Employing <a href="https://resources.uwcc.wisc.edu/Research/REIC_FINAL.pdf" target="_blank">2,380 workers</a>, <span class="math inline">\(\frac{2380}{127509000} \approx 0.0019\%\)</span> of US workforce</li>
+</ul></li>
+<li>Otherwise, in a non-unionized private firm (94% of total), the outcome is determined by <em>organizational hierarchy</em>
+<ul>
+<li>This is the case for <span class="math inline">\(\frac{125000000}{127509000} \approx 98.03\%\)</span> of <a href="https://fred.stlouisfed.org/series/USPRIV" target="_blank">US workforce</a></li>
+</ul></li>
+</ul>
+</section>
+<section id="descriptive-and-normative-considerations" class="level2 crunch-title title-09 crunch-ul crunch-blockquote">
+<h2 class="crunch-title title-09 crunch-ul crunch-blockquote anchored" data-anchor-id="descriptive-and-normative-considerations">Descriptive and Normative Considerations</h2>
+<blockquote class="blockquote">
+<p>The combined effect of <strong>incomplete contracts</strong> and <strong>conflicts of interest</strong> is that the determination of outcomes depends on who exercises <strong>power</strong> in the transaction.</p>
+<p>Power is generally exercised by those who hold the residual rights of control, meaning <strong>the right to determine what is not specified contractually</strong></p>
+</blockquote>
+<ul>
+<li>[Step 1: Measurable, empirically verifiable, etc.] <strong>Who has power</strong> w.r.t. a given incomplete contract?</li>
+<li>[Step 2: Up to you and your ethical axioms] <strong>Who ought to have power</strong> w.r.t. incomplete contracts?</li>
+</ul>
+<!-- * And now I can talk about the EU thing...
+  * (It wasn't implemented)
+  * (But idk statute of limitations)
+  * (Oh well)
+
+> 🔥*I think it's more useful to, like, make things happen now, and then, like, apologize later*🔥 ---<a href='https://www.snopes.com/fact-check/move-fast-break-things-facebook-motto/' target='_blank'>Mark Zuckerberg the 🐐</a> -->
+</section>
+<section id="working-definition-of-power" class="level2">
+<h2 class="anchored" data-anchor-id="working-definition-of-power">Working Definition of Power</h2>
+<div style="display: flex; justify-content: center; align-items: center; height: 80%;">
+<div class="callout callout-style-default callout-note no-icon callout-titled" title="<i class='bi bi-info-circle pe-1'></i> Defining (Dyadic) Power [@bowles_power_1992, 326-327]">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<i class="bi bi-info-circle pe-1"></i> Defining (Dyadic) Power <span class="citation" data-cites="bowles_power_1992">(<a href="#ref-bowles_power_1992" role="doc-biblioref">Bowles and Gintis 1992, 326–27</a>)</span>
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>For agent <span class="math inline">\(A\)</span> to have power over agent <span class="math inline">\(B\)</span> it is sufficient that, by imposing or threatening to impose sanctions on <span class="math inline">\(B\)</span>, <span class="math inline">\(A\)</span> is capable of affecting <span class="math inline">\(B\)</span>’s actions in ways that further <span class="math inline">\(A\)</span>’s interests, while <span class="math inline">\(B\)</span> lacks this capacity with respect to <span class="math inline">\(A\)</span>.</p>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="measuring-contractual-power" class="level1" data-stack-name="Measuring Contractual Power">
+<h1 data-stack-name="Measuring Contractual Power">Measuring Contractual Power</h1>
+<section id="gist-of-wealth-power-correspondence-theorem" class="level2 crunch-title crunch-ul title-08 inline-09 smallish">
+<h2 class="crunch-title crunch-ul title-08 inline-09 smallish anchored" data-anchor-id="gist-of-wealth-power-correspondence-theorem">(Gist of) Wealth-Power Correspondence Theorem</h2>
+<p><em>[Axiom] Standard (Walrasian) perfectly-competitive equilibrium, no entry/exit barriers, <strong>minus</strong> complete-contracts assumption</em></p>
+<ol type="1">
+<li>“Individual wealth levels <span class="math inline">\(\omega_{i,t}\)</span> determine how individuals come to hold differing structural positions”: <span class="math inline">\(i\)</span>’s structural position <span class="math inline">\(P_{i,t}\)</span> determined by set of feasible contracts available at <span class="math inline">\(t\)</span></li>
+<li>Individual optimization of contractual arrangements between <span class="math inline">\(i\)</span> and <span class="math inline">\(j\)</span> (effort level <span class="math inline">\(e_i^*\)</span>, monitoring <span class="math inline">\(m_j^*\)</span>) gives rise to <strong>authority structure</strong> <span class="math inline">\(\Rightarrow\)</span> well-defined, <strong>measurable degree of power</strong> <span class="math inline">\(\rho_{i \rightarrow j}(w_i, z_j)\)</span> (<span class="math inline">\(j\)</span> has outside option <span class="math inline">\(z_j\)</span>, <span class="math inline">\(i\)</span> offers wage <span class="math inline">\(w_i &gt; z_j\)</span>)</li>
+<li>[Given two agents <span class="math inline">\(i, j\)</span>] <span class="math inline">\(\rho_{i \rightarrow j} &gt; \rho_{j \rightarrow i}\)</span> if and only if <span class="math inline">\(\omega_i &gt; \omega_j\)</span> 👀🧐</li>
+</ol>
+</section>
+<section id="possible-steady-state-equilibria-skipping-lots-of-math" class="level2 crunch-title smaller title-09">
+<h2 class="crunch-title smaller title-09 anchored" data-anchor-id="possible-steady-state-equilibria-skipping-lots-of-math">Possible Steady-State Equilibria (Skipping Lots of Math)</h2>
+<div>
+<table class="small-table table" data-quarto-postprocess="true">
+<thead>
+<tr class="header">
+<th style="text-align: center;" data-quarto-table-cell-role="th">Produces for Self?</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">Hires Labor?</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">Sells Labor?</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">Agricultural</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">Industrial</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">Post-Industrial</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">Wealth <span class="math inline">\(\omega_i^*\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd td-section-head">
+<td colspan="7" style="text-align: center;"><strong>Bourgeoisie</strong> (Bosses)</td>
+</tr>
+<tr class="even td-no-bottom">
+<td style="text-align: center;">❌</td>
+<td style="text-align: center;">✅</td>
+<td style="text-align: center;">❌</td>
+<td style="text-align: center;">Landlord</td>
+<td style="text-align: center;">Capitalist</td>
+<td style="text-align: center;">CEO</td>
+<td style="text-align: center;"><span class="math inline">\(\omega_i^* \geq \frac{b}{\pi}\)</span></td>
+</tr>
+<tr class="odd">
+<td colspan="7" style="text-align: center;">Doesn't need to work at all (provides capital to their workers)</td>
+</tr>
+<tr class="even td-no-bottom">
+<td style="text-align: center;">✅</td>
+<td style="text-align: center;">✅</td>
+<td style="text-align: center;">❌</td>
+<td style="text-align: center;">Rich peasant (Kulak)</td>
+<td style="text-align: center;">Capitalist</td>
+<td style="text-align: center;">Small business owner</td>
+<td style="text-align: center;"><span class="math inline">\(\frac{ba}{1-a} &lt; \omega_i^* &lt; \frac{b}{\pi}\)</span></td>
+</tr>
+<tr class="odd">
+<td colspan="7" style="text-align: center;">Not enough capital to hire workers to produce full consumption bundle</td>
+</tr>
+<tr class="even td-section-head">
+<td colspan="7" style="text-align: center;"><strong>Petit Bourgeoisie</strong> (Independent / ‘Yeoman’ Workers)</td>
+</tr>
+<tr class="odd td-no-bottom">
+<td style="text-align: center;">✅</td>
+<td style="text-align: center;">❌</td>
+<td style="text-align: center;">❌</td>
+<td style="text-align: center;">Peasant</td>
+<td style="text-align: center;">Artisan</td>
+<td style="text-align: center;">Full-time Etsy</td>
+<td style="text-align: center;"><span class="math inline">\(\omega_i^* = \frac{ba}{1-a}\)</span></td>
+</tr>
+<tr class="even">
+<td colspan="7" style="text-align: center;">Has no boss; doesn't boss others</td>
+</tr>
+<tr class="odd td-section-head">
+<td colspan="7" style="text-align: center;"><strong>Proletariat</strong> (Working Class)</td>
+</tr>
+<tr class="even td-no-bottom">
+<td style="text-align: center;">✅</td>
+<td style="text-align: center;">❌</td>
+<td style="text-align: center;">✅</td>
+<td style="text-align: center;">Poor Peasant</td>
+<td style="text-align: center;">Semi-Proletarian</td>
+<td style="text-align: center;">Uber driver after work</td>
+<td style="text-align: center;"><span class="math inline">\(0 &lt; \omega_i^* &lt; \frac{ba}{1-a}\)</span></td>
+</tr>
+<tr class="odd">
+<td colspan="7" style="text-align: center;">Small plot of land, insufficient for producing consumption bundle; "Proletarianizing"</td>
+</tr>
+<tr class="even td-no-bottom">
+<td style="text-align: center;">❌</td>
+<td style="text-align: center;">❌</td>
+<td style="text-align: center;">✅</td>
+<td style="text-align: center;">Landless peasant</td>
+<td style="text-align: center;">Proletarian</td>
+<td style="text-align: center;">Service worker</td>
+<td style="text-align: center;"><span class="math inline">\(\omega_i^* = 0\)</span></td>
+</tr>
+<tr class="odd">
+<td colspan="7" style="text-align: center;">Nothing but labor power to sell ("Nothing but chains to lose")</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="the-crucial-input-initial-conditions" class="level2">
+<h2 class="anchored" data-anchor-id="the-crucial-input-initial-conditions">The Crucial Input: Initial Conditions</h2>
+<ul>
+<li>Steady states on previous slide are <strong>absorbing states</strong> of stochastic process! <span class="math inline">\(w_{i,0} \rightarrow w_{i,1} \rightarrow \cdots\)</span></li>
+<li>For every agent <span class="math inline">\(i\)</span>, some time <span class="math inline">\(T_i\)</span> such that <span class="math inline">\(\omega_{i,t}\)</span> will be in one of those five states for <span class="math inline">\(t \geq T_i\)</span></li>
+<li>But how do we know <strong>which</strong> of the five states a given person will end up in?
+<ul>
+<li>It’s a <strong>stochastic system</strong>, so can’t say with certainty, but <strong>can</strong> derive results about which initial conditions maximize <span class="math inline">\(\Pr(\omega_i^* = S \mid \omega_{i,0})\)</span>…</li>
+</ul></li>
+</ul>
+</section>
+<section id="tldr" class="level2">
+<h2 class="anchored" data-anchor-id="tldr">tldr</h2>
+<div>
+
+</div>
+<div class="quarto-layout-panel" data-layout="[1,1]">
+<div class="quarto-layout-row">
+<div id="enclosure-left" class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<ul>
+<li>The full story: Late-feudal Enclosure Movement / Samir Amin, <em>Accumulation on a World Scale</em> (1970)</li>
+<li>The overly-flippant gist →</li>
+<li>The less-flippant gist: Locke’s <em>Second Treatise of Government</em> (1689)</li>
+</ul>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/fight_you.webp" class="img-fluid quarto-figure quarto-figure-center figure-img" width="400"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="contracts-in-the-wild" class="level1" data-stack-name="Empirical Studies">
+<h1 data-stack-name="Empirical Studies">Contracts in the Wild</h1>
+<section id="section" class="level2">
+<h2 class="anchored" data-anchor-id="section"></h2>
+</section>
+<section id="references" class="level2">
+<h2 class="anchored" data-anchor-id="references">References</h2>
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-bowles_power_1992" class="csl-entry" role="listitem">
+Bowles, Samuel, and Herbert Gintis. 1992. <span>“Power and <span>Wealth</span> in a <span>Competitive Capitalist Economy</span>.”</span> <em>Philosophy &amp; Public Affairs</em> 21 (4): 324–53. <a href="https://www.jstor.org/stable/2265369">https://www.jstor.org/stable/2265369</a>.
+</div>
+<div id="ref-frank_dark_1994" class="csl-entry" role="listitem">
+Frank, Tom. 1994. <span>“<span>DARK AGE</span>: <span>Why Johnny Can</span>’t <span>Dissent</span>.”</span> <em>The Baffler</em>, no. 6: 5–192. <a href="https://www.jstor.org/stable/43555671">https://www.jstor.org/stable/43555671</a>.
+</div>
+<div id="ref-hohfeld_fundamental_1913" class="csl-entry" role="listitem">
+Hohfeld, Wesley Newcomb. 1913. <span>“Some <span>Fundamental Legal Conceptions</span> as <span>Applied</span> in <span>Judicial Reasoning</span>.”</span> <em>Yale Law Journal</em> 23. <a href="https://heinonline.org/HOL/Page?handle=hein.journals/ylr23&amp;id=24&amp;div=&amp;collection=">https://heinonline.org/HOL/Page?handle=hein.journals/ylr23&amp;id=24&amp;div=&amp;collection=</a>.
+</div>
+<div id="ref-wagner_privacy_2023" class="csl-entry" role="listitem">
+Wagner, Isabel. 2023. <span>“Privacy <span>Policies</span> Across the <span>Ages</span>: <span>Content</span> of <span>Privacy Policies</span> 1996–2021.”</span> <em>ACM Transactions on Privacy and Security</em> 26 (3): 32:1–32. <a href="https://doi.org/10.1145/3590152">https://doi.org/10.1145/3590152</a>.
+</div>
+</div>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

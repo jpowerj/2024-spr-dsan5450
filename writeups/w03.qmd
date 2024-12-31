@@ -1,0 +1,110 @@
+---
+title: "Week 3 Resources / Loose-Thread Tying"
+author: "Jeff Jacobs"
+institute: "<a href='mailto:jj1088@georgetown.edu' target='_blank'>`jj1088@georgetown.edu`</a>"
+date: 2024-02-03
+date-format: full
+sidebar: mainnav
+bibliography: "../_DSAN5450.bib"
+categories:
+  - "Extra Writeups"
+format:
+  html:
+    df-print: kable
+---
+
+Hi all! As has become my tradition, I am writing this as a "wrap-up" of loose threads that I felt were left un-tied at the end of lecture on Wednesday. This week, right after class ended, I did a deeper dive into the **Sapir-Whorf Hypothesis**, to try to (a) clarify the discussion we had around Sapir-Whorf vs. Linguistic Relativism and Linguistic Determinism, and (b) tie it back into the main course topics! But first, the stuff-I-googled portion:
+
+## 1. Things I Googled / Opened During Class
+
+* <a href='https://excavating.ai/' target='_blank'>*Excavating AI: The Politics of Images in Machine Learning Training Sets*</a>: @crawford_excavating_2019
+* <a href='https://gabgoh.github.io/ThoughtVectors/' target='_blank'>*Decoding the Thought Vector*</a>, from <a href='http://gabgoh.github.io/' target='_blank'>Gabriel Goh's</a> Blog: <a href='http://gabgoh.github.io/blog/' target='_blank'>Machine Learning, Data Science, and Optimization</a>
+
+## 2. Linguistic Relativism, Linguistic Determinism, and the Sapir-Whorf Hypothesis
+
+Honestly, this question simmered in my brain from the minute it came up until the end of class! So, from the time class ended up until now, I went back and re-read two of the four books that had put these concepts into my brain in the first place. The two I read were:
+
+1. Marcel Danesi (2021), *Linguistic Relativity Today: Language, Mind, Society, and the Foundations of Linguistic Anthropology* [@danesi_linguistic_2021] [<a href='https://www.dropbox.com/scl/fi/7uf5kuukzwtvsf7371eqa/marcel-danesi-linguistic-relativity-today-language.pdf?rlkey=zdw8aroybw1vv63gyhssbucqo&dl=1' target='_blank'>PDF</a>; this one is particularly difficult and expensive to obtain a hard copy of!]
+2. John McWhorter (2014), *The Language Hoax: Why the World Looks the Same in Any Language* [@mcwhorter_language_2014]: This one I did explicitly mention in class and put it on the slides [<a href='https://www.dropbox.com/scl/fi/33431g868cel5ifjrrhd5/john-h-mcwhorter-the-language-hoax-why-the-world-looks.epub?rlkey=2wfn2i43m7dc52pu0n2evaed5&dl=1' target='_blank'>EPUB</a>]
+
+While the two I didn't re-read, but did impact my brain at some earlier point, were:
+
+3. Steven Pinker (2005), *The Stuff of Thought: Language as a Window into Human Nature* [@pinker_stuff_2005] [<a href='https://www.dropbox.com/scl/fi/0qs56q9e4vrnxxrgenmjl/steven-pinker-the-stuff-of-thought-2011.epub?rlkey=852i84wrj244u567s67ibmh4g&dl=1' target='_blank'>EPUB</a>]
+4. George Lakoff (1987), *Women, Fire, and Dangerous Things: What Categories Reveal about the Mind* [@lakoff_women_1987] [<a href='https://www.dropbox.com/scl/fi/wgct95bb3hth9kk5t4jl3/george-lakoff-women-fire-and-dangerous-things-1987.pdf?rlkey=pryum75lzjgfmf2yxf8gn9qvh&dl=1' target='_blank'>PDF</a>]
+
+Besides the time factor, the reason I only re-read the first two is because: (a) I remember feeling like the Pinker book was overly dismissive of the whole idea; as in, I don't feel like it gave a very "fair trial" to the nuances of the **degrees** to which language and thought affect one another. And (b) Lakoff's books are... I feel like I *should* like them, the specific *topics* he looks at are fascinating and relevant and important imo, but then when I actually open them up and read them I often feel like the writing is a bit dry and monotonous[^lakoff].
+
+And, my followup thought on this is: I was too dismissive of the Sapir-Whorf Hypothesis! One of the reasons I settled on the Danesi book at spot #1 is because, I think it does a really good job of separating the **strong** and **weak** forms of this hypothesis, and it matches 100% with how Cynthia summarized it in class! So, I hereby delegate Cynthia as the class consultant for language in data ethics and society 😎. The summary I can come up with, trying to synthesize what Cynthia said and how it's described in the Danesi book, is that:
+
+* **Linguistic Determinism**, or the **Strong** Sapir-Whorf Hypothesis, posits that "language *determines* how people think" [@danesi_linguistic_2021, *x*], whereas
+* **Linguistic Relativism**, or the **Weak** Sapir-Whorf Hypothesis, posits that language *shapes* (without *determining*) how people think.
+
+Basically, the Danesi book's preface mentions the **strong** version but quickly dismisses it: "From the relevant studies, there is little support for the so-called 'strong' version" [@danesi_linguistic_2021, *x*]. The first chapter then goes in-depth into the **weak** version, in a really fascinating way.
+
+I was taking the term "Sapir-Whorf Hypothesis" in general and conflating it with the **strong** version, and that's where my criticism was coming from. I should have phrased what I was saying as: the **strong** Sapir-Whorf Hypothesis can be problematic, from my perspective, given the implications that could come from believing it to be true when it isn't.
+
+In its *strong* form, for example, it strikes me as alarmingly reminiscent of Samuel Huntington's <a href='https://en.wikipedia.org/wiki/Clash_of_Civilizations' target='_blank'>*Clash of Civilizations*</a> hypothesis (and the many <a href='https://www.theatlantic.com/magazine/archive/1990/09/the-roots-of-muslim-rage/304643/' target='_blank'>similar and similarly-influential global-cultural claims</a>), which have the effect of telling policymakers something like "we'll never be able to bridge the humongous gap between 'Eastern' and 'Western' cultures, so they'll just have to eternally clash with one another, and uh, I hope 'we' win!"
+
+This is the kind of danger that, in my reading, McWhorter is warning about in the *Language Hoax* book whose cover was in my slides: just that, we have to be very careful when talking about concepts as fuzzy and hard-to-define as "a culture" or "a language" since, despite their vagueness in theory, they can become **reified** and <a href='https://www.nybooks.com/articles/1982/08/12/orientalism-an-exchange/' target='_blank'>morph into dehumanizing claims</a> and then entire books about e.g. <a href='https://en.wikipedia.org/wiki/The_Arab_Mind' target='_blank'>the "Arab mind"</a>, and then these kinds of books can hypothetically become "the basis of" one's "cultural instruction" in the US Army, with predictable consequences...
+
+> "At the institution where I teach military officers,"" as retired U.S. Army Col. Norvell De Atkine writes in the book's foreword, "*The Arab Mind* forms the basis of my cultural instruction." (from Slate, <a href='https://slate.com/news-and-politics/2004/05/what-s-wrong-with-the-arab-mind.html' target='_blank'>"Inside The Arab Mind: What's wrong with the White House's book on Arab nationalism"</a>)
+
+With that said, I don't think there's anything in Whorf's original description of the idea that lends itself to this kind of cultural essentialism! I think the following quote from Whorf, quoted at the beginning of the Danesi book, makes the distinction really clear:
+
+> We are thus introduced to a new principle of relativity, which holds that all observers are not led by the same physical evidence to the same picture of the universe, unless their linguistic backgrounds are similar, or can in some way be calibrated. [@whorf_language_1956, 229]
+
+Basically, this quote is how I'll remember Sapir-Whorf as linguistic **relativism**, rather than determinism, from now on!
+
+## 3. Mental Math Speed as an Example of Weak Sapir-Whorf
+
+The example that came up during that same discussion---where Keqin helped a ton by pointing out the syllabic differences in mathematical symbols/terms between different languages!---I think was first implanted in my brain by a 2014 article from the Wall Street Journal, <a href='https://www.wsj.com/articles/the-best-language-for-math-1410304008' target='_blank'>"The Best Language for Math: Confusing English Number Words Are Linked to Weaker Skills"</a> [@shellenbarger_best_2014], that went 2014-style viral, or at least viral among... cross-cultural linguistics nerds?
+
+I tried to find the presentation (or at least the paper) about the cross-cultural mental math experiments that I went to while I was at the Santa Fe Institute, but I wasn't able to track it down. And, I found it surprisingly difficult to find actual scientific studies of it more generally[^fengshou]. However, I did find a super-interesting <a href='https://www.languagesoftheworld.info/bad-linguistics/best-language-math-thing.html' target='_blank'>deep-dive into aspects of the original Wall Street Journal article</a>, and an even more super-interesting book:
+
+* Barbara M. Birch and Sean Fulop (2021), *English L2 Reading: Getting to the Bottom (4th Edition)* [@birch_english_2021] [<a href='https://www.dropbox.com/scl/fi/06mxid3v1klmo3h1hp980/Barbara-M.-Birch-Sean-Fulop-English-L2-Reading_-Getting-to-the-Bottom-Routledge-2021.pdf?rlkey=9i0a4mvo3x8ia7c5b6p11w5lx&dl=1' target='_blank'>PDF</a>]
+
+which goes into an awesome amount of analytic detail about second-language learning. It even has a neural network diagram right in the first chapter, which is how I knew I had to read it 🤓:
+
+![](images/neural.svg){fig-align="center" width="300"}
+
+For our purposes, though, the two **most** interesting parts of that book come at the end of Chatper 2 and then... the entirety of Chapter 3, which is on *"Interlanguage Reading and Transfer"*. As a segue into this chapter, which contains a bunch of material on studies of mental math, the end of Chapter 2 presents the following as its fourth "Discussion Question", which I wanted to copy here as a "food for thought" exercise for you, having had our discussion around mental math and language!
+
+::: {.callout-note title="Mental Math Discussion Question [@birch_english_2021, 50-51]"}
+
+This quote comes from @tzeng_linguistic_1981: "Miller ... has pointed out the importance of notational design in the history of mathematics. In Miller’s words (1957) 'In order to study the interaction of thought and symbol it is not necessary to travel with Whorf to the Zuni Indians; the language of mathematics is rich with excellent examples. Why are Arabic numbers so superior to Roman?'" (p. 238).
+
+In that spirit, compare these different representations of the same meaning concept (the number seven): 7, seven, vii. Which type of writing does each correspond to? (If 7 and vii are both logographic, what is the difference between them?) What are the advantages and disadvantages of each type of number? Do you agree that the history of mathematics has been affected by the type of notations developed? Could mathematics have advanced without the symbols like 7?
+
+Could language and culture be similarly affected by the writing systems that evolved in different civilizations? Logan (1986) argues that alphabetic writing was related to the growth of theoretical science in Western civilization and not in Eastern: "The effects of the alphabet and the abstract, logical, systematic thought that it encouraged explain why science began in the West and not in the East, despite the much greater technological sophistication of the Chinese [...] the inventors of metallurgy, irrigation systems, animal harnesses, paper, ink" (p. 23).
+
+:::
+
+Then, the section of Chapter 3 with the title *"Writing Systems and Transfer"* contains the "meat" of the question, with references to individual studies you can read for a **true** deep-dive (including a study that very specifically looks at Hong Kong ESL learners! For those interested: [@yeung_effects_2013]).
+
+I'm copying that section of the chapter in full below, so that you have the previous "discussion question" and this section all in one place, and you don't have to worry about going and obtaining the full book if you don't want to! (This one is collasped by default, to make the page look less scarily-long)
+
+::: {.callout-note title="Writing Systems and Transfer [@birch_english_2021, 63-65]" collapse="true"}
+
+### Writing Systems and Transfer
+
+One question that researchers have tried to answer is whether logograms like Chinese characters or Japanese kanji are read holistically or not. There was early evidence for this idea because reading logograms was more like processing pictures than reading [@henderson_orthography_1982, 196]. @morton_lexical_1984 concluded that for Japanese writing, although the kana were read analytically, the kanji were read holistically. To them, there seems to be "a strong dissociation between the processes involved in reading the two scripts [kana vs. kanji]" (p. 40). However, @leong_use_1995 argued that both visual and phonological processing occur in accessing difficult kanji with phonetic elements.
+
+![](images/birch_fig3_1.svg){fig-align="center"}
+
+#### Reading Logograms
+
+@koda_cognitive_1995 explained how both holistic and phonological processing are involved in reading logograms. Koda suggested that all writing systems require readers to access phonological information because working memory is better for phonological material than for visual material. However, the timing of the phonological access is different. Alphabetic writing requires access to a phonological representation prior to or at the time that the word is retrieved from memory. A logographic code requires phonological access only after the word is retrieved because that is the time when phonological information becomes available to the reader, as shown in Figure 3.1. It is, in fact, impossible to pronounce an unknown character because often the phonetic cues are not enough. Logograms may also be read without access to sound, as in mental math calculations, where thinking of the name of the number symbol slows down the process. This evidence supports the claim that readers use different linguistic strategies to handle logograms (holism) vs. alphabetic words (analysis) but that the universal phonological principle does hold.
+
+@tan_neural_2003 studied intermediate Chinese/English graduate students who began learning English after the age of 12, comparing them with a group of English monolinguals. They found that phonological processing of Chinese characters activates portions of the brain that process spatial information. The activation of this system was related to the square configuration of the character, which then maps onto a monosyllabic unit of speech. When the Chinese students performed a phonological task on English words, they activated the very same visual processing system, unlike the brain areas activated by the English monolinguals when they performed phonemic analyses.
+
+@tan_neural_2003 thought that their Chinese subjects were trying to use their L1 system to read in English. Since they lacked the infrastructure for English, they could not process the alphabetic writing system like the English readers did. In other words, the Chinese graduate students were not taking advantage of the alphabetic writing. However, little is known about their background as language learners. @yeung_effects_2013[699] found that if Chinese-speaking children gained in phonological awareness, their reading also improved. They suggested that "once children acquire phoneme awareness, even without explicit instruction in letter-sound correspondences, they change the reading strategy and readily apply the phoneme awareness to aid word recognition."
+
+@koda_cognitive_1995 studied Japanese, Arabic, Spanish, and English readers of English and found that symbols that had no phonological cues and unpronounceable words interfered less with the Japanese readers than with the alphabetic readers. Unpronounceable words interfere with English reading because of the difficulty they pose for phonological analysis. English readers stumble over the unpronounceable foreign names in a novel like *War and Peace*. They try to process them holistically by remembering the appearance of the name and associating it with a certain character. Or they try a laborious analytical strategy of sounding out the names and remembering them by sound. Either way, they are obstacles for reading.
+
+However, unpronounceable words did not cause difficulty for the Japanese readers that @koda_cognitive_1995 studied because they treated the problem words as they did kanji. They did not try to pronounce them; they tried to remember them visually. Also, English reading comprehension among Japanese college students was unaffected by the unpronounceability of English words, suggesting a strategy of relying little on phonological information in reading the unknown words. The strategy these Japanese students were applying to unknown English words was holistic, visual, and meaning-based, discarding the very strengths of the alphabetic writing system with its cues to sound. The short-term strategy of treating unfamiliar words as logograms may assist English beginning readers at first, but over time, it is more efficient to decode unknown words and assign a pronunciation to them. In short, there is evidence for transfer of processing strategies from L1 to L2 if the writing systems have some similarity such as Chinese characters, Japanese kanji, and symbols or unpronounceable words. This is facilitation, but it may only offer a short-term benefit
+
+:::
+
+[^lakoff]: I'm mostly thinking of his book with Mark Johnson here which I read more recently, *Metaphors We Live By* [@lakoff_metaphors_1980], so maybe the newer one is more interesting and I'm being unfair here, but yeah limited resources, I wanted to be able to read at least one full book between end-of-class and this writeup!
+
+[^fengshou]: If you try searching for it by googling something like `"mental math" "speed" "mandarin" "english"` however, you **will** find lots of fun videos and books about <a href='https://zh.wikipedia.org/wiki/%E5%8F%B2%E4%B8%B0%E6%94%B6' target='_blank'>史丰收 / Shi Fengshou</a>, who created a very <a href='https://www.youtube.com/watch?v=5mEtb7dHqVE' target='_blank'>fun-to-watch</a> mental math technique involving rapid hand gestures!

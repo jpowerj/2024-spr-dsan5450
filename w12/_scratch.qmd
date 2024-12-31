@@ -1,0 +1,27 @@
+
+```{=html}
+<table>
+<thead>
+<tr>
+    <th></th>
+    <th>Below Expectations<span data-qmd="![](images/1_bag.png){width='50'}"></span></th>
+    <th>Expectations</th>
+    <th>Doing Too Much</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+    <td><span data-qmd="**Policy Analysis**"></span></td>
+    <td>"This algorithm is unfair"</td>
+    <td>"This algorithm violates the Predictive Parity criterion of fairness"</td>
+    <td>"<span data-qmd="This policy is bad bc the inferred welfare weights $\omega_i$ are $0.1632$ off from the optimal welfare weights $\omega^*$"></span>"</td>
+</tr>
+<tr>
+    <td><span data-qmd="**Policy Analysis**"></span></td>
+    <td>"This policy is bad"</td>
+    <td>"This policy is bad bc it violates the Rawlsian notion of what would be chosen by rational agents 'behind a veil of ignorance'"</td>
+    <td>"<span data-qmd="This policy is bad bc the inferred welfare weights $\omega_i$ are $0.1632$ off from the optimal welfare weights $\omega^*$"></span>"</td>
+</tr>
+</tbody>
+</table>
+```

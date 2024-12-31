@@ -1,0 +1,1107 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.5.23">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Jeff Jacobs">
+
+<title>DSAN 5450 – Week 13: Standpoint Epistemology, Data Feminism</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../favicon.png" rel="icon" type="image/png">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script><script src="../jjcustom.js"></script>
+
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../styles.css">
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../w13/index.html">Week 13: {{&lt; var w13.date-md &gt;}}</a></li></ol></nav>
+        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../">DSAN 5450: Data Ethics and Policy</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><i class="bi bi-house pe-1"></i> Home</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../syllabus.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Syllabus</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../writeups/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Writeups</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../assignments.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Assignments</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../final.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Final Project</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../recordings/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Recordings</span></a>
+  </div>
+</li>
+        <li class="px-0"><hr class="sidebar-divider hi "></li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../w01/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Week 1: Jan 17</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../w02/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Week 2: Jan 24</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../w03/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Week 3: Jan 31</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../w04/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Week 4: Feb 7</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../w05/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Week 5: Feb 14</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../w06/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Week 6: Feb 21</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../w07/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Week 7: Feb 28</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../w08/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Week 8: Mar 13</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../w09/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Week 9: Mar 20</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../w10/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Week 10: Mar 27</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../w11/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Week 11: Apr 3</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../w12/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Week 12: Apr 10</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../w13/index.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Week 13: Apr 17</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../w14/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Week 14: Apr 24</span></a>
+  </div>
+</li>
+        <li class="px-0"><hr class="sidebar-divider hi "></li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="https://forms.gle/LLQsiwGy5kkH5n3PA" class="sidebar-item-text sidebar-link" target="&quot;_blank&quot;">
+ <span class="menu-text">Anonymous Suggestions<i class="bi bi-box-arrow-up-right ps-1"></i></span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#the-ordering-of-topics-is-important-here" id="toc-the-ordering-of-topics-is-important-here" class="nav-link active" data-scroll-target="#the-ordering-of-topics-is-important-here">The <em>Ordering</em> of Topics is Important Here!</a>
+  <ul class="collapse">
+  <li><a href="#jeffs-laying-out-biases-corner" id="toc-jeffs-laying-out-biases-corner" class="nav-link" data-scroll-target="#jeffs-laying-out-biases-corner">Jeff’s Laying-Out-Biases Corner</a></li>
+  <li><a href="#section" id="toc-section" class="nav-link" data-scroll-target="#section"></a></li>
+  <li><a href="#the-reason-i-mention-that" id="toc-the-reason-i-mention-that" class="nav-link" data-scroll-target="#the-reason-i-mention-that">The Reason I Mention That!</a></li>
+  <li><a href="#the-standpoint-problem-revisited" id="toc-the-standpoint-problem-revisited" class="nav-link" data-scroll-target="#the-standpoint-problem-revisited">The Standpoint Problem Revisited</a></li>
+  <li><a href="#specifically-chosen-examples" id="toc-specifically-chosen-examples" class="nav-link" data-scroll-target="#specifically-chosen-examples">Specifically-Chosen Examples</a></li>
+  <li><a href="#with-great-privilege-comes-great-responsibility" id="toc-with-great-privilege-comes-great-responsibility" class="nav-link" data-scroll-target="#with-great-privilege-comes-great-responsibility">With Great Privilege Comes Great Responsibility</a></li>
+  <li><a href="#youre-really-not-gonna-like-this-one-so-ill-just-show-it-real-quick-and-move-on" id="toc-youre-really-not-gonna-like-this-one-so-ill-just-show-it-real-quick-and-move-on" class="nav-link" data-scroll-target="#youre-really-not-gonna-like-this-one-so-ill-just-show-it-real-quick-and-move-on">(You’re <em>Really</em> Not Gonna Like This One, So I’ll Just Show It Real Quick And Move On)</a></li>
+  <li><a href="#the-diversity-in-tech-industrial-complex" id="toc-the-diversity-in-tech-industrial-complex" class="nav-link" data-scroll-target="#the-diversity-in-tech-industrial-complex">The “Diversity in Tech”-Industrial Complex</a></li>
+  <li><a href="#see-also" id="toc-see-also" class="nav-link" data-scroll-target="#see-also">(See Also)</a></li>
+  <li><a href="#diversity-vs.-fairness-justice" id="toc-diversity-vs.-fairness-justice" class="nav-link" data-scroll-target="#diversity-vs.-fairness-justice">“Diversity” vs.&nbsp;Fairness / Justice</a></li>
+  <li><a href="#diversity-vs.-fairness-justice-1" id="toc-diversity-vs.-fairness-justice-1" class="nav-link" data-scroll-target="#diversity-vs.-fairness-justice-1">Diversity vs.&nbsp;Fairness / Justice</a></li>
+  </ul></li>
+  <li><a href="#data-feminism" id="toc-data-feminism" class="nav-link" data-scroll-target="#data-feminism">Data Feminism</a>
+  <ul class="collapse">
+  <li><a href="#epistemological-one-way-mirror-2-electric-boogaloo" id="toc-epistemological-one-way-mirror-2-electric-boogaloo" class="nav-link" data-scroll-target="#epistemological-one-way-mirror-2-electric-boogaloo">Epistemological One-Way Mirror 2: Electric Boogaloo</a></li>
+  <li><a href="#it-goes-without-saying" id="toc-it-goes-without-saying" class="nav-link" data-scroll-target="#it-goes-without-saying">“It Goes Without Saying”</a></li>
+  <li><a href="#people-male-animal-male" id="toc-people-male-animal-male" class="nav-link" data-scroll-target="#people-male-animal-male">People = Male, Animal = Male</a></li>
+  <li><a href="#the-cowan-paradox" id="toc-the-cowan-paradox" class="nav-link" data-scroll-target="#the-cowan-paradox">The Cowan “Paradox”</a></li>
+  </ul></li>
+  <li><a href="#solving-all-the-problems" id="toc-solving-all-the-problems" class="nav-link" data-scroll-target="#solving-all-the-problems">Solving All the Problems</a>
+  <ul class="collapse">
+  <li><a href="#solutions-via-causal-historical-analysis" id="toc-solutions-via-causal-historical-analysis" class="nav-link" data-scroll-target="#solutions-via-causal-historical-analysis">Solutions via Causal Historical Analysis</a></li>
+  <li><a href="#instances-of-oppression-and-their-termination" id="toc-instances-of-oppression-and-their-termination" class="nav-link" data-scroll-target="#instances-of-oppression-and-their-termination">Instances of Oppression and their Termination</a></li>
+  <li><a href="#great-moments-in-peaceful-protest-history" id="toc-great-moments-in-peaceful-protest-history" class="nav-link" data-scroll-target="#great-moments-in-peaceful-protest-history">Great Moments in Peaceful Protest History</a></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
+  </ul></li>
+  </ul>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="slides.html"><i class="bi bi-file-slides"></i>RevealJS</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Week 13: Standpoint Epistemology, Data Feminism</h1>
+<p class="subtitle lead"><em>DSAN 5450: Data Ethics and Policy</em><br><span class="subsubtitle">Spring 2024, Georgetown University</span></p>
+  <div class="quarto-categories">
+    <div class="quarto-category">Class Sessions</div>
+  </div>
+  </div>
+
+
+<div class="quarto-title-meta-author">
+  <div class="quarto-title-meta-heading">Author</div>
+  <div class="quarto-title-meta-heading">Affiliation</div>
+  
+    <div class="quarto-title-meta-contents">
+    <p class="author">Jeff Jacobs </p>
+  </div>
+  <div class="quarto-title-meta-contents">
+        <p class="affiliation">
+            <a href="mailto:jj1088@georgetown.edu" target="_blank"><code>jj1088@georgetown.edu</code></a>
+          </p>
+      </div>
+  </div>
+
+<div class="quarto-title-meta">
+
+      
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">Wednesday, April 17, 2024</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<center>
+<a class="h2" href="./slides.html" target="_blank">Open slides in new window →</a>
+</center>
+<section id="the-ordering-of-topics-is-important-here" class="level1" data-stack-name="Standpoint Epistemology">
+<h1 data-stack-name="Standpoint Epistemology">The <em>Ordering</em> of Topics is Important Here!</h1>
+<ul>
+<li>Last week: Unfortunate-ness of white male teaching about race</li>
+<li>This week: Unfortunate-ness of white male teaching about gender</li>
+<li>But, also this week, a counterpoint: “Diversity in tech” <span class="math inline">\(\overset{?}{\longleftrightarrow}\)</span> The burden of “speaking for” one’s identity group</li>
+</ul>
+<section id="jeffs-laying-out-biases-corner" class="level2 crunch-title crunch-ul crunch-blockquote crunch-p">
+<h2 class="crunch-title crunch-ul crunch-blockquote crunch-p anchored" data-anchor-id="jeffs-laying-out-biases-corner">Jeff’s Laying-Out-Biases Corner</h2>
+<ul>
+<li>(aka <a href="https://www.youtube.com/watch?v=sWUyMBRDE2c" target="_blank">60-second soapbox</a>)</li>
+<li>I… spent most of my teens/20s in meetings, rallies, etc., yelling at capitalism, imperialism, and the like</li>
+<li>Ex: Cringe-era Jeff did an interview with an HK newspaper, where I distinctly remember a whole spiel about:</li>
+</ul>
+<blockquote class="blockquote">
+<p>I felt it was important to live and work specifically in Beijing, Shenzhen, and Hong Kong, because in the US we’re taught that anything besides American Capitalism is monolithically evil, so I’m hoping to see for myself how both capitalism and its alternatives are experienced by people in all three</p>
+</blockquote>
+</section>
+<section id="section" class="level2 crunch-title crunch-ul crunch-quarto-figure crunch-figures">
+<h2 class="crunch-title crunch-ul crunch-quarto-figure crunch-figures anchored" data-anchor-id="section"></h2>
+<ul>
+<li>Which they dutifully reported in a very fair paraphrase:</li>
+</ul>
+<div>
+
+</div>
+<div class="quarto-layout-panel" data-layout="[3,4]">
+<div class="quarto-layout-row quarto-layout-valign-center">
+<div class="quarto-layout-cell" style="flex-basis: 42.9%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/hk_clip_sharpen.jpg" class="img-fluid quarto-figure quarto-figure-center figure-img" width="400"></p>
+</figure>
+</div>
+</div>
+<div id="hk-right" class="quarto-layout-cell" style="flex-basis: 57.1%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/hk_clip_translation.jpeg" class="img-fluid quarto-figure quarto-figure-center figure-img" width="460"></p>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/obama_thumbsup.jpg" class="img-fluid quarto-figure quarto-figure-center figure-img" width="380"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="the-reason-i-mention-that" class="level2 crunch-title crunch-ul crunch-quarto-figure">
+<h2 class="crunch-title crunch-ul crunch-quarto-figure anchored" data-anchor-id="the-reason-i-mention-that">The Reason I Mention That!</h2>
+<div>
+
+</div>
+<div class="quarto-layout-panel" data-layout="[5,3]">
+<div class="quarto-layout-row">
+<div id="excluded-left" class="quarto-layout-cell" style="flex-basis: 62.5%;justify-content: center;">
+<ul>
+<li><strong>Acknowledging</strong> exclusion vs.&nbsp;thinking through of <strong>why</strong> ppl are excluded and <strong>fixing</strong> it</li>
+<li>Favorite non-controversial example: land acknowledgement at pro-Israel summer camps</li>
+</ul>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/kodak_black.jpeg" class="img-fluid quarto-figure quarto-figure-center figure-img" width="200"></p>
+</figure>
+</div>
+</div>
+<div id="excluded-right" class="quarto-layout-cell" style="flex-basis: 37.5%;justify-content: flex-start;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/redistribution.jpg" class="img-fluid figure-img" width="350"></p>
+<figcaption><span class="citation" data-cites="fraser_redistribution_2003">Fraser and Honneth (<a href="#ref-fraser_redistribution_2003" role="doc-biblioref">2003</a>)</span></figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="the-standpoint-problem-revisited" class="level2 crunch-title crunch-ul">
+<h2 class="crunch-title crunch-ul anchored" data-anchor-id="the-standpoint-problem-revisited">The Standpoint Problem Revisited</h2>
+<ul>
+<li>Problem statement: Jeff can’t possibly “teach” data-ethical issues, w.r.t. how they affect women, in the same manner he can teach e.g.&nbsp;how to take a derivative</li>
+<li>Solution 1: Have a woman teach a guest lecture <span class="math inline">\(\rightarrow\)</span> (Possibility) Problem solved; (Possibility) Forcing additional labor onto women (see: 3 slides from now)</li>
+<li>Solution 2: Utilize the immense labor women have already put into trying to explain these issues to men with power, and amplify these already-existing products of this already-expended labor</li>
+</ul>
+</section>
+<section id="specifically-chosen-examples" class="level2 crunch-title">
+<h2 class="crunch-title anchored" data-anchor-id="specifically-chosen-examples">Specifically-Chosen Examples</h2>
+<div>
+
+</div>
+<div class="quarto-layout-panel" data-layout="[1,1,1]">
+<div class="quarto-layout-row">
+<div id="labor-left" class="quarto-layout-cell" style="flex-basis: 33.3%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/lebron.jpg" class="img-fluid quarto-figure quarto-figure-center figure-img" width="340"></p>
+</figure>
+</div>
+</div>
+<div id="labor-center" class="quarto-layout-cell" style="flex-basis: 33.3%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/racist.jpg" class="img-fluid quarto-figure quarto-figure-center figure-img" width="340"></p>
+</figure>
+</div>
+</div>
+<div id="labor-right" class="quarto-layout-cell" style="flex-basis: 33.3%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/invisible_women.jpg" class="img-fluid quarto-figure quarto-figure-center figure-img" width="340"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="with-great-privilege-comes-great-responsibility" class="level2 crunch-title crunch-blockquote title-07">
+<h2 class="crunch-title crunch-blockquote title-07 anchored" data-anchor-id="with-great-privilege-comes-great-responsibility">With Great Privilege Comes Great Responsibility</h2>
+<blockquote class="blockquote">
+<p>What is <strong>the most damage I can do</strong>, given my biography, abilities, and commitments, to the racial order and rule of capital? (<a href="https://en.wikipedia.org/wiki/Joel_Olson" target="_blank">Joel Olson</a>)</p>
+</blockquote>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/race_traitor_jacket.jpg" class="img-fluid quarto-figure quarto-figure-center figure-img" width="300"></p>
+</figure>
+</div>
+</section>
+<section id="youre-really-not-gonna-like-this-one-so-ill-just-show-it-real-quick-and-move-on" class="level2 crunch-title title-12 smaller crunch-blockquote">
+<h2 class="crunch-title title-12 smaller crunch-blockquote anchored" data-anchor-id="youre-really-not-gonna-like-this-one-so-ill-just-show-it-real-quick-and-move-on">(You’re <em>Really</em> Not Gonna Like This One, So I’ll Just Show It Real Quick And Move On)</h2>
+<blockquote class="blockquote">
+<p>Dolezal no doubt has her issues and idiosyncrasies, but, especially if the judgment of the NAACP counts for anything in the matter, I’d take her in a trade for Clarence Thomas, Cory Booker, and Condi Rice.</p>
+</blockquote>
+<blockquote class="blockquote">
+<p>Or would Dolezal’s “not even close to being black” mean that she was raised outside of “authentic” black idiom or cultural experience? But whose black idiom or cultural experience would that be? Is there really an irreducible, definitive one? If so, on which Racial Voice blog or Ivy League campus might we find it?</p>
+</blockquote>
+<blockquote class="blockquote">
+<p>In Blay’s narrow political universe, the NAACP branch presidency is an honorific to be awarded on the basis of ascriptive categories like race and gender, not the result of effective work on behalf of the Association’s mission and goals.</p>
+</blockquote>
+<p>(Adolph Reed, <a href="https://www.commondreams.org/views/2015/06/15/jenner-dolezal-one-trans-good-other-not-so-much" target="_blank">“From Jenner to Dolezal: One Trans Good, the Other Not So Much”</a>)</p>
+</section>
+<section id="the-diversity-in-tech-industrial-complex" class="level2 crunch-title title-08 crunch-li-6">
+<h2 class="crunch-title title-08 crunch-li-6 anchored" data-anchor-id="the-diversity-in-tech-industrial-complex">The “Diversity in Tech”-Industrial Complex</h2>
+<ul>
+<li>Problem: Not enough diversity in tech</li>
+<li>Solution 1: Intervene on the causal pathways leading to this outcome (incl.&nbsp;studying/tracing causal pathways)
+<ul>
+<li>Costs borne by tech companies; benefits accrue to marginalized ppl ❌🙅‍♂️⏹️</li>
+</ul></li>
+<li>Solution 2: Make marginalized ppl in tech jobs do tech jobs plus also extra job of explaining their marginalization to non-marginalized ppl (Third Shift?), who go home feeling good that they went to the diversity in tech panel (Brecht)
+<ul>
+<li>Costs borne by marginalized ppl; benefits accrue to tech companies ✅🎰🤑</li>
+</ul></li>
+</ul>
+</section>
+<section id="see-also" class="level2 crunch-title">
+<h2 class="crunch-title anchored" data-anchor-id="see-also">(See Also)</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/mlk_dream.jpg" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+</section>
+<section id="diversity-vs.-fairness-justice" class="level2">
+<h2 class="anchored" data-anchor-id="diversity-vs.-fairness-justice">“Diversity” vs.&nbsp;Fairness / Justice</h2>
+<ul>
+<li>(Only single-quoted, bc not as bad as “““terrorism”“” or “““smartness”““, but still p ill-defined!)</li>
+</ul>
+<div>
+
+</div>
+<div class="quarto-layout-panel" data-layout="[1,1]">
+<div class="quarto-layout-row quarto-layout-valign-center">
+<div id="diversity-left" class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="images/oakland_small.jpeg" class="img-fluid"></p>
+</div>
+<div id="diversity-right" class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="images/dc.jpeg" class="img-fluid"></p>
+</div>
+</div>
+</div>
+</section>
+<section id="diversity-vs.-fairness-justice-1" class="level2">
+<h2 class="anchored" data-anchor-id="diversity-vs.-fairness-justice-1">Diversity vs.&nbsp;Fairness / Justice</h2>
+<div>
+
+</div>
+<div class="quarto-layout-panel" data-layout="[1,1]">
+<div class="quarto-layout-row quarto-layout-valign-center">
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="images/oakland_map2.jpeg" class="img-fluid"></p>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="images/dc_map.jpeg" class="img-fluid"></p>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="data-feminism" class="level1" data-stack-name="Data Feminism">
+<h1 data-stack-name="Data Feminism">Data Feminism</h1>
+<section id="epistemological-one-way-mirror-2-electric-boogaloo" class="level2">
+<h2 class="anchored" data-anchor-id="epistemological-one-way-mirror-2-electric-boogaloo">Epistemological One-Way Mirror 2: Electric Boogaloo</h2>
+<blockquote class="blockquote">
+Representation of the world, like the world itself, is the work of men; they describe it from their own point of view, which they confuse with the absolute truth.<br>
+<div style="float: right;">
+<span class="citation" data-cites="beauvoir_second_1949">(<a href="#ref-beauvoir_second_1949" role="doc-biblioref">Beauvoir 1949</a>)</span>
+</div>
+</blockquote>
+</section>
+<section id="it-goes-without-saying" class="level2 crunch-title crunch-blockquote crunch-p">
+<h2 class="crunch-title crunch-blockquote crunch-p anchored" data-anchor-id="it-goes-without-saying">“It Goes Without Saying”</h2>
+<blockquote class="blockquote">
+<p>Whiteness and maleness are implicit. They are unquestioned. They are the default. And this reality is inescapable for anyone whose identity does not go without saying […] For anyone who is used to jarring up against a world that has not been designed around them and their needs.</p>
+</blockquote>
+<blockquote class="blockquote">
+<p>Belief in the objectivity, the rationality, the, as Catherine Mackinnon has it, “point-of-viewlessness” of the white, male perspective. Because this perspective is not articulated as white and male (because it doesn’t need to be), because it is the norm, it is presumed not to be subjective.</p>
+</blockquote>
+</section>
+<section id="people-male-animal-male" class="level2 crunch-title crunch-ul">
+<h2 class="crunch-title crunch-ul anchored" data-anchor-id="people-male-animal-male">People = Male, Animal = Male</h2>
+<ul>
+<li><em>“When I say ‘he’ I really mean ‘he or she’, obviously”</em></li>
+<li>Except… irrespective of what you really mean, or whether it’s ‘obvious’, it goes out into the world and has effects (reification),</li>
+<li>From <a href="https://www.sciencedirect.com/science/article/abs/pii/S0001879113000304" target="_blank">childhood</a> <span class="citation" data-cites="vervecken_changing_2013">(<a href="#ref-vervecken_changing_2013" role="doc-biblioref">Vervecken, Hannover, and Wolter 2013</a>)</span></li>
+<li>To <a href="https://onlinelibrary.wiley.com/doi/abs/10.1111/j.1559-1816.1973.tb01290.x" target="_blank">job-hunting</a> <span class="citation" data-cites="bem_does_1973">(<a href="#ref-bem_does_1973" role="doc-biblioref">Bem and Bem 1973</a>)</span></li>
+<li><a href="https://www.frontiersin.org/journals/psychology/articles/10.3389/fpsyg.2016.00025/full#B111" target="_blank">And beyond</a> <span class="citation" data-cites="sczesny_can_2016">(<a href="#ref-sczesny_can_2016" role="doc-biblioref">Sczesny, Formanowicz, and Moser 2016</a>)</span></li>
+<li>A stuffed animal must be “super-feminine” before “even close to half of participants will refer to it as she rather than he”. <span class="citation" data-cites="lambdin_animal_2003">(<a href="#ref-lambdin_animal_2003" role="doc-biblioref">Lambdin et al. 2003</a>)</span></li>
+</ul>
+</section>
+<section id="the-cowan-paradox" class="level2 crunch-title smaller">
+<h2 class="crunch-title smaller anchored" data-anchor-id="the-cowan-paradox">The Cowan “Paradox”</h2>
+<div>
+
+</div>
+<div class="quarto-layout-panel" data-layout="[1,1]">
+<div class="quarto-layout-row">
+<div id="cowan-left" class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<blockquote class="blockquote">
+<p>For many ages to come the old Adam will be so strong in us that everybody will need to do some work if he [sic] is to be contented […] But beyond this, we shall endeavour to spread the bread thin on the butter—to make what work there is still to be done to be as widely shared as possible. Three-hour shifts or a fifteen-hour week may put off the problem for a great while. For three hours a day is quite enough to satisfy the old Adam in most of us!</p>
+</blockquote>
+<p>(John Maynard Keynes, <a href="http://www.econ.yale.edu/smith/econ116a/keynes1.pdf" target="_blank">“Economic Possibilities for our Grandchildren”</a>, 1930)</p>
+</div>
+<div id="cowan-right" class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/more_work.jpg" class="img-fluid figure-img" width="350"></p>
+<figcaption><span class="citation" data-cites="cowan_more_1983">Cowan (<a href="#ref-cowan_more_1983" role="doc-biblioref">1983</a>)</span></figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="solving-all-the-problems" class="level1" data-stack-name="Solving All the Problems">
+<h1 data-stack-name="Solving All the Problems">Solving All the Problems</h1>
+<section id="solutions-via-causal-historical-analysis" class="level2">
+<h2 class="anchored" data-anchor-id="solutions-via-causal-historical-analysis">Solutions via Causal Historical Analysis</h2>
+<ul>
+<li>The data: historical cases of attempts to end oppression</li>
+<li>Dependent variable: Did they succeed or were they successfully repressed?</li>
+<li>(You’re not gonna like this one either…)</li>
+</ul>
+</section>
+<section id="instances-of-oppression-and-their-termination" class="level2">
+<h2 class="anchored" data-anchor-id="instances-of-oppression-and-their-termination">Instances of Oppression and their Termination</h2>
+<ul>
+<li>Slavery?</li>
+<li>Colonialism?</li>
+<li>Apartheid in South Africa / Rhodesia?</li>
+<li>The Ethnic Cleansing of Palestine?</li>
+<li>Thankfully, all of these were ended peacefully, and in ways that were agreeable to everyone involved, especially those who benefitted from them!!! 🥳🕺</li>
+</ul>
+</section>
+<section id="great-moments-in-peaceful-protest-history" class="level2 crunch-title title-12 smaller">
+<h2 class="crunch-title title-12 smaller anchored" data-anchor-id="great-moments-in-peaceful-protest-history">Great Moments in Peaceful Protest History</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/great-moments-in-peaceful-protest-history.jpg" class="img-fluid figure-img"></p>
+<figcaption>From The Nib (<a href="https://thenib.com/great-moments-in-peaceful-protest-history-44bdadb44cf/" target="_blank"><em>The Revolution WILL Be Given Permission</em></a>)</figcaption>
+</figure>
+</div>
+</section>
+<section id="references" class="level2">
+<h2 class="anchored" data-anchor-id="references">References</h2>
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-beauvoir_second_1949" class="csl-entry" role="listitem">
+Beauvoir, Simone de. 1949. <em>The <span>Second Sex</span></em>. Knopf Doubleday Publishing Group.
+</div>
+<div id="ref-bem_does_1973" class="csl-entry" role="listitem">
+Bem, Sandra L, and Daryl J. Bem. 1973. <span>“Does <span class="nocase">Sex-biased Job Advertising</span> <span>‘<span>Aid</span> and <span>Abet</span>’</span> <span>Sex Discrimination</span>?1.”</span> <em>Journal of Applied Social Psychology</em> 3 (1): 6–18. <a href="https://doi.org/10.1111/j.1559-1816.1973.tb01290.x">https://doi.org/10.1111/j.1559-1816.1973.tb01290.x</a>.
+</div>
+<div id="ref-cowan_more_1983" class="csl-entry" role="listitem">
+Cowan, Ruth Schwartz. 1983. <em>More <span>Work For Mother</span></em>. Basic Books.
+</div>
+<div id="ref-fraser_redistribution_2003" class="csl-entry" role="listitem">
+Fraser, Nancy, and Axel Honneth. 2003. <em>Redistribution <span>Or Recognition</span>?: <span>A Political-Philosophical Exchange</span></em>. Verso.
+</div>
+<div id="ref-lambdin_animal_2003" class="csl-entry" role="listitem">
+Lambdin, Jennifer R., Kristen M. Greer, Kari Selby Jibotian, Kelly Rice Wood, and Mykol C. Hamilton. 2003. <span>“The <span>Animal</span> = <span>Male Hypothesis</span>: <span>Children</span>’s and <span>Adults</span>’ <span>Beliefs About</span> the <span>Sex</span> of <span>Non</span>–<span>Sex-Specific Stuffed Animals</span>.”</span> <em>Sex Roles</em> 48 (11): 471–82. <a href="https://doi.org/10.1023/A:1023567010708">https://doi.org/10.1023/A:1023567010708</a>.
+</div>
+<div id="ref-sczesny_can_2016" class="csl-entry" role="listitem">
+Sczesny, Sabine, Magda Formanowicz, and Franziska Moser. 2016. <span>“Can <span>Gender-Fair Language Reduce Gender Stereotyping</span> and <span>Discrimination</span>?”</span> <em>Frontiers in Psychology</em> 7 (February). <a href="https://doi.org/10.3389/fpsyg.2016.00025">https://doi.org/10.3389/fpsyg.2016.00025</a>.
+</div>
+<div id="ref-vervecken_changing_2013" class="csl-entry" role="listitem">
+Vervecken, Dries, Bettina Hannover, and Ilka Wolter. 2013. <span>“Changing (<span>S</span>)expectations: <span>How</span> Gender Fair Job Descriptions Impact Children’s Perceptions and Interest Regarding Traditionally Male Occupations.”</span> <em>Journal of Vocational Behavior</em> 82 (3): 208–20. <a href="https://doi.org/10.1016/j.jvb.2013.01.008">https://doi.org/10.1016/j.jvb.2013.01.008</a>.
+</div>
+</div>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

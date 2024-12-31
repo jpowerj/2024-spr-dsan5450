@@ -1,0 +1,1340 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<link href="../favicon.png" rel="icon" type="image/png">
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-html/tabby.min.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-html.min.css" rel="stylesheet" data-mode="light">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.5.23">
+
+  <meta name="author" content="Jeff Jacobs">
+  <title>DSAN 5450 – Week 5: Context-Sensitive Fairness</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="../site_libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="../site_libs/revealjs/dist/reveal.css">
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+      vertical-align: middle;
+    }
+    /* CSS for syntax highlighting */
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      { color: #003b4f; background-color: #f1f3f5; }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span { color: #003b4f; } /* Normal */
+    code span.al { color: #ad0000; } /* Alert */
+    code span.an { color: #5e5e5e; } /* Annotation */
+    code span.at { color: #657422; } /* Attribute */
+    code span.bn { color: #ad0000; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #003b4f; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #20794d; } /* Char */
+    code span.cn { color: #8f5902; } /* Constant */
+    code span.co { color: #5e5e5e; } /* Comment */
+    code span.cv { color: #5e5e5e; font-style: italic; } /* CommentVar */
+    code span.do { color: #5e5e5e; font-style: italic; } /* Documentation */
+    code span.dt { color: #ad0000; } /* DataType */
+    code span.dv { color: #ad0000; } /* DecVal */
+    code span.er { color: #ad0000; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #ad0000; } /* Float */
+    code span.fu { color: #4758ab; } /* Function */
+    code span.im { color: #00769e; } /* Import */
+    code span.in { color: #5e5e5e; } /* Information */
+    code span.kw { color: #003b4f; font-weight: bold; } /* Keyword */
+    code span.op { color: #5e5e5e; } /* Operator */
+    code span.ot { color: #003b4f; } /* Other */
+    code span.pp { color: #ad0000; } /* Preprocessor */
+    code span.sc { color: #5e5e5e; } /* SpecialChar */
+    code span.ss { color: #20794d; } /* SpecialString */
+    code span.st { color: #20794d; } /* String */
+    code span.va { color: #111111; } /* Variable */
+    code span.vs { color: #20794d; } /* VerbatimString */
+    code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
+    /* CSS for citations */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+      margin-bottom: 0em;
+    }
+    .hanging-indent div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }  </style>
+  <link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto.css">
+  <link href="../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="../site_libs/revealjs/plugin/simplemenu/simplemenu.css" rel="stylesheet">
+  <link href="../site_libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <style type="text/css">
+
+  .callout {
+    margin-top: 1em;
+    margin-bottom: 1em;  
+    border-radius: .25rem;
+  }
+
+  .callout.callout-style-simple { 
+    padding: 0em 0.5em;
+    border-left: solid #acacac .3rem;
+    border-right: solid 1px silver;
+    border-top: solid 1px silver;
+    border-bottom: solid 1px silver;
+    display: flex;
+  }
+
+  .callout.callout-style-default {
+    border-left: solid #acacac .3rem;
+    border-right: solid 1px silver;
+    border-top: solid 1px silver;
+    border-bottom: solid 1px silver;
+  }
+
+  .callout .callout-body-container {
+    flex-grow: 1;
+  }
+
+  .callout.callout-style-simple .callout-body {
+    font-size: 1rem;
+    font-weight: 400;
+  }
+
+  .callout.callout-style-default .callout-body {
+    font-size: 0.9rem;
+    font-weight: 400;
+  }
+
+  .callout.callout-titled.callout-style-simple .callout-body {
+    margin-top: 0.2em;
+  }
+
+  .callout:not(.callout-titled) .callout-body {
+      display: flex;
+  }
+
+  .callout:not(.no-icon).callout-titled.callout-style-simple .callout-content {
+    padding-left: 1.6em;
+  }
+
+  .callout.callout-titled .callout-header {
+    padding-top: 0.2em;
+    margin-bottom: -0.2em;
+  }
+
+  .callout.callout-titled .callout-title  p {
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+  }
+    
+  .callout.callout-titled.callout-style-simple .callout-content  p {
+    margin-top: 0;
+  }
+
+  .callout.callout-titled.callout-style-default .callout-content  p {
+    margin-top: 0.7em;
+  }
+
+  .callout.callout-style-simple div.callout-title {
+    border-bottom: none;
+    font-size: .9rem;
+    font-weight: 600;
+    opacity: 75%;
+  }
+
+  .callout.callout-style-default  div.callout-title {
+    border-bottom: none;
+    font-weight: 600;
+    opacity: 85%;
+    font-size: 0.9rem;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+  }
+
+  .callout.callout-style-default div.callout-content {
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+  }
+
+  .callout.callout-style-simple .callout-icon::before {
+    height: 1rem;
+    width: 1rem;
+    display: inline-block;
+    content: "";
+    background-repeat: no-repeat;
+    background-size: 1rem 1rem;
+  }
+
+  .callout.callout-style-default .callout-icon::before {
+    height: 0.9rem;
+    width: 0.9rem;
+    display: inline-block;
+    content: "";
+    background-repeat: no-repeat;
+    background-size: 0.9rem 0.9rem;
+  }
+
+  .callout-title {
+    display: flex
+  }
+    
+  .callout-icon::before {
+    margin-top: 1rem;
+    padding-right: .5rem;
+  }
+
+  .callout.no-icon::before {
+    display: none !important;
+  }
+
+  .callout.callout-titled .callout-body > .callout-content > :last-child {
+    padding-bottom: 0.5rem;
+    margin-bottom: 0;
+  }
+
+  .callout.callout-titled .callout-icon::before {
+    margin-top: .5rem;
+    padding-right: .5rem;
+  }
+
+  .callout:not(.callout-titled) .callout-icon::before {
+    margin-top: 1rem;
+    padding-right: .5rem;
+  }
+
+  /* Callout Types */
+
+  div.callout-note {
+    border-left-color: #4582ec !important;
+  }
+
+  div.callout-note .callout-icon::before {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAAEU0lEQVRYCcVXTWhcVRQ+586kSUMMxkyaElstCto2SIhitS5Ek8xUKV2poatCcVHtUlFQk8mbaaziwpWgglJwVaquitBOfhQXFlqlzSJpFSpIYyXNjBNiTCck7x2/8/LeNDOZxDuEkgOXe++553zfefee+/OYLOXFk3+1LLrRdiO81yNqZ6K9cG0P3MeFaMIQjXssE8Z1JzLO9ls20MBZX7oG8w9GxB0goaPrW5aNMp1yOZIa7Wv6o2ykpLtmAPs/vrG14Z+6d4jpbSKuhdcSyq9wGMPXjonwmESXrriLzFGOdDBLB8Y6MNYBu0dRokSygMA/mrun8MGFN3behm6VVAwg4WR3i6FvYK1T7MHo9BK7ydH+1uurECoouk5MPRyVSBrBHMYwVobG2aOXM07sWrn5qgB60rc6mcwIDJtQrnrEr44kmy+UO9r0u9O5/YbkS9juQckLed3DyW2XV/qWBBB3ptvI8EUY3I9p/67OW+g967TNr3Sotn3IuVlfMLVnsBwH4fsnebJvyGm5GeIUA3jljERmrv49SizPYuq+z7c2H/jlGC+Ghhupn/hcapqmcudB9jwJ/3jvnvu6vu5lVzF1fXyZuZZ7U8nRmVzytvT+H3kilYvH09mLWrQdwFSsFEsxFVs5fK7A0g8gMZjbif4ACpKbjv7gNGaD8bUrlk8x+KRflttr22JEMRUbTUwwDQScyzPgedQHZT0xnx7ujw2jfVfExwYHwOsDTjLdJ2ebmeQIlJ7neo41s/DrsL3kl+W2lWvAga0tR3zueGr6GL78M3ifH0rGXrBC2aAR8uYcIA5gwV8zIE8onoh8u0Fca/ciF7j1uOzEnqcIm59sEXoGc0+z6+H45V1CvAvHcD7THztu669cnp+L0okAeIc6zjbM/24LgGM1gZk7jnRu1aQWoU9sfUOuhrmtaPIO3YY1KLLWZaEO5TKUbMY5zx8W9UJ6elpLwKXbsaZ4EFl7B4bMtDv0iRipKoDQT2sNQI9b1utXFdYisi+wzZ/ri/1m7QfDgEuvgUUEIJPq3DhX/5DWNqIXDOweC2wvIR90Oq3lDpdMIgD2r0dXvGdsEW5H6x6HLRJYU7C69VefO1x8Gde1ZFSJLfWS1jbCnhtOPxmpfv2LXOA2Xk2tvnwKKPFuZ/oRmwBwqRQDcKNeVQkYcOjtWVBuM/JuYw5b6isojIkYxyYAFn5K7ZBF10fea52y8QltAg6jnMqNHFBmGkQ1j+U43HMi2xMar1Nv0zGsf1s8nUsmUtPOOrbFIR8bHFDMB5zL13Gmr/kGlCkUzedTzzmzsaJXhYawnA3UmARpiYj5ooJZiUoxFRtK3X6pgNPv+IZVPcnwbOl6f+aBaO1CNvPW9n9LmCp01nuSaTRF2YxHqZ8DYQT6WsXT+RD6eUztwYLZ8rM+rcPxamv1VQzFUkzFXvkiVrySGQgJNvXHJAxiU3/NwiC03rSf05VBaPtu/Z7/B8Yn/w7eguloAAAAAElFTkSuQmCC');
+  }
+
+  div.callout-note.callout-style-default .callout-title {
+    background-color: #dae6fb
+  }
+
+  div.callout-important {
+    border-left-color: #d9534f !important;
+  }
+
+  div.callout-important .callout-icon::before {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAAEKklEQVRYCcVXTWhcVRS+575MJym48A+hSRFr00ySRQhURRfd2HYjk2SSTokuBCkU2o0LoSKKraKIBTcuFCoidGFD08nkBzdREbpQ1EDNIv8qSGMFUboImMSZd4/f9zJv8ibJMC8xJQfO3HPPPef7zrvvvnvviIkpC9nsw0UttFunbUhpFzFtarSd6WJkStVMw5xyVqYTvkwfzuf/5FgtkVoB0729j1rjXwThS7Vio+Mo6DNnvLfahoZ+i/o32lULuJ3NNiz7q6+pyAUkJaFF6JwaM2lUJlV0MlnQn5aTRbEu0SEqHUa0A4AdiGuB1kFXRfVyg5d87+Dg4DL6m2TLAub60ilj7A1Ec4odSAc8X95sHh7+ZRPCFo6Fnp7HfU/fBng/hi10CjCnWnJjsxvDNxWw0NfV6Rv5GgP3I3jGWXumdTD/3cbEOP2ZbOZp69yniG3FQ9z1jD7bnBu9Fc2tKGC2q+uAJOQHBDRiZX1x36o7fWBs7J9ownbtO+n0/qWkvW7UPIfc37WgT6ZGR++EOJyeQDSb9UB+DZ1G6DdLDzyS+b/kBCYGsYgJbSQHuThGKRcw5xdeQf8YdNHsc6ePXrlSYMBuSIAFTGAtQo+VuALo4BX83N190NWZWbynBjhOHsmNfFWLeL6v+ynsA58zDvvAC8j5PkbOcXCMg2PZFk3q8MjI7WAG/Dp9AwP7jdGBOOQkAvlFUB+irtm16I1Zw9YBcpGTGXYmk3kQIC/Cds55l+iMI3jqhjAuaoe+am2Jw5GT3Nbz3CkE12NavmzN5+erJW7046n/CH1RO/RVa8lBLozXk9uqykkGAyRXLWlLv5jyp4RFsG5vGVzpDLnIjTWgnRy2Rr+tDKvRc7Y8AyZq10jj8DqXdnIRNtFZb+t/ZRtXcDiVnzpqx8mPcDWxgARUqx0W1QB9MeUZiNrV4qP+Ehc+BpNgATsTX8ozYKL2NtFYAHc84fG7ndxUPr+AR/iQSns7uSUufAymwDOb2+NjK27lEFocm/EE2WpyIy/Hi66MWuMKJn8RvxIcj87IM5Vh9663ziW36kR0HNenXuxmfaD8JC7tfKbrhFr7LiZCrMjrzTeGx+PmkosrkNzW94ObzwocJ7A1HokLolY+AvkTiD/q1H0cN48c5EL8Crkttsa/AXQVDmutfyku0E7jShx49XqV3MFK8IryDhYVbj7Sj2P2eBxwcXoe8T8idsKKPRcnZw1b+slFTubwUwhktrfnAt7J++jwQtLZcm3sr9LQrjRzz6cfMv9aLvgmnAGvpoaGLxM4mAEaLV7iAzQ3oU0IvD5x9ix3yF2RAAuYAOO2f7PEFWCXZ4C9Pb2UsgDeVnFSpbFK7/IWu7TPTvBqzbGdCHOJQSxiEjt6IyZmxQyEJHv6xyQsYk//moVFsN2zP6fRImjfq7/n/wFDguUQFNEwugAAAABJRU5ErkJggg==');
+  }
+
+  div.callout-important.callout-style-default .callout-title {
+    background-color: #f7dddc
+  }
+
+  div.callout-warning {
+    border-left-color: #f0ad4e !important;
+  }
+
+  div.callout-warning .callout-icon::before {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAAETklEQVRYCeVWW2gcVRg+58yaTUnizqbipZeX4uWhBEniBaoUX1Ioze52t7sRq6APio9V9MEaoWlVsFasRq0gltaAPuxms8lu0gcviE/FFOstVbSIxgcv6SU7EZqmdc7v9+9mJtNks51NTUH84ed889/PP+cmxP+d5FIbMJmNbpREu4WUkiTtCicKny0l1pIKmBzovF2S+hIJHX8iEu3hZJ5lNZGqyRrGSIQpq15AzF28jgpeY6yk6GVdrfFqdrD6Iw+QlB8g0YS2g7dyQmXM/IDhBhT0UCiRf59lfqmmDvzRt6kByV/m4JjtzuaujMUM2c5Z2d6JdKrRb3K2q6mA+oYVz8JnDdKPmmNthzkAk/lN63sYPgevrguc72aZX/L9C6x09GYyxBgCX4NlvyGUHOKELlm5rXeR1kchuChJt4SSwyddZRXgvwMGvYo4QSlk3/zkHD8UHxwVJA6zjZZqP8v8kK8OWLnIZtLyCAJagYC4rTGW/9Pqj92N/c+LUaAj27movwbi19tk/whRCIE7Q9vyI6yvRpftAKVTdUjOW40X3h5OXsKCdmFcx0xlLJoSuQngnrJe7Kcjm4OMq9FlC7CMmScQANuNvjfP3PjGXDBaUQmbp296S5L4DrpbrHN1T87ZVEZVCzg1FF0Ft+dKrlLukI+/c9ENo+TvlTDbYFvuKPtQ9+l052rXrgKoWkDAFnvh0wTOmYn8R5f4k/jN/fZiCM1tQx9jQQ4ANhqG4hiL0qIFTGViG9DKB7GYzgubnpofgYRwO+DFjh0Zin2m4b/97EDkXkc+f6xYAPX0KK2I/7fUQuwzuwo/L3AkcjugPNixC8cHf0FyPjWlItmLxWw4Ou9YsQCr5fijMGoD/zpdRy95HRysyXA74MWOnscpO4j2y3HAVisw85hX5+AFBRSHt4ShfLFkIMXTqyKFc46xdzQM6XbAi702a7sy04J0+feReMFKp5q9esYLCqAZYw/k14E/xcLLsFElaornTuJB0svMuJINy8xkIYuL+xPAlWRceH6+HX7THJ0djLUom46zREu7tTkxwmf/FdOZ/sh6Q8qvEAiHpm4PJ4a/doJe0gH1t+aHRgCzOvBvJedEK5OFE5jpm4AGP2a8Dxe3gGJ/pAutug9Gp6he92CsSsWBaEcxGx0FHytmIpuqGkOpldqNYQK8cSoXvd+xLxXADw0kf6UkJNFtdo5MOgaLjiQOQHcn+A6h5NuL2s0qsC2LOM75PcF3yr5STuBSAcGG+meA14K/CI21HcS4LBT6tv0QAh8Dr5l93AhZzG5ZJ4VxAqdZUEl9z7WJ4aN+svMvwHHL21UKTd1mqvChH7/Za5xzXBBKrUcB0TQ+Ulgkfbi/H/YT5EptrGzsEK7tR1B7ln9BBwckYfMiuSqklSznIuoIIOM42MQO+QnduCoFCI0bpkzjCjddHPN/F+2Yu+sd9bKNpVwHhbS3LluK/0zgfwD0xYI5dXuzlQAAAABJRU5ErkJggg==');
+  }
+
+  div.callout-warning.callout-style-default .callout-title {
+    background-color: #fcefdc
+  }
+
+  div.callout-tip {
+    border-left-color: #02b875 !important;
+  }
+
+  div.callout-tip .callout-icon::before {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAADr0lEQVRYCe1XTWgTQRj9ZjZV8a9SPIkKgj8I1bMHsUWrqYLVg4Ue6v9BwZOxSYsIerFao7UiUryIqJcqgtpimhbBXoSCVxUFe9CTiogUrUp2Pt+3aUI2u5vdNh4dmMzOzHvvezuz8xNFM0mjnbXaNu1MvFWRXkXEyE6aYOYJpdW4IXuA4r0fo8qqSMDBU0v1HJUgVieAXxzCsdE/YJTdFcVIZQNMyhruOMJKXYFoLfIfIvVIMWdsrd+Rpd86ZmyzzjJmLStqRn0v8lzkb4rVIXvnpScOJuAn2ACC65FkPzEdEy4TPWRLJ2h7z4cArXzzaOdKlbOvKKX25Wl00jSnrwVxAg3o4dRxhO13RBSdNvH0xSARv3adTXbBdTf64IWO2vH0LT+cv4GR1DJt+DUItaQogeBX/chhbTBxEiZ6gftlDNXTrvT7co4ub5A6gp9HIcHvzTa46OS5fBeP87Qm0fQkr4FsYgVQ7Qg+ZayaDg9jhg1GkWj8RG6lkeSacrrHgDaxdoBiZPg+NXV/KifMuB6//JmYH4CntVEHy/keA6x4h4CU5oFy8GzrBS18cLJMXcljAKB6INjWsRcuZBWVaS3GDrqB7rdapVIeA+isQ57Eev9eCqzqOa81CY05VLd6SamW2wA2H3SiTbnbSxmzfp7WtKZkqy4mdyAlGx7ennghYf8voqp9cLSgKdqNfa6RdRsAAkPwRuJZNbpByn+RrJi1RXTwdi8RQF6ymDwGMAtZ6TVE+4uoKh+MYkcLsT0Hk8eAienbiGdjJHZTpmNjlbFJNKDVAp2fJlYju6IreQxQ08UJDNYdoLSl6AadO+fFuCQqVMB1NJwPm69T04Wv5WhfcWyfXQB+wXRs1pt+nCknRa0LVzSA/2B+a9+zQJadb7IyyV24YAxKp2Jqs3emZTuNnKxsah+uabKbMk7CbTgJx/zIgQYErIeTKRQ9yD9wxVof5YolPHqaWo7TD6tJlh7jQnK5z2n3+fGdggIOx2kaa2YI9QWarc5Ce1ipNWMKeSG4DysFF52KBmTNMmn5HqCFkwy34rDg05gDwgH3bBi+sgFhN/e8QvRn8kbamCOhgrZ9GJhFDgfcMHzFb6BAtjKpFhzTjwv1KCVuxHvCbsSiEz4CANnj84cwHdFXAbAOJ4LTSAawGWFn5tDhLMYz6nWeU2wJfIhmIJBefcd/A5FWQWGgrWzyORZ3Q6HuV+Jf0Bj+BTX69fm1zWgK7By1YTXchFDORywnfQ7GpzOo6S+qECrsx2ifVQAAAABJRU5ErkJggg==');
+  }
+
+  div.callout-tip.callout-style-default .callout-title {
+    background-color: #ccf1e3
+  }
+
+  div.callout-caution {
+    border-left-color: #fd7e14 !important;
+  }
+
+  div.callout-caution .callout-icon::before {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAACV0lEQVRYCdVWzWoUQRCuqp2ICBLJXgITZL1EfQDBW/bkzUMUD7klD+ATSHBEfAIfQO+iXsWDxJsHL96EHAwhgzlkg8nBg25XWb0zIb0zs9muYYWkoKeru+vn664fBqElyZNuyh167NXJ8Ut8McjbmEraKHkd7uAnAFku+VWdb3reSmRV8PKSLfZ0Gjn3a6Xlcq9YGb6tADjn+lUfTXtVmaZ1KwBIvFI11rRXlWlatwIAAv2asaa9mlB9wwygiDX26qaw1yYPzFXg2N1GgG0FMF8Oj+VIx7E/03lHx8UhvYyNZLN7BwSPgekXXLribw7w5/c8EF+DBK5idvDVYtEEwMeYefjjLAdEyQ3M9nfOkgnPTEkYU+sxMq0BxNR6jExrAI31H1rzvLEfRIdgcv1XEdj6QTQAS2wtstEALLG1yEZ3QhH6oDX7ExBSFEkFINXH98NTrme5IOaaA7kIfiu2L8A3qhH9zRbukdCqdsA98TdElyeMe5BI8Rs2xHRIsoTSSVFfCFCWGPn9XHb4cdobRIWABNf0add9jakDjQJpJ1bTXOJXnnRXHRf+dNL1ZV1MBRCXhMbaHqGI1JkKIL7+i8uffuP6wVQAzO7+qVEbF6NbS0LJureYcWXUUhH66nLR5rYmva+2tjRFtojkM2aD76HEGAD3tPtKM309FJg5j/K682ywcWJ3PASCcycH/22u+Bh7Aa0ehM2Fu4z0SAE81HF9RkB21c5bEn4Dzw+/qNOyXr3DCTQDMBOdhi4nAgiFDGCinIa2owCEChUwD8qzd03PG+qdW/4fDzjUMcE1ZpIAAAAASUVORK5CYII=');
+  }
+
+  div.callout-caution.callout-style-default .callout-title {
+    background-color: #ffe5d0
+  }
+
+  </style>
+  <style type="text/css">
+    .reveal div.sourceCode {
+      margin: 0;
+      overflow: auto;
+    }
+    .reveal div.hanging-indent {
+      margin-left: 1em;
+      text-indent: -1em;
+    }
+    .reveal .slide:not(.center) {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide.scrollable {
+      overflow-y: auto;
+    }
+    .reveal .footnotes {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide .absolute {
+      position: absolute;
+      display: block;
+    }
+    .reveal .footnotes ol {
+      counter-reset: ol;
+      list-style-type: none; 
+      margin-left: 0;
+    }
+    .reveal .footnotes ol li:before {
+      counter-increment: ol;
+      content: counter(ol) ". "; 
+    }
+    .reveal .footnotes ol li > p:first-child {
+      display: inline-block;
+    }
+    .reveal .slide ul,
+    .reveal .slide ol {
+      margin-bottom: 0.5em;
+    }
+    .reveal .slide ul li,
+    .reveal .slide ol li {
+      margin-top: 0.4em;
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide ul[role="tablist"] li {
+      margin-bottom: 0;
+    }
+    .reveal .slide ul li > *:first-child,
+    .reveal .slide ol li > *:first-child {
+      margin-block-start: 0;
+    }
+    .reveal .slide ul li > *:last-child,
+    .reveal .slide ol li > *:last-child {
+      margin-block-end: 0;
+    }
+    .reveal .slide .columns:nth-child(3) {
+      margin-block-start: 0.8em;
+    }
+    .reveal blockquote {
+      box-shadow: none;
+    }
+    .reveal .tippy-content>* {
+      margin-top: 0.2em;
+      margin-bottom: 0.7em;
+    }
+    .reveal .tippy-content>*:last-child {
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide > img.stretch.quarto-figure-center,
+    .reveal .slide > img.r-stretch.quarto-figure-center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-left,
+    .reveal .slide > img.r-stretch.quarto-figure-left  {
+      display: block;
+      margin-left: 0;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-right,
+    .reveal .slide > img.r-stretch.quarto-figure-right  {
+      display: block;
+      margin-left: auto;
+      margin-right: 0; 
+    }
+  </style>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+</head>
+<body class="quarto-light">
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide" class="quarto-title-block center">
+  <h1 class="title">Week 5: Context-Sensitive Fairness</h1>
+  <p class="subtitle"><em>DSAN 5450: Data Ethics and Policy</em><br><span class="subsubtitle">Spring 2024, Georgetown University</span></p>
+
+<div class="quarto-title-authors">
+<div class="quarto-title-author">
+<div class="quarto-title-author-name">
+Jeff Jacobs 
+</div>
+        <p class="quarto-title-affiliation">
+            <a href="mailto:jj1088@georgetown.edu" target="_blank"><code>jj1088@georgetown.edu</code></a>
+          </p>
+    </div>
+</div>
+
+  <p class="date">Wednesday, February 14, 2024</p>
+</section>
+<section>
+<section id="context-free-rightarrow-context-sensitive" class="title-slide slide level1 center" data-stack-name="Impossibility Results">
+<h1>Context-Free <span class="math inline">\(\rightarrow\)</span> Context-Sensitive</h1>
+<div class="hidden">
+<p><span class="math display">\[
+\DeclareMathOperator*{\argmax}{argmax}
+\DeclareMathOperator*{\argmin}{argmin}
+\newcommand{\nimplies}{\;\;\not\!\!\!\!\implies}
+\]</span></p>
+</div>
+</section>
+<section id="impossibility-results" class="slide level2">
+<h2>Impossibility Results</h2>
+<ul>
+<li>tldr: We cannot possibly achieve all three of <strong>equalized positive rates</strong> (often also termed “anti-classification”), classification <strong>parity</strong>, and <strong>calibration</strong> (regardless of <strong>base rates</strong>)</li>
+<li>More alarmingly: We can’t even achieve both classification <strong>parity</strong> and <strong>calibration</strong>, except in the special case of <strong>equal base rates</strong></li>
+</ul>
+</section>
+<section id="impossibility-vs.-impossibility" class="slide level2 smaller crunch-title">
+<h2>“Impossibility” vs.&nbsp;Impossibility</h2>
+<ul>
+<li>Sometimes “impossibility results” are, for all intents and purposes, mathematical curiosities: often there’s some <strong>pragmatic</strong> way of getting around them</li>
+<li>Example: “Arrow’s Impossibility Theorem”
+<ul>
+<li>[In theory] It is mathematically impossible to <strong>aggregate individual preferences</strong> into <strong>societal preferences</strong></li>
+<li>[The catch] True only if people are restricted to <strong>ordinal preferences</strong>: “I prefer <span class="math inline">\(x\)</span> to <span class="math inline">\(y\)</span>.” No more information allowed</li>
+<li>[The way around it] Allow people to indicate the <strong>magnitude</strong> of their preferences: “I prefer <span class="math inline">\(x\)</span> 5 times more than <span class="math inline">\(y\)</span>”</li>
+</ul></li>
+<li>In this case, though, there are direct and (often) unavoidable real-world barriers that fairness impossibility imposes 😕</li>
+</ul>
+</section>
+<section id="arrows-impossibility-theorem" class="slide level2 crunch-title smaller crunch-ul">
+<h2>Arrow’s Impossibility Theorem</h2>
+<ul>
+<li>Aziza, Bogdan, and Charles are competing in a <strong>fitness test</strong> with four events. Goal: determine who is <strong>most fit overall</strong></li>
+</ul>
+<table>
+<thead>
+<tr class="header">
+<th></th>
+<th>Run</th>
+<th>Jump</th>
+<th>Hurdle</th>
+<th>Weights</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Aziza</td>
+<td>10.1”</td>
+<td>6.0’</td>
+<td>40”</td>
+<td>150 lb</td>
+</tr>
+<tr class="even">
+<td>Bogdan</td>
+<td>9.2”</td>
+<td>5.9’</td>
+<td>42”</td>
+<td>140 lb</td>
+</tr>
+<tr class="odd">
+<td>Charles</td>
+<td>10.0”</td>
+<td>6.1’</td>
+<td>39”</td>
+<td>145 lb</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>We <strong>can</strong> rank unambiguously on <strong>individual events</strong>: <strong>Jump</strong>: Charles <span class="math inline">\(\succ_J\)</span> Aziza <span class="math inline">\(\succ_J\)</span> Bogdan</li>
+<li>Now, <strong>axioms</strong> for aggregation:
+<ul>
+<li><span class="math inline">\(\text{WP}\)</span> (Weak Pareto Optimality): if <span class="math inline">\(x \succ_i y\)</span> for all events <span class="math inline">\(i\)</span>, <span class="math inline">\(x \succ y\)</span></li>
+<li><span class="math inline">\(\text{IIA}\)</span> (Independence of Irrelevant Alternatives): If a fourth competitor enters, but Aziza and Bogdan still have the same relative standing on all events, their relative standing overall should not change</li>
+</ul></li>
+<li>Long story short: only aggregation that can satisfy these is “dictatorship”: choose one event, give it importance of 100%, the rest have importance 0% 😰</li>
+</ul>
+</section>
+<section id="propublica-vs.-northpointe" class="slide level2 smaller crunch-title">
+<h2>ProPublica vs.&nbsp;Northpointe</h2>
+<ul>
+<li>This is… an example with 1000s of books and papers and discussions around it! (A red flag 🚩, since, obsession with one example may conceal much wider range of issues!)</li>
+<li>But, tldr, Northpointe created a ML algorithm called COMPAS, used by court systems all over the US to predict “risk” of arrestees</li>
+<li>In 2016, ProPublica published results from an investigative report documenting COMPAS’s racial discrimination, in the form of violating <strong>equal error rates</strong> between black and white arrestees</li>
+<li>Northpointe responded that COMPAS does <strong>not</strong> discriminate, as it satisfies <strong>calibration</strong></li>
+<li>People have argued about who is “right” for 8 years, with some progress, but… not a lot</li>
+</ul>
+</section>
+<section id="so-what-do-we-do" class="slide level2 smaller crunch-title crunch-ul crunch-blockquote">
+<h2>So… What Do We Do?</h2>
+<ul>
+<li>One option: argue about which of the two definitions is “better” for the next 100 years (what is the best way to give food to the poor?)</li>
+</ul>
+<blockquote>
+<p>It appears to reveal an unfortunate but inexorable fact about our world: we must choose between two intuitively appealing ways to understand fairness in ML. Many scholars have done just that, defending either ProPublica’s or Northpointe’s definitions against what they see as the misguided alternative. <span class="citation" data-cites="simons_algorithms_2023">(<a href="#/references" role="doc-biblioref" onclick="">Simons 2023</a>)</span></p>
+</blockquote>
+<ul>
+<li>Another option: study and then work to ameliorate the social conditions which <strong>force us into</strong> this realm of mathematical impossibility (why do the poor have no food?)</li>
+</ul>
+<blockquote>
+<p>The impossibility result is about much more than math. [It occurs because] the underlying outcome is distributed unevenly in society. This is a fact about society, not mathematics, and requires engaging with a complex, checkered history of systemic racism in the US. Predicting an outcome whose distribution is shaped by this history requires tradeoffs because the inequalities and injustices are encoded in data—in this case, because America has criminalized Blackness for as long as America has existed.</p>
+</blockquote>
+</section>
+<section id="why-not-both" class="slide level2 smaller crunch-title crunch-ul">
+<h2>Why Not Both??</h2>
+<ul>
+<li>On the one hand: yes, both! On the other hand: <a hrf="https://en.wikipedia.org/wiki/Argument_to_moderation" target="_blank">fallacy of the “middle ground”</a></li>
+<li>We’re back at <strong>descriptive vs.&nbsp;normative</strong>:
+<ul>
+<li><strong>Descriptively</strong>, given 100 values <span class="math inline">\(v_1, \ldots, v_{100}\)</span>, their <strong>mean</strong> may be a good way to summarize, if we have to choose a single number</li>
+<li>But, <strong>normatively</strong>, imagine that these are <strong>opinions</strong> that people hold about fairness.</li>
+<li>Now, if it’s the US South in 1860 and <span class="math inline">\(v_i\)</span> represents person <span class="math inline">\(i\)</span>’s approval of slavery, from a sample of 100 people, then approx. 97 of the <span class="math inline">\(v_i\)</span>’s are “does not disapprove” <span class="citation" data-cites="rousey_friends_2001">(<a href="#/references" role="doc-biblioref" onclick="">Rousey 2001</a>)</span> — in this case, normatively, is the mean <span class="math inline">\(0.97\)</span> the “correct” answer?</li>
+</ul></li>
+<li>We have another case where, like the “grass is green” vs.&nbsp;“grass ought to be green” example, we cannot just “import” our logical/mathematical tools from the former to solve the latter! (However: this does <strong>not</strong> mean they are <strong>useless</strong>! This is the fallacy of the <strong>excluded middle</strong>, sort of the opposite of the fallacy of the middle ground)</li>
+<li>This is why we have <strong>ethical frameworks</strong> in the first place! Going back to <strong>Rawls</strong>: “97% of Americans think black people shouldn’t have rights” &nbsp;<span class="math inline">\(\nimplies\)</span>“black people shouldn’t have rights”, since rights are a <strong>primary good</strong></li>
+</ul>
+</section></section>
+<section>
+<section id="bringing-in-context" class="title-slide slide level1 center" data-stack-name="Context-Sensitive Fairness">
+<h1>Bringing in <em>Context</em></h1>
+
+</section>
+<section id="motivation-linguistic-meaning" class="slide level2">
+<h2>Motivation: Linguistic Meaning</h2>
+<div title="<i class='bi bi-info-circle pe-1'></i> The Distributional Hypothesis [@firth_selected_1968, 179]">
+<div class="callout callout-note no-icon callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong><i class="bi bi-info-circle pe-1"></i> The Distributional Hypothesis <span class="citation" data-cites="firth_selected_1968">(<a href="#/references" role="doc-biblioref" onclick="">Firth 1968, 179</a>)</span></strong></p>
+</div>
+<div class="callout-content">
+<p><strong>You shall know a word by the company it keeps!</strong></p>
+</div>
+</div>
+</div>
+</div>
+<ul>
+<li>Related to Chomsky’s <strong>context-free</strong> vs.&nbsp;<strong>context-sensitive</strong> distinction!</li>
+<li>But why is it relevant to DSAN 5450?…</li>
+</ul>
+</section>
+<section id="the-meaning-of-fairness" class="slide level2">
+<h2>The “Meaning” of Fairness</h2>
+<div title="<i class='bi bi-info-circle pe-1'></i> The Distributional [Fairness] Hypothesis">
+<div class="callout callout-note no-icon callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong><i class="bi bi-info-circle pe-1"></i> The Distributional [Fairness] Hypothesis</strong></p>
+</div>
+<div class="callout-content">
+<p><strong>You shall know “fairness” by the company it keeps [i.e., the context it incorporates].</strong></p>
+</div>
+</div>
+</div>
+</div>
+<ul>
+<li>Context-free (confusion-matrix-based) fairness: “plug the confusion matrix values into a formula and see if the formula is satisfied”</li>
+<li>Context-sensitive fairness: analyze fairness <strong>relative to</strong> a set of <strong>antecedents</strong> regarding how <strong>normative concerns</strong> should enter into our measurements of fairness</li>
+</ul>
+</section></section>
+<section>
+<section id="similarity-based-fairness" class="title-slide slide level1 center" data-stack-name="Similarity-Based Fairness">
+<h1>Similarity-Based Fairness</h1>
+
+</section>
+<section id="group-fairness-rightarrow-individual-fairness" class="slide level2">
+<h2>Group Fairness <span class="math inline">\(\rightarrow\)</span> Individual Fairness</h2>
+<ul>
+<li>The crucial insight of Dwork: <strong>group-level</strong> fairness does not ensure that <strong>individuals</strong> are treated fairly <strong>as individuals</strong></li>
+<li>Exactly the issue we’ve seen with <strong>utilitarianism</strong>: optimizing <strong>society-level</strong> “happiness” may lead to <strong>individuals</strong> being brutally mistreated (e.g., having their rights violated)</li>
+<li>So, at a high level, Dwork’s proposal could provide a Rawls-style <strong>ordering</strong>: individual fairness <strong>lexically prior</strong> to group-level fairness (optimize group-level fairness once individual-level is satisfied)</li>
+</ul>
+</section>
+<section id="the-normative-antecedent" class="slide level2 crunch-title crunch-ul crunch-callout crunch-blockquote crunch-quarto-layout-panel">
+<h2>The (Normative!) Antecedent</h2>
+<div title="Fairness Through Awareness [@dwork_fairness_2011]">
+<div class="callout callout-note no-icon callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>Fairness Through Awareness <span class="citation" data-cites="dwork_fairness_2011">(<a href="#/references" role="doc-biblioref" onclick="">Dwork et al. 2011</a>)</span></strong></p>
+</div>
+<div class="callout-content">
+<p><strong>Individuals who are similar with respect to a task should be classified similarly.</strong></p>
+</div>
+</div>
+</div>
+</div>
+<div class="quarto-layout-panel" data-layout="[1,1]">
+<div class="quarto-layout-row">
+<div id="awareness-left" class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<ul>
+<li>Not well-liked in industry / policy because you can’t just “plug in” results of your classifier and get True/False “we satisfied fairness!” …But this is <strong>exactly the point!</strong></li>
+</ul>
+</div>
+<div id="awareness-right" class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="images/manymetrics.png" width="370"></p>
+<figcaption>From <span class="citation" data-cites="kiat_machines_2018">Kiat (<a href="#/references" role="doc-biblioref" onclick="">2018</a>)</span></figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="bringing-in-context-1" class="slide level2">
+<h2>Bringing In Context</h2>
+<ul>
+<li><em>In itself, the principle of equal treatment is abstract, a formal relationship that <strong>lacks substantive content</strong>”</em></li>
+<li><em>The principle must be given content by defining which cases are similar and which are different, and by considering what kinds of differences <strong>justify differential treatment</strong></em></li>
+<li><em>Deciding what differences are relevant, and what kinds of differential treatment are justified by particular differences, requires <strong>wrestling with moral and political debates</strong> about the responsibilities of different institutions to address persistent injustice</em> <span class="citation" data-cites="simons_algorithms_2023">(<a href="#/references" role="doc-biblioref" onclick="">Simons 2023, 51</a>)</span></li>
+</ul>
+</section>
+<section id="remember-distance-metrics" class="slide level2 crunch-title crunch-quarto-layout-panel crunch-ul text-90">
+<h2>Remember Distance Metrics?(!)</h2>
+<div class="quarto-layout-panel" data-layout="[1,1]">
+<div class="quarto-layout-row">
+<div id="distance-left" class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<ul>
+<li>A core element in <strong>both</strong> similarity-based and causal fairness!</li>
+<li>Already difficult to choose a metric on <strong>pragmatic</strong> grounds (ambulance needs to get to hospital)</li>
+<li>Now people will also have <strong>fundamental normative disagreements</strong> about what should and should not <strong>determine difference</strong></li>
+</ul>
+</div>
+<div id="distance-right" class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="images/medical_distances.jpg" width="380"></p>
+<figcaption>From <span class="citation" data-cites="shahid_comparison_2009">Shahid et al. (<a href="#/references" role="doc-biblioref" onclick="">2009</a>)</span></figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="satisfying-individual-vs.-group-fairness" class="slide level2 smaller crunch-title title-09">
+<h2>Satisfying Individual vs.&nbsp;Group Fairness</h2>
+<ul>
+<li><p>An algorithm is <strong>individually fair</strong> if, for all individuals <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span>, we have</p>
+<p><span class="math display">\[
+\textsf{dist}(r(x), r(y)) \leq \textsf{dist}(x, y)
+\]</span></p>
+<p><span class="math inline">\(\implies\)</span> an advertising system must show similar sets of ads to similar users.</p></li>
+<li><p>It achieves <strong>group fairness-through-parity</strong> for two groups of users <span class="math inline">\(S\)</span> and <span class="math inline">\(T\)</span> when:</p>
+<p><span class="math display">\[
+\textsf{dist}(\mathbb{E}_{s \in S}[r(s)], \mathbb{E}_{t \in T}[r(t)]) \leq \varepsilon
+\]</span></p>
+<p>where <span class="math inline">\(\mathbb{E}_{s \in S}\)</span> and <span class="math inline">\(\mathbb{E}_{t \in T}\)</span> denote the expectation of ads seen by an individual chosen uniformly among <span class="math inline">\(S\)</span> and <span class="math inline">\(T\)</span>. This definition implies that the difference in probability between two groups of seeing a particular ad will be bounded by <span class="math inline">\(\varepsilon\)</span>.</p></li>
+<li><p>Given these definitions: Individual fairness&nbsp; <span class="math inline">\(\nimplies\)</span> group fairness, and vice versa! <span class="citation" data-cites="riederer_price_2017">(<a href="#/references" role="doc-biblioref" onclick="">Riederer and Chaintreau 2017</a>)</span></p></li>
+</ul>
+</section>
+<section id="the-importance-of-not-excluding-race" class="slide level2 crunch-title title-09">
+<h2>The Importance of <em>Not</em> Excluding Race!</h2>
+<ul>
+<li>On HW2 you will see how, on the one hand: <strong>excluding</strong> race from the similarity metric ensures <strong>race-blind fairness</strong></li>
+<li>But, on the other hand: race-blind fairness can not only <strong>maintain</strong> but also <strong>amplify</strong> preexisting inequalities</li>
+<li>By <strong>including race</strong> in our similarity metric, we can explicitly take this into account!</li>
+<li>Ex: someone with a (morally irrelevant) disadvantage due to <strong>birth lottery</strong> who achieves an SAT score of 1400 is <strong>similar to</strong> someone with a (morally irrelevant) advantage due to birth lottery who achieves an SAT score of 1500</li>
+</ul>
+</section>
+<section id="equality-of-opportunity" class="slide level2 crunch-title crunch-ul crunch-quarto-layout-panel smaller">
+<h2>Equality of Opportunity</h2>
+<div class="quarto-layout-panel" data-layout="[1,1]">
+<div class="quarto-layout-row">
+<div id="roemer-left" class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<ul>
+<li>This notion (last bullet of the previous slide) is <strong>contentious</strong>, to say the least</li>
+<li>But also, crucially: our job is not to <strong>decide the similarity metric unilaterally</strong>!</li>
+<li>The <strong>equality of opportunity</strong> approach is <strong>not itself a similarity metric!</strong></li>
+<li>It is a <strong>“meta-algorithm”</strong> for <strong>translating</strong> normative positions (consequents of an ethical framework) into <strong>concrete fairness constraints</strong> that you can then impose on ML algorithms</li>
+</ul>
+</div>
+<div id="roemer-right" class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="images/roemer-equality.jpg" width="340"></p>
+<figcaption><span class="citation" data-cites="roemer_equality_1998">Roemer (<a href="#/references" role="doc-biblioref" onclick="">1998</a>)</span></figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="roemers-algorithm" class="slide level2 smaller crunch-title">
+<h2>Roemer’s Algorithm</h2>
+<ul>
+<li>Roughly, the Equality of Opportunity algorithm boils down to:</li>
+<li><em>Input 1 (!)</em>: A set of attributes <span class="math inline">\(X_{\text{advantage}}\)</span> that a society (real or hypothetical) considers <strong>normatively relevant</strong> for an outcome, but that people are not <strong>individually responsible</strong> for (e.g., race or nationality via birth lottery)</li>
+<li><em>Input 2</em>: A set of attributes <span class="math inline">\(X_{\text{merit}}\)</span> that a society considers appropriate to hold people <strong>individually responsible</strong> for (e.g., effort, sacrificing short-term pleasure for longer-term benefits, etc.)</li>
+<li><em>Step 1</em>: Set of individuals in society <span class="math inline">\(S\)</span> is <strong>partitioned</strong> into subsets <span class="math inline">\(S_i\)</span>, where <span class="math inline">\(i\)</span> is some combination of particular <strong>values</strong> for the attributes in <span class="math inline">\(X_{\text{advantage}}\)</span></li>
+<li><em>Step 2</em>: Individuals’ <strong>context-sensitive scores</strong> are computed <strong>relative to their group</strong> <span class="math inline">\(S_i\)</span>, as <span class="math inline">\(z\)</span>-score of their <span class="math inline">\(X_{\text{merit}}\)</span> value relative to <strong>distribution</strong> of <span class="math inline">\(X_{\text{merit}}\)</span> values across <span class="math inline">\(S_i\)</span></li>
+<li><em>Outcome</em>: Now that we have <strong>incorporated social context</strong>, by converting the original <strong>context-free units</strong> (e.g., numeric SAT score) into <strong>context-sensitive units</strong> (<span class="math inline">\(z\)</span>-score of numeric SAT score within distribution of comparable individuals), we can compare people <strong>across groups</strong> on the basis of <strong>context-sensitive</strong> scores!</li>
+</ul>
+</section></section>
+<section>
+<section id="causal-fairness" class="title-slide slide level1 center" data-stack-name="Causal Fairness">
+<h1>Causal Fairness</h1>
+
+</section>
+<section id="the-state-of-the-art" class="slide level2">
+<h2>The State of the Art!</h2>
+<ul>
+<li>My view of the current state of fairness in AI: measures which explicitly model <strong>causal connections</strong> between variables of interest are the most promising for <strong>robust</strong> notions of fairness</li>
+<li>Robust in the sense of:
+<ul>
+<li>Being <strong>normatively desirable</strong> (as in, matching the key tenets of our ethical frameworks) while also being</li>
+<li><strong>Descriptively tractable</strong> (as in, concretely implementable in math/code, and transparent enough to allow us to <em>evaluate</em> and <em>update</em> these implementations, using a process like <em>reflective equilibrium</em>).</li>
+</ul></li>
+</ul>
+</section>
+<section id="the-antecedent" class="slide level2">
+<h2>The Antecedent</h2>
+<blockquote>
+<p>Since it’s impossible to <strong>eliminate</strong> information about sensitive attributes like race/gender/etc. from our ML algorithms, fairness should instead be defined on the basis of <strong>how this sensitive information “flows” through the causal chain of decisions</strong> which lead to an given (observed) outcome</p>
+</blockquote>
+</section>
+<section id="the-new-object-of-analysis-causal-pathways" class="slide level2">
+<h2>The New Object of Analysis: <em>Causal Pathways</em></h2>
+<p>The reason this approach is so promising is because, once we have a <strong>model</strong> of the <strong>causal connections</strong> among the variables that we care about (socially/normatively), and among the variables that are used by a Machine Learning algorithm, we can then use techniques developed by statisticians who study <strong>causal inference</strong> to <strong>block</strong> certain “causal pathways” that we deem normatively unjustifiable while <strong>allowing</strong> other pathways that we deem to be normatively justifiable.</p>
+</section>
+<section id="causal-fairness-in-hw2" class="slide level2">
+<h2>Causal Fairness in HW2</h2>
+<p>Given this, the first subpart of this portion of the assignment will focus specifically on helping you develop intuition around the way of thinking required to make the jump from the <strong>correlational</strong> approach used in statistics and probability generally (and used in DSAN 5100 specifically!) to the <strong>causal</strong> approach which builds on the correlational approach but has a stricter standard for determining whether two or more Random Variables are related to one another. Then, in the second subpart, you will take this intuition and use it to evaluate fairness in a real-world setting!</p>
+</section>
+<section id="causal-building-blocks" class="slide level2 crunch-ul text-90">
+<h2>Causal Building Blocks</h2>
+<ul>
+<li>DSAN 5100 precedent: nodes in the network <span class="math inline">\(X\)</span>, <span class="math inline">\(Y\)</span> are <strong>Random Variables</strong>, connections <span class="math inline">\(X \leftrightarrow Y\)</span> are <strong>joint distributions</strong> <span class="math inline">\(\Pr(X, Y)\)</span></li>
+<li><strong>Directional</strong> edges <span class="math inline">\(X \rightarrow Y\)</span>, then, just represent <strong>conditional</strong> distributions: <span class="math inline">\(X \rightarrow Y\)</span> is <span class="math inline">\(\Pr(Y \mid X)\)</span></li>
+<li>Where we’re going: connections <span class="math inline">\(X \leftrightarrow Y\)</span> represent <strong>unknown but extant causal connections</strong> between <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span>, while <span class="math inline">\(X \rightarrow Y\)</span> represents a <strong>causal relationship</strong> between <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span></li>
+<li>Specifically, <span class="math inline">\(X \rightarrow Y\)</span> now means: <strong>an intervention that changes the value of <span class="math inline">\(X\)</span></strong> by <span class="math inline">\(\varepsilon\)</span> <strong>causes a change in the value of <span class="math inline">\(Y\)</span></strong> by <span class="math inline">\(f(\varepsilon)\)</span></li>
+</ul>
+</section>
+<section id="the-intuitive-problem-of-causal-inference" class="slide level2 title-09">
+<h2>The Intuitive Problem of Causal Inference</h2>
+<div class="columns">
+<div class="column" style="width:65%;">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="index_files/figure-revealjs/ski-revenue-lawyers-1.png" class="quarto-figure quarto-figure-center" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+</div><div class="column" style="width:35%;">
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a></a><span class="fu">cor</span>(ski_df<span class="sc">$</span>value, law_df<span class="sc">$</span>value)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.9921178</code></pre>
+</div>
+</div>
+<div style="font-size: 50% !important;">
+<p>(Based on <a href="http://web.archive.org/web/20191006000802/http://tylervigen.com/view_correlation?id=29272" target="_blank">Spurious Correlations</a>, Tyler Vigen)</p>
+</div>
+</div>
+</div>
+</section>
+<section id="the-fundamental-problem-of-causal-inference" class="slide level2 crunch-title crunch-ul crunch-callout title-08 scrollable">
+<h2>The <em>Fundamental</em> Problem of Causal Inference</h2>
+<p>The only workable definition of “<span class="math inline">\(X\)</span> causes <span class="math inline">\(Y\)</span>”:</p>
+<div title="<i class='bi bi-info-circle pe-1'></i> Defining Causality">
+<div class="callout callout-note no-icon callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong><i class="bi bi-info-circle pe-1"></i> Defining Causality</strong></p>
+</div>
+<div class="callout-content">
+<p><span class="math inline">\(X\)</span> causes <span class="math inline">\(Y\)</span> if and only if:</p>
+<ol type="1">
+<li><em>X</em> temporally precedes <span class="math inline">\(Y\)</span> and</li>
+<li><em>In two worlds <span class="math inline">\(W_0\)</span> and <span class="math inline">\(W_1\)</span> where everything is exactly the same <strong>except that</strong> <span class="math inline">\(X = 0\)</span> in <span class="math inline">\(W_0\)</span> and <span class="math inline">\(X = 1\)</span> in <span class="math inline">\(W_1\)</span>, <span class="math inline">\(Y = 0\)</span> in <span class="math inline">\(W_0\)</span> and <span class="math inline">\(Y = 1\)</span> in <span class="math inline">\(W_1\)</span></em> <span class="citation" data-cites="hume_treatise_1739">(<a href="#/references" role="doc-biblioref" onclick="">Hume 1739</a>)</span></li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<ul>
+<li>The problem? We live in <strong>one</strong> world, not two simultaneous worlds 😭</li>
+</ul>
+</section>
+<section id="what-is-to-be-done" class="slide level2">
+<h2>What Is To Be Done?</h2>
+
+<img data-src="images/face_everything_and_rise.jpg" class="quarto-figure quarto-figure-center r-stretch"></section>
+<section id="face-everything-and-rise-controlled-randomized-experiment-paradigm" class="slide level2">
+<h2>Face Everything And Rise: Controlled, Randomized Experiment Paradigm</h2>
+<ul>
+<li>Find good comparison cases: <strong>Treatment</strong> and <strong>Control</strong></li>
+<li>Without a control group, you cannot make inferences!</li>
+<li><em>Selecting on the dependent variable…</em></li>
+</ul>
+</section>
+<section id="selecting-on-the-dependent-variable" class="slide level2 smaller">
+<h2>Selecting on the Dependent Variable</h2>
+
+<img data-src="images/school-shootings.jpeg" class="r-stretch quarto-figure-center"><p class="caption"><a href="https://www.pbs.org/newshour/show/what-research-says-about-identifying-people-who-might-commit-mass-shootings" target="_blank">What “““research”“” “““says”“” about identifying people who might commit mass shootings</a></p><ul>
+<li>Jeff’s rant: If you care about actually solving social issues, this should <strong>infuriate you</strong></li>
+</ul>
+</section>
+<section id="complications-selection" class="slide level2">
+<h2>Complications: Selection</h2>
+<ul>
+<li>Tldr: Why did this person (unit) end up in the treatment group? Why did this other person (unit) end up in the control group?</li>
+<li>Are there systematic differences?</li>
+<li>Vietnam/Indochina Draft: Why can’t we just study [men who join the military] versus [men who don’t], and take the difference as a causal estimate?</li>
+</ul>
+</section>
+<section id="complications-compliance" class="slide level2">
+<h2>Complications: Compliance</h2>
+<ul>
+<li>We ideally want people assigned to the treatment to take the treatment, and people assigned to the control to take the control.</li>
+<li>“Compliance”: degree to which this is true in experiment
+<ul>
+<li>High compliance = most people actually took what they were assigned</li>
+<li>Low compliance = lots of people who were assigned to treatment actually took control, and vice-versa</li>
+</ul></li>
+<li>What problems might exist w.r.t compliance in the Draft example?</li>
+</ul>
+</section>
+<section id="next-week-and-hw2-experimental-rightarrow-observational-data" class="slide level2">
+<h2>Next Week and HW2: Experimental <span class="math inline">\(\rightarrow\)</span> Observational Data</h2>
+<ul>
+<li>In observational studies, researchers have no control over assignment to treatment/control 😨</li>
+<li>On the one hand… Forget Everything And Run [to randomized, controlled experiments], if you can.</li>
+<li>On the other hand… statisticians over the last ~4 centuries have developed fancy causal inference tools/techniques to help us Face Everything And Rise 🧐</li>
+</ul>
+</section>
+<section id="for-now-matching" class="slide level2">
+<h2>For Now: <em>Matching</em></h2>
+<ul>
+<li>In a <strong>randomized, controlled experiment</strong>, we can <strong>ensure</strong> (since we have control over the <strong>assignment mechanism</strong>) that the <strong>only systematic difference</strong> between <span class="math inline">\(C\)</span> and <span class="math inline">\(T\)</span> is that <span class="math inline">\(T\)</span> received the treatment and <span class="math inline">\(C\)</span> did not</li>
+<li>In an <strong>observational study</strong>, we “show up too late”!</li>
+<li>Thus, we no longer refer to <strong>assignment</strong> but to <strong>selection</strong></li>
+<li>And, our job is to <strong>figure out</strong> (reverse engineer!) the <strong>selection mechanism</strong>, then <strong>correct for its non-randomness</strong>: basically, we “transform” from observational to experimental setting through <strong>weighting</strong></li>
+</ul>
+</section>
+<section id="references" class="slide level2 smaller scrollable">
+<h2>References</h2>
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-dwork_fairness_2011" class="csl-entry" role="listitem">
+Dwork, Cynthia, Moritz Hardt, Toniann Pitassi, Omer Reingold, and Rich Zemel. 2011. <span>“Fairness <span>Through Awareness</span>.”</span> arXiv. <a href="https://doi.org/10.48550/arXiv.1104.3913">https://doi.org/10.48550/arXiv.1104.3913</a>.
+</div>
+<div id="ref-firth_selected_1968" class="csl-entry" role="listitem">
+Firth, John Rupert. 1968. <em>Selected <span>Papers</span> of <span>J</span>.<span>R</span>. <span>Firth</span>, 1952-59</em>. Longmans.
+</div>
+<div id="ref-hume_treatise_1739" class="csl-entry" role="listitem">
+Hume, David. 1739. <em>A <span>Treatise</span> of <span>Human Nature</span>: <span>Being</span> an <span>Attempt</span> to <span>Introduce</span> the <span>Experimental Method</span> of <span>Reasoning Into Moral Subjects</span>; and <span>Dialogues Concerning Natural Religion</span></em>. Longmans, Green.
+</div>
+<div id="ref-kiat_machines_2018" class="csl-entry" role="listitem">
+Kiat, Lim Swee. 2018. <span>“Machines <span>Gone Wrong</span>.”</span> PhD thesis, Singapore University of Technology; Design. <a href="https://machinesgonewrong.com/about/">https://machinesgonewrong.com/about/</a>.
+</div>
+<div id="ref-riederer_price_2017" class="csl-entry" role="listitem">
+Riederer, Christopher, and Augustin Chaintreau. 2017. <span>“The <span>Price</span> of <span>Fairness</span> in <span>Location Based Advertising</span>.”</span> <em>Fairness, Accountability, and Transparency Workshop on Responsible Recommendation</em>. <a href="https://doi.org/10.18122/B2MD8C">https://doi.org/10.18122/B2MD8C</a>.
+</div>
+<div id="ref-roemer_equality_1998" class="csl-entry" role="listitem">
+Roemer, John E. 1998. <em>Equality of <span>Opportunity</span></em>. Harvard University Press.
+</div>
+<div id="ref-rousey_friends_2001" class="csl-entry" role="listitem">
+Rousey, Dennis C. 2001. <span>“Friends and <span>Foes</span> of <span>Slavery</span>: <span>Foreigners</span> and <span>Northerners</span> in the <span>Old South</span>.”</span> <em>Journal of Social History</em> 35 (2): 373–96. <a href="https://www.jstor.org/stable/3790193">https://www.jstor.org/stable/3790193</a>.
+</div>
+<div id="ref-shahid_comparison_2009" class="csl-entry" role="listitem">
+Shahid, Rizwan, Stefania Bertazzon, Merril L. Knudtson, and William A. Ghali. 2009. <span>“Comparison of Distance Measures in Spatial Analytical Modeling for Health Service Planning.”</span> <em>BMC Health Services Research</em> 9 (1): 200. <a href="https://doi.org/10.1186/1472-6963-9-200">https://doi.org/10.1186/1472-6963-9-200</a>.
+</div>
+<div id="ref-simons_algorithms_2023" class="csl-entry" role="listitem">
+Simons, Josh. 2023. <em>Algorithms for the <span>People</span>: <span>Democracy</span> in the <span>Age</span> of <span>AI</span></em>. Princeton University Press.
+</div>
+</div>
+
+<div class="quarto-auto-generated-content">
+<div class="footer footer-default">
+<p>DSAN 5450 Week 5: Context-Sensitive Fairness</p>
+</div>
+</div>
+</section></section>
+    </div>
+  </div>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script>
+  <script src="../site_libs/revealjs/dist/reveal.js"></script>
+  <!-- reveal.js plugins -->
+  <script src="../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="../site_libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="../site_libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="../site_libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="../site_libs/revealjs/plugin/simplemenu/simplemenu.js"></script>
+  <script src="../site_libs/revealjs/plugin/quarto-support/support.js"></script>
+  
+
+  <script src="../site_libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="../site_libs/revealjs/plugin/search/search.js"></script>
+  <script src="../site_libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="../site_libs/revealjs/plugin/math/math.js"></script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+'controlsAuto': true,
+'previewLinksAuto': false,
+'pdfSeparateFragments': false,
+'autoAnimateEasing': "ease",
+'autoAnimateDuration': 1,
+'autoAnimateUnmatched': true,
+'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
+'simplemenu': {"menubarclass":"menubar","menuclass":"menu","activeclass":"active","activeelement":"li","flat":true,"barhtml":{"header":"<div class='menubar'><span style='position: absolute; left: 8; padding-left: 8px;'><a href='./index.html'>&larr; Return to Notes</a></span><ul class='menu'></ul></div>","footer":""},"scale":0.5},
+'smaller': false,
+ 
+        // Display controls in the bottom right corner
+        controls: false,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: false,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'edges',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
+        progress: true,
+
+        // Display the page number of the current slide
+        slideNumber: 'c/t',
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
+        // Push each slide change to the browser history
+        history: true,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: true,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
+        center: false,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'linear',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: false,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'none',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'none',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1050,
+
+        height: 700,
+
+        // Factor of the display size that should remain empty around the content
+        margin: 0.1,
+
+        math: {
+          mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js',
+          config: 'TeX-AMS_HTML-full',
+          tex2jax: {
+            inlineMath: [['\\(','\\)']],
+            displayMath: [['\\[','\\]']],
+            balanceBraces: true,
+            processEscapes: false,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+          },
+        },
+
+        // reveal.js plugins
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, Simplemenu, QuartoSupport,
+
+          RevealMath,
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    
+    <script>
+      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+      // slide changes (different for each slide format).
+      (function () {
+        // dispatch for htmlwidgets
+        function fireSlideEnter() {
+          const event = window.document.createEvent("Event");
+          event.initEvent("slideenter", true, true);
+          window.document.dispatchEvent(event);
+        }
+
+        function fireSlideChanged(previousSlide, currentSlide) {
+          fireSlideEnter();
+
+          // dispatch for shiny
+          if (window.jQuery) {
+            if (previousSlide) {
+              window.jQuery(previousSlide).trigger("hidden");
+            }
+            if (currentSlide) {
+              window.jQuery(currentSlide).trigger("shown");
+            }
+          }
+        }
+
+        // hookup for slidy
+        if (window.w3c_slidy) {
+          window.w3c_slidy.add_observer(function (slide_num) {
+            // slide_num starts at position 1
+            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+          });
+        }
+
+      })();
+    </script>
+
+    <script id="quarto-html-after-body" type="application/javascript">
+    window.document.addEventListener("DOMContentLoaded", function (event) {
+      const toggleBodyColorMode = (bsSheetEl) => {
+        const mode = bsSheetEl.getAttribute("data-mode");
+        const bodyEl = window.document.querySelector("body");
+        if (mode === "dark") {
+          bodyEl.classList.add("quarto-dark");
+          bodyEl.classList.remove("quarto-light");
+        } else {
+          bodyEl.classList.add("quarto-light");
+          bodyEl.classList.remove("quarto-dark");
+        }
+      }
+      const toggleBodyColorPrimary = () => {
+        const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+        if (bsSheetEl) {
+          toggleBodyColorMode(bsSheetEl);
+        }
+      }
+      toggleBodyColorPrimary();  
+      const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+      tabsets.forEach(function(tabset) {
+        const tabby = new Tabby('#' + tabset.id);
+      });
+      const isCodeAnnotation = (el) => {
+        for (const clz of el.classList) {
+          if (clz.startsWith('code-annotation-')) {                     
+            return true;
+          }
+        }
+        return false;
+      }
+      const clipboard = new window.ClipboardJS('.code-copy-button', {
+        text: function(trigger) {
+          const codeEl = trigger.previousElementSibling.cloneNode(true);
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
+            }
+          }
+          return codeEl.innerText;
+        }
+      });
+      clipboard.on('success', function(e) {
+        // button target
+        const button = e.trigger;
+        // don't keep focus
+        button.blur();
+        // flash "checked"
+        button.classList.add('code-copy-button-checked');
+        var currentTitle = button.getAttribute("title");
+        button.setAttribute("title", "Copied!");
+        let tooltip;
+        if (window.bootstrap) {
+          button.setAttribute("data-bs-toggle", "tooltip");
+          button.setAttribute("data-bs-placement", "left");
+          button.setAttribute("data-bs-title", "Copied!");
+          tooltip = new bootstrap.Tooltip(button, 
+            { trigger: "manual", 
+              customClass: "code-copy-button-tooltip",
+              offset: [0, -8]});
+          tooltip.show();    
+        }
+        setTimeout(function() {
+          if (tooltip) {
+            tooltip.hide();
+            button.removeAttribute("data-bs-title");
+            button.removeAttribute("data-bs-toggle");
+            button.removeAttribute("data-bs-placement");
+          }
+          button.setAttribute("title", currentTitle);
+          button.classList.remove('code-copy-button-checked');
+        }, 1000);
+        // clear code selection
+        e.clearSelection();
+      });
+        var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+        var mailtoRegex = new RegExp(/^mailto:/);
+          var filterRegex = new RegExp('/' + window.location.host + '/');
+        var isInternal = (href) => {
+            return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+        }
+        // Inspect non-navigation links and adorn them if external
+     	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+        for (var i=0; i<links.length; i++) {
+          const link = links[i];
+          if (!isInternal(link.href)) {
+            // undo the damage that might have been done by quarto-nav.js in the case of
+            // links that we want to consider external
+            if (link.dataset.originalHref !== undefined) {
+              link.href = link.dataset.originalHref;
+            }
+          }
+        }
+      function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+        const config = {
+          allowHTML: true,
+          maxWidth: 500,
+          delay: 100,
+          arrow: false,
+          appendTo: function(el) {
+              return el.closest('section.slide') || el.parentElement;
+          },
+          interactive: true,
+          interactiveBorder: 10,
+          theme: 'light-border',
+          placement: 'bottom-start',
+        };
+        if (contentFn) {
+          config.content = contentFn;
+        }
+        if (onTriggerFn) {
+          config.onTrigger = onTriggerFn;
+        }
+        if (onUntriggerFn) {
+          config.onUntrigger = onUntriggerFn;
+        }
+          config['offset'] = [0,0];
+          config['maxWidth'] = 700;
+        window.tippy(el, config); 
+      }
+      const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+      for (var i=0; i<noterefs.length; i++) {
+        const ref = noterefs[i];
+        tippyHover(ref, function() {
+          // use id or data attribute instead here
+          let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+          try { href = new URL(href).hash; } catch {}
+          const id = href.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note) {
+            return note.innerHTML;
+          } else {
+            return "";
+          }
+        });
+      }
+      const findCites = (el) => {
+        const parentEl = el.parentElement;
+        if (parentEl) {
+          const cites = parentEl.dataset.cites;
+          if (cites) {
+            return {
+              el,
+              cites: cites.split(' ')
+            };
+          } else {
+            return findCites(el.parentElement)
+          }
+        } else {
+          return undefined;
+        }
+      };
+      var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+      for (var i=0; i<bibliorefs.length; i++) {
+        const ref = bibliorefs[i];
+        const citeInfo = findCites(ref);
+        if (citeInfo) {
+          tippyHover(citeInfo.el, function() {
+            var popup = window.document.createElement('div');
+            citeInfo.cites.forEach(function(cite) {
+              var citeDiv = window.document.createElement('div');
+              citeDiv.classList.add('hanging-indent');
+              citeDiv.classList.add('csl-entry');
+              var biblioDiv = window.document.getElementById('ref-' + cite);
+              if (biblioDiv) {
+                citeDiv.innerHTML = biblioDiv.innerHTML;
+              }
+              popup.appendChild(citeDiv);
+            });
+            return popup.innerHTML;
+          });
+        }
+      }
+    });
+    </script>
+    
+
+</body></html>

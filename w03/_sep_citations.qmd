@@ -1,0 +1,12 @@
+| Rank | Citations | Author | Year | Title |
+| - | - | - | - | - |
+| 1 | 115 | John Rawls | 1972 | *A Theory of Justice* |
+| 2 | 88 | Saul Kripke | 1980 | *Naming and Necessity* |
+| 3 | 63 | David Lewis | 1986 | *On the Plurality of Worlds* |
+| 3 | 63 | Robert Nozick | 1974 | *Anarchy, State and Utopia* |
+| 3 | 63 | W.V.O. Quine | 1960 | *Word and Object* |
+| 6 | 62 | Derek Parfit | 1984 | *Reasons and Persons* |
+| 7 | 56 | T.M. Scanlon | 1998 | *What We Owe to Each Other* |
+| 8 | 55 | Ludwig Wittgenstein | 1953 | *Philosophical Investigations* |
+| 9 | 53 | David Chalmers | 1996 | *The Conscious Mind* |
+| 10 | 48 | John Rawls | 1993 | *Political Liberalism* |

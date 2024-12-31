@@ -1,0 +1,60 @@
+- week: 14
+  title: "<a href='https://georgetown.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=f67660cf-6420-4d88-83d1-b15c01563674' target='_blank'>Week 14: {{< var w14.title >}}</a>"
+  url: "https://georgetown.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=f67660cf-6420-4d88-83d1-b15c01563674"
+  date: 2024-04-24
+  categories: ["Lecture Recordings"]
+- week: 13
+  title: "<a href='https://georgetown.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=5354b498-3218-46e3-ba17-b15501814d90' target='_blank'>Week 13: {{< var w13.title >}}</a>"
+  url: "https://georgetown.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=5354b498-3218-46e3-ba17-b15501814d90"
+  date: 2024-04-17
+  categories: ["Lecture Recordings"]
+- week: 12
+  title: "<a href='https://georgetown.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=ccae5b34-88a8-400a-a665-b14e017db1f4' target='_blank'>Week 12: {{< var w12.title >}}</a>"
+  url: "https://georgetown.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=ccae5b34-88a8-400a-a665-b14e017db1f4"
+  date: 2024-04-10
+  categories: ["Lecture Recordings"]
+- week: 11
+  title: "<a href='https://georgetown.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=cf8856a0-ce0a-4639-999c-b1470178c6a6' target='_blank'>Week 11: {{< var w11.title >}}</a>"
+  url: "https://georgetown.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=cf8856a0-ce0a-4639-999c-b1470178c6a6"
+  date: 2024-04-03
+  categories: ["Lecture Recordings"]
+- week: 10
+  title: "<a href='https://georgetown.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=f9005225-728b-4069-9732-b140016e3ec2' target='_blank'>Week 10: {{< var w10.title >}}</a>"
+  url: "https://georgetown.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=f9005225-728b-4069-9732-b140016e3ec2"
+  date: 2024-03-27
+  categories: ["Lecture Recordings"]
+- week: 9
+  title: "<a href='https://georgetown.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=a822ba2a-7bb5-48d2-a16c-b139017ab738' target='_blank'>Week 9: {{< var w09.title >}}</a>"
+  url: "https://georgetown.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=a822ba2a-7bb5-48d2-a16c-b139017ab738"
+  date: 2024-03-20
+  categories: ["Lecture Recordings"]
+- week: 6
+  title: "<a href='https://georgetown.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=8e0b80f4-21d2-46da-bed4-b11d018b3de4' target='_blank'>Week 6: Causality in Ethics and Policy</a>"
+  url: "https://georgetown.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=8e0b80f4-21d2-46da-bed4-b11d018b3de4"
+  date: 2024-02-21
+  categories: ["Lecture Recordings"]
+- week: 5
+  title: "<a href='https://georgetown.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=28f5c727-7638-4120-aa6d-b117000019f7' target='_blank'>Week 5: Context-Sensitive Fairness</a>"
+  url: "https://georgetown.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=28f5c727-7638-4120-aa6d-b117000019f7"
+  date: 2024-02-14
+  categories: ["Lecture Recordings"]
+- week: 4
+  title: "<a href='https://georgetown.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=c5cd9ade-161e-45d4-9cb2-b1100005fa57' target='_blank'>Week 4: Fairness in AI</a>"
+  url: "https://georgetown.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=c5cd9ade-161e-45d4-9cb2-b1100005fa57"
+  date: 2024-02-06
+  categories: ["Lecture Recordings"]
+- week: 3
+  title: "<a href='https://georgetown.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=c7a00bed-cdde-4bd0-921a-b1080183dc4b' target='_blank'>Week 3: (Descriptive) Fairness in AI</a>"
+  url: "https://georgetown.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=c7a00bed-cdde-4bd0-921a-b1080183dc4b"
+  date: 2024-01-31
+  categories: ["Lecture Recordings"]
+- week: 2
+  title: "<a href='https://georgetown.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=f4395bd5-a130-4512-8701-b1010189b359' target='_blank'>Week 2: Machine Learning, Training Data, and Bias</a>"
+  url: "https://georgetown.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=f4395bd5-a130-4512-8701-b1010189b359"
+  date: 2024-01-24
+  categories: ["Lecture Recordings"]
+- week: 1
+  title: "<a href='https://georgetown.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=eb11be58-ff27-4476-8c21-b0fa01864db4' target='_blank'>Week 1: Introduction to the Course</a>"
+  url: "https://georgetown.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=eb11be58-ff27-4476-8c21-b0fa01864db4"
+  date: 2024-01-17
+  categories: ["Lecture Recordings"]

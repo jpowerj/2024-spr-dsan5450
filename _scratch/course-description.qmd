@@ -1,0 +1,17 @@
+---
+title: "Data Ethics"
+subtitle: "Spring 2024"
+author: "Jeff Jacobs"
+---
+
+This graduate-level course will train students to navigate the landscape of ethical issues which inevitably arise in each step of the data science process across a variety of fields. Students will explore and critically evaluate a range of data-related issues in contemporary society, such as responsible data collection, algorithmic bias mitigation, data privacy, transparency, accountability, and the ethical implications of emerging technologies like artificial intelligence and machine learning (self-driving cars, ChatGPT, crowd-sourced training data, etc.).
+
+Through a combination of theoretical discussions and real-world case studies, students will examine the profound public policy and social issues associated with data ethics. This course will empower students by introducing a set of general ethical frameworks (consequentialism, deontological ethics, and value ethics) and discussing their relative strengths and weaknesses in terms of their ability to address modern ethical dilemmas and guide ethical decision-making processes in business, healthcare, government, and academia. These theoretical frameworks will then be discussed in light of more practical regulatory considerations, so that students will have the tools they need to draw conclusions (in the form of their final projects) about best practices for data handling within a particular field or topic of interest to them.
+
+The course will thus equip students with a robust ethical "toolbox" for conscienciously gathering, interpreting, and extracting meaning from data while respecting privacy, fairness, tranparency, and other social concerns. 3 credits.
+
+---
+
+Students will explore how data ethics intersects with organizational strategies and how it can be integrated into business operations. Case studies featuring companies that have successfully implemented ethical data practices will be studied, providing valuable insights into real-world applications.
+
+As data ethics continues to gain prominence and businesses prioritize ethical data management, graduates of this course will emerge well-prepared to engage with the ethical challenges of the data-driven world. Whether pursuing careers in data analysis, data science, or management, students will be equipped with 

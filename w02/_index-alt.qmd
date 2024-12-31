@@ -1,0 +1,116 @@
+---
+title: "Week 2: Machine Learning, Training Data, and Bias"
+subtitle: "*DSAN 5450: Data Ethics and Policy*<br><span class='subsubtitle'>Spring 2024, Georgetown University</span>"
+author: "Jeff Jacobs"
+institute: "<a href='mailto:jj1088@georgetown.edu' target='_blank'>`jj1088@georgetown.edu`</a>"
+bibliography: "../_DSAN5450.bib"
+date: 2024-01-24
+lecnum: 2
+categories:
+  - "Class Sessions"
+format:
+  revealjs:
+    df-print: kable
+    footer: "DSAN 5450 Week 2: Machine Learning and Training Data"
+    output-file: "slides.html"
+    html-math-method: mathjax
+    theme: ["../_jjslides.scss"]
+    scrollable: true
+    slide-number: true
+    include-in-header:
+      text: "<link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css'>"
+    simplemenu:
+      flat: true
+      barhtml:
+        header: "<div class='menubar'><span style='position: absolute; left: 8; padding-left: 8px;'><a href='./index.html'>&larr; Return to Notes</a></span><ul class='menu'></ul></div>"
+      scale: 0.5
+    revealjs-plugins:
+      - simplemenu
+  html:
+    df-print: kable
+    output-file: "index.html"
+    html-math-method: mathjax
+---
+
+::: {.content-visible unless-format="revealjs"}
+
+<center>
+<a class="h2" href="./slides.html" target="_blank">Open slides in new window &rarr;</a>
+</center>
+
+:::
+
+# Overview: Slouching Towards Fairness {.smaller .not-title-slide .title-09 data-stack-name="Overview"}
+
+* First half: Remaining high-level issues!
+* Second half: you'll start to understand why I kept maniacally pointing to $p \implies q$ on the board last lecture!
+* "Rules" for fairness are not "rules" at all! They're statements of the form **"If we accept ethical framework $x$, then our algorithms ought to satisfy condition $y$"**
+
+$$
+\underbrace{p(x)}_{\substack{\text{Accept ethical} \\ \text{framework }x}} \implies \underbrace{q(y)}_{\substack{\text{Algorithms should} \\ \text{satisfy condition }y}}
+$$
+
+* Last week: very broad intro to **possible ethical frameworks** (values for $x$)
+* Today: very broad intro to **possible fairness criteria** (values for $y$)
+* End of today: **HW1: Nuts and Bolts for Evaluating Fairness**
+
+# Ethical Issues in Data Science {.title-11 .not-title-slide .crunch-quarto-layout-panel .crunch-quarto-figure .crunch-title data-stack-name="Data Science"}
+
+* Data Science for Who?
+* Operationalization
+* Fair Comparisons
+* Implementation
+
+## Data Science for Who(m)?
+
+* What are the processes by which data is **measured**, **recorded**, and **distributed**?
+
+![The <a href='https://github.com/MimiOnuoha/missing-datasets' target='_blank'>Library of Missing Datasets</a>. From @dignazio_data_2020](images/missing-datasets.jpg){fig-align="center"}
+
+
+## Example: Measuring "Freedom" and "Human Rights" {.smaller .title-10}
+
+* **Freedom House Ratings** are the most common measure of "freedom" in a country, across social science literature; **US State Dept. Country Reports on Human Rights Practices** are the most common measure of "human rights" in a country, across social science literature
+  * (you can take my word for it, or browse e.g. <a href='https://www.cambridge.org/core/journals/american-political-science-review' target='_blank'>American Political Science Review</a>)
+* ...So what's the issue? (What is Jeff whining about this time?)
+
+::: {layout="[1,1]"}
+
+![From <a href='https://freedomhouse.org/about-us/financials'>Freedom House, Inc., *Notes to Financial Statements* (2023)</a>, p. 21](images/freedom_house_funding.jpeg){fig-align="center"}
+
+![From <a href='https://www.state.gov/reports/2022-country-reports-on-human-rights-practices/' target='_blank'>state.gov/reports</a>](images/state_dept_human_rights.jpeg){fig-align="center" width="400"}
+
+:::
+
+
+## Example: Measuring "Freedom" and "Human Rights" {.smaller .title-10}
+
+![](images/yells_at_cloud_edit.jpg){fig-align="center"}
+
+
+## Operationalization {.smaller .crunch-title .crunch-li}
+
+::: {layout="[3,2]"}
+
+::: {#oper-text}
+
+* Think about claims commonly made on the basis of "data":
+  * Markets create economic prosperity
+  * A glass of wine in the evening prevents cancer
+  * Policing makes communities safer
+* How exactly are "prosperity", "preventing cancer", "policing", "community safety" being **measured**?
+
+<center>
+{{< video https://jpj.georgetown.domains/dsan5450-scratch/huey.mp4 height="300" >}}
+</center>
+
+:::
+
+![@stiglitz_mismeasuring_2010](images/mismeasuring.jpg){fig-align="center"}
+
+:::
+
+## References
+
+::: {#refs}
+:::

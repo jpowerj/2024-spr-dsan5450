@@ -1,0 +1,2166 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.5.23">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Jeff Jacobs">
+
+<title>DSAN 5450 – Week 3: (Descriptive) Fairness in AI</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../favicon.png" rel="icon" type="image/png">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script><script src="../jjcustom.js"></script>
+
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../styles.css">
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../w03/index.html">Week 3: {{&lt; var w03.date-md &gt;}}</a></li></ol></nav>
+        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../">DSAN 5450: Data Ethics and Policy</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><i class="bi bi-house pe-1"></i> Home</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../syllabus.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Syllabus</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../writeups/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Writeups</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../assignments.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Assignments</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../final.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Final Project</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../recordings/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Recordings</span></a>
+  </div>
+</li>
+        <li class="px-0"><hr class="sidebar-divider hi "></li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../w01/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Week 1: Jan 17</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../w02/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Week 2: Jan 24</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../w03/index.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Week 3: Jan 31</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../w04/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Week 4: Feb 7</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../w05/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Week 5: Feb 14</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../w06/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Week 6: Feb 21</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../w07/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Week 7: Feb 28</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../w08/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Week 8: Mar 13</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../w09/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Week 9: Mar 20</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../w10/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Week 10: Mar 27</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../w11/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Week 11: Apr 3</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../w12/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Week 12: Apr 10</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../w13/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Week 13: Apr 17</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../w14/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Week 14: Apr 24</span></a>
+  </div>
+</li>
+        <li class="px-0"><hr class="sidebar-divider hi "></li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="https://forms.gle/LLQsiwGy5kkH5n3PA" class="sidebar-item-text sidebar-link" target="&quot;_blank&quot;">
+ <span class="menu-text">Anonymous Suggestions<i class="bi bi-box-arrow-up-right ps-1"></i></span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#recap-loose-ends" id="toc-recap-loose-ends" class="nav-link active" data-scroll-target="#recap-loose-ends">Recap / Loose Ends</a>
+  <ul class="collapse">
+  <li><a href="#loose-ends" id="toc-loose-ends" class="nav-link" data-scroll-target="#loose-ends">Loose Ends</a></li>
+  <li><a href="#ethics-of-eliciting-sensitive-linguistic-data" id="toc-ethics-of-eliciting-sensitive-linguistic-data" class="nav-link" data-scroll-target="#ethics-of-eliciting-sensitive-linguistic-data">Ethics of Eliciting Sensitive Linguistic Data</a></li>
+  </ul></li>
+  <li><a href="#recap-three-component-parts-of-machine-learning" id="toc-recap-three-component-parts-of-machine-learning" class="nav-link" data-scroll-target="#recap-three-component-parts-of-machine-learning">(Recap) Three Component Parts of Machine Learning</a>
+  <ul class="collapse">
+  <li><a href="#part-3-the-training-data-bottleneck" id="toc-part-3-the-training-data-bottleneck" class="nav-link" data-scroll-target="#part-3-the-training-data-bottleneck">Part 3: The “Training Data Bottleneck”</a></li>
+  <li><a href="#human-labor" id="toc-human-labor" class="nav-link" data-scroll-target="#human-labor">Human Labor</a></li>
+  <li><a href="#computer-scientists-being-responsible-at-georgetown" id="toc-computer-scientists-being-responsible-at-georgetown" class="nav-link" data-scroll-target="#computer-scientists-being-responsible-at-georgetown">Computer Scientists Being Responsible (At Georgetown!)</a></li>
+  <li><a href="#computer-scientists-being-responsible-at-georgetown-1" id="toc-computer-scientists-being-responsible-at-georgetown-1" class="nav-link" data-scroll-target="#computer-scientists-being-responsible-at-georgetown-1">Computer Scientists Being Responsible (At Georgetown!)</a></li>
+  <li><a href="#so-what-comes-with-human-labels-human-biases" id="toc-so-what-comes-with-human-labels-human-biases" class="nav-link" data-scroll-target="#so-what-comes-with-human-labels-human-biases">So, What Comes With Human Labels? Human Biases!</a></li>
+  <li><a href="#biases-in-our-brains-rightarrow-biases-in-our-models-rightarrow-material-effects" id="toc-biases-in-our-brains-rightarrow-biases-in-our-models-rightarrow-material-effects" class="nav-link" data-scroll-target="#biases-in-our-brains-rightarrow-biases-in-our-models-rightarrow-material-effects">Biases In Our Brains <span class="math inline">\(\rightarrow\)</span> Biases in Our Models <span class="math inline">\(\rightarrow\)</span> Material Effects</a></li>
+  <li><a href="#reification-in-science" id="toc-reification-in-science" class="nav-link" data-scroll-target="#reification-in-science">Reification in Science</a></li>
+  </ul></li>
+  <li><a href="#metaethics" id="toc-metaethics" class="nav-link" data-scroll-target="#metaethics">Metaethics</a>
+  <ul class="collapse">
+  <li><a href="#reflective-equilibrium" id="toc-reflective-equilibrium" class="nav-link" data-scroll-target="#reflective-equilibrium">Reflective Equilibrium</a></li>
+  </ul></li>
+  <li><a href="#descriptive-vs.-normative-judgements" id="toc-descriptive-vs.-normative-judgements" class="nav-link" data-scroll-target="#descriptive-vs.-normative-judgements">Descriptive vs.&nbsp;Normative Judgements</a>
+  <ul class="collapse">
+  <li><a href="#easy-mode-descriptive-judgements" id="toc-easy-mode-descriptive-judgements" class="nav-link" data-scroll-target="#easy-mode-descriptive-judgements">Easy Mode: Descriptive Judgements</a></li>
+  <li><a href="#what-makes-ethical-judgements-more-difficult" id="toc-what-makes-ethical-judgements-more-difficult" class="nav-link" data-scroll-target="#what-makes-ethical-judgements-more-difficult">What Makes Ethical Judgements “More Difficult”?</a></li>
+  <li><a href="#tldr" id="toc-tldr" class="nav-link" data-scroll-target="#tldr">Tl;dr</a></li>
+  <li><a href="#quick-aside-top-10-linguist-beefs" id="toc-quick-aside-top-10-linguist-beefs" class="nav-link" data-scroll-target="#quick-aside-top-10-linguist-beefs">Quick Aside: Top 10 Linguist Beefs</a></li>
+  <li><a href="#the-last-time-i-use-this-i-promise" id="toc-the-last-time-i-use-this-i-promise" class="nav-link" data-scroll-target="#the-last-time-i-use-this-i-promise">The Last Time I Use This, I Promise</a></li>
+  <li><a href="#historical-example-capitalism-and-the-protestant-ethic" id="toc-historical-example-capitalism-and-the-protestant-ethic" class="nav-link" data-scroll-target="#historical-example-capitalism-and-the-protestant-ethic">Historical Example: Capitalism and the “Protestant Ethic”</a></li>
+  <li><a href="#contemporary-example-palestine" id="toc-contemporary-example-palestine" class="nav-link" data-scroll-target="#contemporary-example-palestine">Contemporary Example: Palestine</a></li>
+  </ul></li>
+  <li><a href="#individual-ethics-rightarrow-social-ethics" id="toc-individual-ethics-rightarrow-social-ethics" class="nav-link" data-scroll-target="#individual-ethics-rightarrow-social-ethics">Individual Ethics <span class="math inline">\(\rightarrow\)</span> Social Ethics</a>
+  <ul class="collapse">
+  <li><a href="#from-week-1-counterargument-to-consequentialism" id="toc-from-week-1-counterargument-to-consequentialism" class="nav-link" data-scroll-target="#from-week-1-counterargument-to-consequentialism">(From Week 1) Counterargument to Consequentialism</a></li>
+  <li><a href="#one-solution-individual-rights" id="toc-one-solution-individual-rights" class="nav-link" data-scroll-target="#one-solution-individual-rights">One Solution: Individual Rights</a></li>
+  <li><a href="#lexical-ordering-i-tricked-you" id="toc-lexical-ordering-i-tricked-you" class="nav-link" data-scroll-target="#lexical-ordering-i-tricked-you">Lexical Ordering (I Tricked You 😈)</a></li>
+  <li><a href="#better-metaphor-than-letters" id="toc-better-metaphor-than-letters" class="nav-link" data-scroll-target="#better-metaphor-than-letters">Better Metaphor Than Letters</a></li>
+  <li><a href="#counterarguments-to-deontology" id="toc-counterarguments-to-deontology" class="nav-link" data-scroll-target="#counterarguments-to-deontology">Counterargument(s) to Deontology</a></li>
+  <li><a href="#a-synthesis-two-level-utilitarianism" id="toc-a-synthesis-two-level-utilitarianism" class="nav-link" data-scroll-target="#a-synthesis-two-level-utilitarianism">A Synthesis: Two-Level Utilitarianism</a></li>
+  <li><a href="#individual-vs.-social-morality" id="toc-individual-vs.-social-morality" class="nav-link" data-scroll-target="#individual-vs.-social-morality">Individual vs.&nbsp;Social Morality</a></li>
+  <li><a href="#enter-game-theory" id="toc-enter-game-theory" class="nav-link" data-scroll-target="#enter-game-theory">Enter Game Theory</a></li>
+  <li><a href="#individual-decision-making" id="toc-individual-decision-making" class="nav-link" data-scroll-target="#individual-decision-making">Individual Decision-Making</a></li>
+  <li><a href="#the-social-outcome" id="toc-the-social-outcome" class="nav-link" data-scroll-target="#the-social-outcome">The Social Outcome</a></li>
+  <li><a href="#how-do-we-fix-this-conventions" id="toc-how-do-we-fix-this-conventions" class="nav-link" data-scroll-target="#how-do-we-fix-this-conventions">How Do We Fix This? <em>Conventions!</em></a></li>
+  <li><a href="#without-a-convention" id="toc-without-a-convention" class="nav-link" data-scroll-target="#without-a-convention">Without A Convention</a></li>
+  <li><a href="#the-convention-of-traffic-lights" id="toc-the-convention-of-traffic-lights" class="nav-link" data-scroll-target="#the-convention-of-traffic-lights">The Convention of Traffic Lights</a></li>
+  <li><a href="#so-how-should-we-makechoose-conventions" id="toc-so-how-should-we-makechoose-conventions" class="nav-link" data-scroll-target="#so-how-should-we-makechoose-conventions">So How Should We Make/Choose Conventions?</a></li>
+  <li><a href="#rawls-veil-of-ignorance" id="toc-rawls-veil-of-ignorance" class="nav-link" data-scroll-target="#rawls-veil-of-ignorance">Rawls’ Veil of Ignorance</a></li>
+  </ul></li>
+  <li><a href="#nuts-and-bolts-for-fairness" id="toc-nuts-and-bolts-for-fairness" class="nav-link" data-scroll-target="#nuts-and-bolts-for-fairness">Nuts and Bolts for Fairness</a>
+  <ul class="collapse">
+  <li><a href="#one-final-reminder" id="toc-one-final-reminder" class="nav-link" data-scroll-target="#one-final-reminder">One Final Reminder</a></li>
+  <li><a href="#categories-of-fairness-criteria" id="toc-categories-of-fairness-criteria" class="nav-link" data-scroll-target="#categories-of-fairness-criteria">Categories of Fairness Criteria</a></li>
+  <li><a href="#laws-often-perfectly-technically-fair" id="toc-laws-often-perfectly-technically-fair" class="nav-link" data-scroll-target="#laws-often-perfectly-technically-fair">Laws: Often Perfectly “Technically Fair”</a></li>
+  </ul></li>
+  <li><a href="#context-free-fairness" id="toc-context-free-fairness" class="nav-link" data-scroll-target="#context-free-fairness">Context-Free Fairness</a>
+  <ul class="collapse">
+  <li><a href="#the-brogrammers-criterion" id="toc-the-brogrammers-criterion" class="nav-link" data-scroll-target="#the-brogrammers-criterion">The Brogrammer’s Criterion</a></li>
+  <li><a href="#no-fairness-through-unawareness" id="toc-no-fairness-through-unawareness" class="nav-link" data-scroll-target="#no-fairness-through-unawareness">(No) Fairness Through Unawareness</a></li>
+  <li><a href="#to-make-it-even-more-concrete" id="toc-to-make-it-even-more-concrete" class="nav-link" data-scroll-target="#to-make-it-even-more-concrete">To Make It Even More Concrete…</a></li>
+  <li><a href="#we-can-do-a-bit-better" id="toc-we-can-do-a-bit-better" class="nav-link" data-scroll-target="#we-can-do-a-bit-better">We Can Do (A Bit) Better…</a></li>
+  <li><a href="#what-the-fairness-measures-will-feel-like-for-now" id="toc-what-the-fairness-measures-will-feel-like-for-now" class="nav-link" data-scroll-target="#what-the-fairness-measures-will-feel-like-for-now">What the Fairness Measures Will Feel Like For Now</a></li>
+  <li><a href="#who-remembers-confusion-matrices" id="toc-who-remembers-confusion-matrices" class="nav-link" data-scroll-target="#who-remembers-confusion-matrices">Who Remembers… 🎉<em>Confusion Matrices!!!</em>🎉</a></li>
+  <li><a href="#our-first-fairness-measure-finally" id="toc-our-first-fairness-measure-finally" class="nav-link" data-scroll-target="#our-first-fairness-measure-finally">Our First Fairness Measure (Finally)!</a></li>
+  <li><a href="#where-descriptive-and-normative-become-intertwined" id="toc-where-descriptive-and-normative-become-intertwined" class="nav-link" data-scroll-target="#where-descriptive-and-normative-become-intertwined">Where Descriptive and Normative Become Intertwined</a></li>
+  <li><a href="#fairness-through-equalized-positive-rates" id="toc-fairness-through-equalized-positive-rates" class="nav-link" data-scroll-target="#fairness-through-equalized-positive-rates">“Fairness” Through Equalized <em>Positive</em> Rates</a></li>
+  <li><a href="#fairness-through-equalized-error-rates" id="toc-fairness-through-equalized-error-rates" class="nav-link" data-scroll-target="#fairness-through-equalized-error-rates">“Fairness” Through Equalized <em>Error</em> Rates</a></li>
+  <li><a href="#no-more-equations" id="toc-no-more-equations" class="nav-link" data-scroll-target="#no-more-equations">NO MORE EQUATIONS! 😤</a></li>
+  <li><a href="#baby-steps-a-real-world-confusion-matrix" id="toc-baby-steps-a-real-world-confusion-matrix" class="nav-link" data-scroll-target="#baby-steps-a-real-world-confusion-matrix">Baby Steps: A Real-World Confusion Matrix</a></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
+  </ul></li>
+  </ul>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="slides.html"><i class="bi bi-file-slides"></i>RevealJS</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Week 3: (Descriptive) Fairness in AI</h1>
+<p class="subtitle lead"><em>DSAN 5450: Data Ethics and Policy</em><br><span class="subsubtitle">Spring 2024, Georgetown University</span></p>
+  <div class="quarto-categories">
+    <div class="quarto-category">Class Sessions</div>
+  </div>
+  </div>
+
+
+<div class="quarto-title-meta-author">
+  <div class="quarto-title-meta-heading">Author</div>
+  <div class="quarto-title-meta-heading">Affiliation</div>
+  
+    <div class="quarto-title-meta-contents">
+    <p class="author">Jeff Jacobs </p>
+  </div>
+  <div class="quarto-title-meta-contents">
+        <p class="affiliation">
+            <a href="mailto:jj1088@georgetown.edu" target="_blank"><code>jj1088@georgetown.edu</code></a>
+          </p>
+      </div>
+  </div>
+
+<div class="quarto-title-meta">
+
+      
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">Wednesday, January 31, 2024</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<center>
+<a class="h2" href="./slides.html" target="_blank">Open slides in new window →</a>
+</center>
+<section id="recap-loose-ends" class="level1" data-stack-name="Week 2 Wrapup">
+<h1 data-stack-name="Week 2 Wrapup">Recap / Loose Ends</h1>
+<section id="loose-ends" class="level2 smaller crunch-title">
+<h2 class="smaller crunch-title anchored" data-anchor-id="loose-ends">Loose Ends</h2>
+<ul>
+<li>Normative vs.&nbsp;Descriptive <strong>“Exploitation”</strong>: How can we disentangle these in our understanding of the term? <span class="citation" data-cites="roemer_free_1988">(<a href="#ref-roemer_free_1988" role="doc-biblioref">Roemer 1988</a>)</span>
+<ul>
+<li>Under descriptive definition, one can “exploit” <strong>corn</strong> or <strong>land</strong> in the exact same way one “exploits” <strong>human labor</strong> (just another type of input into the production process)</li>
+<li>Utility-wise, an economy <strong>with</strong> exploitation can be <strong>unambiguously better</strong> than one <strong>without</strong> exploitation: if 10 people <span class="math inline">\(H\)</span> own means of production, and 990 people <span class="math inline">\(S\)</span> own only their labor power (landless peasants, for example), allowing <span class="math inline">\(H\)</span> to exploit <span class="math inline">\(S\)</span> for a wage increases utility for both: <span class="math inline">\(H\)</span> acquires profits, <span class="math inline">\(S\)</span> doesn’t starve to death</li>
+</ul></li>
+<li>“Tracing back” causes / <strong>unraveling history</strong>
+<ul>
+<li><em>“The result [of modern 24-hour news cycles] is a litany of events with no beginning and no real end, thrown together only because they occurred at the same time[,] cut off from their <strong>antecedents</strong> and <strong>consequenes</strong>”</em> <span class="citation" data-cites="bourdieu_sociology_2010">(<a href="#ref-bourdieu_sociology_2010" role="doc-biblioref">Bourdieu 2010</a>)</span></li>
+</ul></li>
+</ul>
+</section>
+<section id="ethics-of-eliciting-sensitive-linguistic-data" class="level2 smaller crunch-title title-12">
+<h2 class="smaller crunch-title title-12 anchored" data-anchor-id="ethics-of-eliciting-sensitive-linguistic-data">Ethics of Eliciting Sensitive Linguistic Data</h2>
+<div>
+
+</div>
+<div class="quarto-layout-panel" data-layout="[1,1]">
+<div class="quarto-layout-row quarto-layout-valign-center">
+<div id="labov-left" class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/labov_interview.jpeg" class="img-fluid figure-img"></p>
+<figcaption>From <span class="citation" data-cites="labov_language_2013">Labov (<a href="#ref-labov_language_2013" role="doc-biblioref">2013</a>)</span>, pg. 4</figcaption>
+</figure>
+</div>
+</div>
+<div id="labov-right" class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/parsley.jpeg" class="img-fluid figure-img"></p>
+<figcaption>From “80 Years On, Dominicans And Haitians Revisit Painful Memories Of Parsley Massacre”, <em>NPR Parallels</em>, 7 Oct 2017 <span class="citation" data-cites="bishop_80_2017">(<a href="#ref-bishop_80_2017" role="doc-biblioref">Bishop and Fernandez 2017</a>)</span></figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="recap-three-component-parts-of-machine-learning" class="level1">
+<h1>(Recap) Three Component Parts of Machine Learning</h1>
+<ol type="1">
+<li><span class="cbg">A cool algorithm ✅</span></li>
+<li><span class="cbg">[Possibly benign but possibly biased] Training data ✅</span></li>
+<li><span class="math inline">\(\Longrightarrow\)</span> Exploitation of below-minimum-wage human labor 😞🤐 <span class="citation" data-cites="dube_monopsony_2020">(<a href="#ref-dube_monopsony_2020" role="doc-biblioref">Dube et al. 2020</a>)</span></li>
+</ol>
+<section id="part-3-the-training-data-bottleneck" class="level2 smaller crunch-title crunch-quarto-layout-panel crunch-figures crunch-quarto-figure title-12">
+<h2 class="smaller crunch-title crunch-quarto-layout-panel crunch-figures crunch-quarto-figure title-12 anchored" data-anchor-id="part-3-the-training-data-bottleneck">Part 3: The “Training Data Bottleneck”</h2>
+<div>
+
+</div>
+<div class="quarto-layout-panel" data-layout="[1,1]">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/snorkel_1.svg" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+</div>
+<div id="snorkel-right" class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/snorkel_2.svg" class="img-fluid figure-img"></p>
+<figcaption>Snorkel.AI, <a href="assets/snorkel.pdf" target="_blank"><em>An Introduction to Snorkel and Data-Centric AI</em></a></figcaption>
+</figure>
+</div>
+<div id="fig-snorkel-quote" class="quarto-figure quarto-figure-center quarto-float anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-snorkel-quote-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<blockquote class="blockquote">
+<p>With so much technical progress […] why is there so little real enterprise success? The answer all too often is that many enterprises continue to be <strong>bottlenecked</strong> by one key ingredient: the large amounts of <strong>labeled data</strong> [needed] to train these new systems.</p>
+</blockquote>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-snorkel-quote-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: <em>ibid. (PS, if it seems like I’m picking on them: these are the ‘good guys’ IMO! W.r.t. foregrounding training data as labor)</em>
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="human-labor" class="level2 smaller crunch-title crunch-quarto-layout-panel crunch-quarto-figure crunch-figcaption">
+<h2 class="smaller crunch-title crunch-quarto-layout-panel crunch-quarto-figure crunch-figcaption anchored" data-anchor-id="human-labor">Human Labor</h2>
+<div>
+
+</div>
+<div class="quarto-layout-panel" data-layout="[1,1]">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div id="fig-human-labor-left" class="quarto-figure quarto-figure-center quarto-float anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-human-labor-left-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/snorkel_human_labelers.jpg" class="img-fluid quarto-figure quarto-figure-center figure-img" width="450"></p>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/snorkel_training_data.jpg" class="img-fluid quarto-figure quarto-figure-center figure-img" width="450"></p>
+</figure>
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-human-labor-left-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2: From Snorkel AI, <a href="https://www.youtube.com/watch?v=cb9DP3_QooA" target="_blank">“The Principles of Data-Centric AI Development by Alex Ratner”</a> (YouTube)
+</figcaption>
+</figure>
+</div>
+</div>
+<div id="human-labor-right" class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/ghost_work.jpg" class="img-fluid figure-img" width="360"></p>
+<figcaption><span class="citation" data-cites="gray_ghost_2019">Gray and Suri (<a href="#ref-gray_ghost_2019" role="doc-biblioref">2019</a>)</span></figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="computer-scientists-being-responsible-at-georgetown" class="level2 smaller crunch-title crunch-iframe title-09">
+<h2 class="smaller crunch-title crunch-iframe title-09 anchored" data-anchor-id="computer-scientists-being-responsible-at-georgetown">Computer Scientists Being Responsible (At Georgetown!)</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/dr_redmiles_homepage.jpeg" class="img-fluid figure-img"></p>
+<figcaption><a href="" target="_blank">Dr.&nbsp;Redmiles’ homepage</a> (Since Quarto also freezes when I try to embed it…)</figcaption>
+</figure>
+</div>
+<ul>
+<li><em>(PS… UMD undergrad CS class of 2013 extremely overrepresented here</em> 😜<em>)</em></li>
+</ul>
+</section>
+<section id="computer-scientists-being-responsible-at-georgetown-1" class="level2 smaller crunch-title crunch-iframe title-09">
+<h2 class="smaller crunch-title crunch-iframe title-09 anchored" data-anchor-id="computer-scientists-being-responsible-at-georgetown-1">Computer Scientists Being Responsible (At Georgetown!)</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/dr_redmiles_class.jpeg" class="img-fluid figure-img"></p>
+<figcaption><a href="https://gufaculty360.georgetown.edu/s/course-catalog/a1oHp00000GvwGnIAJ/cosc882001?id=003Hp00002jN3TsIAK" target="_blank">GU360 Course Page</a></figcaption>
+</figure>
+</div>
+</section>
+<section id="so-what-comes-with-human-labels-human-biases" class="level2 smaller title-10 crunch-quarto-layout-panel crunch-quarto-figure crunch-title crunch-ul crunch-figcaption">
+<h2 class="smaller title-10 crunch-quarto-layout-panel crunch-quarto-figure crunch-title crunch-ul crunch-figcaption anchored" data-anchor-id="so-what-comes-with-human-labels-human-biases">So, What Comes With Human Labels? Human Biases!</h2>
+<div>
+
+</div>
+<div class="quarto-layout-panel" data-layout="[2,1]">
+<div class="quarto-layout-row quarto-layout-valign-center">
+<div class="quarto-layout-cell" style="flex-basis: 66.7%;justify-content: flex-start;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/imagenet_jezebel.jpg" class="img-fluid figure-img" width="660"></p>
+<figcaption><span class="citation" data-cites="crawford_excavating_2019">Crawford and Paglen (<a href="#ref-crawford_excavating_2019" role="doc-biblioref">2019</a>)</span></figcaption>
+</figure>
+</div>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 33.3%;justify-content: flex-start;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/bolshevik.JPEG" class="img-fluid figure-img"></p>
+<figcaption>Image tagged in ImageNet with the label <strong>“BOLSHEVIK”</strong>. From <span class="citation" data-cites="crawford_excavating_2019">Crawford and Paglen (<a href="#ref-crawford_excavating_2019" role="doc-biblioref">2019</a>)</span></figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="biases-in-our-brains-rightarrow-biases-in-our-models-rightarrow-material-effects" class="level2 smaller crunch-title title-08 crunch-p crunch-quarto-layout-panel crunch-ul">
+<h2 class="smaller crunch-title title-08 crunch-p crunch-quarto-layout-panel crunch-ul anchored" data-anchor-id="biases-in-our-brains-rightarrow-biases-in-our-models-rightarrow-material-effects">Biases In Our Brains <span class="math inline">\(\rightarrow\)</span> Biases in Our Models <span class="math inline">\(\rightarrow\)</span> Material Effects</h2>
+<div>
+
+</div>
+<div class="quarto-layout-panel" data-layout="[1,1]">
+<div class="quarto-layout-row">
+<div id="biases-text" class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<ul>
+<li><strong>“Reification”</strong>: Pretentious word for an important phenomenon, whereby talking about something (e.g., race) <em>as if</em> it was real ends up leading to it <strong>becoming real</strong> (having real impacts on people’s lives)<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></li>
+</ul>
+<blockquote class="blockquote">
+<p>On average, being classified as a White man as opposed to a Coloured man would have more than quadrupled a person’s income. <span class="citation" data-cites="pellicer_understanding_2023">(<a href="#ref-pellicer_understanding_2023" role="doc-biblioref">Pellicer and Ranchhod 2023</a>)</span></p>
+</blockquote>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/permit_crop.jpeg" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/passport.webp" class="img-fluid quarto-figure quarto-figure-center figure-img" width="380"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="reification-in-science" class="level2 crunch-title crunch-quarto-layout-panel crunch-figcaption">
+<h2 class="crunch-title crunch-quarto-layout-panel crunch-figcaption anchored" data-anchor-id="reification-in-science">Reification in Science</h2>
+<div>
+
+</div>
+<div class="quarto-layout-panel" data-layout="[1,1]">
+<div class="quarto-layout-row">
+<div id="intelligence-testing" class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<center>
+<em>“““Intelligence”“” Testing</em>
+</center>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/mismeasure.webp" class="img-fluid figure-img" width="340"></p>
+<figcaption><span class="citation" data-cites="gould_mismeasure_1980">Gould (<a href="#ref-gould_mismeasure_1980" role="doc-biblioref">1980</a>)</span></figcaption>
+</figure>
+</div>
+</div>
+<div id="goodhart" class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<center>
+<em>More Generally</em>
+</center>
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Goodhart%27s_law" target="_blank">Goodhart’s Law</a>: “When a measure becomes a target, it ceases to be a good measure”</li>
+<li>Cat-and-mouse game between <strong>goals</strong> (🚩) and ways of <strong>measuring</strong> progress towards goals (also 🚩)</li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="metaethics" class="level1" data-stack-name="Metaethics">
+<h1 data-stack-name="Metaethics">Metaethics</h1>
+<p>A scary-sounding word that just means:</p>
+<blockquote class="blockquote">
+<p>“What we talk about when we talk about ethics”,</p>
+</blockquote>
+<p>in contrast to</p>
+<blockquote class="blockquote">
+<p>“What we talk about when we talk about [insert particular ethical framework here]”</p>
+</blockquote>
+<section id="reflective-equilibrium" class="level2 crunch-title">
+<h2 class="crunch-title anchored" data-anchor-id="reflective-equilibrium">Reflective Equilibrium</h2>
+<ul>
+<li>Most criticisms of any framework boil down to, “great in theory, but doesn’t work in practice”</li>
+<li>The way to take this seriously: <strong>reflective equilibrium</strong></li>
+<li>Introduced by <span class="citation" data-cites="rawls_outline_1951">Rawls (<a href="#ref-rawls_outline_1951" role="doc-biblioref">1951</a>)</span>, but popularized by <span class="citation" data-cites="rawls_theory_1971">Rawls (<a href="#ref-rawls_theory_1971" role="doc-biblioref">1971</a>)</span></li>
+</ul>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/reflective.jpg" class="img-fluid figure-img"></p>
+<figcaption>From <span class="citation" data-cites="awad_computational_2022">Awad et al. (<a href="#ref-awad_computational_2022" role="doc-biblioref">2022</a>)</span></figcaption>
+</figure>
+</div>
+</section>
+</section>
+<section id="descriptive-vs.-normative-judgements" class="level1 not-title-page title-11">
+<h1 class="not-title-page title-11">Descriptive vs.&nbsp;Normative Judgements</h1>
+<table class="table">
+<thead>
+<tr class="header">
+<th>Descriptive (Is)</th>
+<th>Normative (Ought)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Grass is green (true)</td>
+<td>Grass ought to be green (?)</td>
+</tr>
+<tr class="even">
+<td>Grass is blue (false)</td>
+<td>Grass ought to be blue (?)</td>
+</tr>
+</tbody>
+</table>
+<section id="easy-mode-descriptive-judgements" class="level2 smaller crunch-title crunch-p">
+<h2 class="smaller crunch-title crunch-p anchored" data-anchor-id="easy-mode-descriptive-judgements">Easy Mode: Descriptive Judgements</h2>
+<p><strong>How did you acquire the concept “red”?</strong></p>
+<ul>
+<li>People pointed to stuff with certain properties and said “red” (or “rojo” or “红”), as pieces of an <strong>intersubjective</strong> communication system</li>
+<li>These <strong>descriptive</strong> labels enable <em>coordination</em>, like driving on left or right side of road!</li>
+<li>Nothing very profound or difficult in <strong>committing</strong> to this descriptive coordination: <em>“for <strong>ease of communication</strong>, I’ll vibrate my vocal chords like this (or write these symbols) to indicate <span class="math inline">\(x\)</span>, and vibrate them like this (or write these other symbols) to indicate <span class="math inline">\(y\)</span>”</em> <!-- * Technically you have the free will to **refuse** this prescription. But, nothing very "" --></li>
+<li>Linguistic choices, when it comes to <strong>description</strong>, are arbitrary*: Our mouths can make <a href="https://en.wikipedia.org/wiki/International_Phonetic_Alphabet" target="_blank">these sounds</a>, and each language is a mapping: [combinations of sounds] <span class="math inline">\(\leftrightarrow\)</span> [things]
+<ul>
+<li>diːsˈæn ˈfɪfti fɔr ˈfɪfti [<a href="http://ipa-reader.xyz/?text=dis%C3%A6n%CB%88f%C9%AAfdif%C9%94%C9%B9%CB%88f%C9%AAfti" target="_blank">US Accent <i class="bi bi-box-arrow-up-right"></i></a> / <a href="http://ipa-reader.xyz/?text=dis%C3%A6n%CB%88f%C9%AAfdif%C9%94%C9%B9%CB%88f%C9%AAfti&amp;voice=Dora" target="_blank">Icelandic Accent <i class="bi bi-box-arrow-up-right"></i></a>]</li>
+</ul></li>
+</ul>
+<!-- disænˈfɪfdifɔɹˈfɪfti  / disænˈfɪfdifɔɹˈfɪfti -->
+<!-- * Our lives/the world would not be very different if "red" was switched with "green"; i.e., the main change would just be vibrating different vocal chords or writing different symbols to communicate the concept -->
+<p>*<em>(Tiny text footnote: Except for, perhaps, a few <a href="https://en.wikipedia.org/wiki/Bouba/kiki_effect" target="_blank">fun but rare onomatopoetic cases</a>)</em></p>
+</section>
+<section id="what-makes-ethical-judgements-more-difficult" class="level2 smaller title-11 crunch-title crunch-p">
+<h2 class="smaller title-11 crunch-title crunch-p anchored" data-anchor-id="what-makes-ethical-judgements-more-difficult">What Makes Ethical Judgements “More Difficult”?</h2>
+<p><strong>How did you acquire the concept “good”?</strong></p>
+<ul>
+<li>People pointed to <strong>actions</strong> with certain properties and said “good” (and pointed at others and said “bad”), as part of instilling <strong>values</strong> in you</li>
+<li>“Grass is green” just links two <strong>descriptive</strong> referents together, while “Honesty is good” takes the <strong>descriptive</strong> concept “honesty” and <em>links it</em> with the <strong>normative</strong> concept “good”</li>
+<li>In doing this, parents/teachers/friends are doing way more than just linking sounds and things in the world (<strong>de</strong>scribing): they are also <strong>prescribing</strong> rules of moral conduct!</li>
+<li><strong>Normative</strong> concepts go beyond “mere” communication: course of your life / future / [things that matter deeply to people] differ if you <strong>act on</strong> one set of norms vs.&nbsp;another</li>
+<li><span class="math inline">\(\implies\)</span> Ethics centrally involves non-arbitrarily-chosen <strong>commitments</strong>!</li>
+</ul>
+</section>
+<section id="tldr" class="level2">
+<h2 class="anchored" data-anchor-id="tldr">Tl;dr</h2>
+<ul>
+<li><strong>Languages</strong> are <strong>arbitrary conventions</strong> for communication</li>
+<li><strong>Ethical systems</strong> <strong>build on</strong> this language to <strong>non-arbitrarily</strong> mark out things that are good/bad</li>
+<li>Life would <strong>not</strong> be very different if we “shuffled” words (we’d just vibrate our vocal chords differently), but <strong>would</strong> be very different if we “shuffled” good/bad labeling</li>
+</ul>
+</section>
+<section id="quick-aside-top-10-linguist-beefs" class="level2 smaller crunch-title crunch-figcaption crunch-quarto-layout-panel crunch-ul crunch-images">
+<h2 class="smaller crunch-title crunch-figcaption crunch-quarto-layout-panel crunch-ul crunch-images anchored" data-anchor-id="quick-aside-top-10-linguist-beefs">Quick Aside: Top 10 Linguist Beefs</h2>
+<ul>
+<li>Statement on previous slide (<em>“Life would not be very different if we shuffled words”</em>), might seem weird/closed-minded/dismissive if you have a certain popular prior belief…</li>
+</ul>
+<div>
+
+</div>
+<div class="quarto-layout-panel" data-layout="[1,1]">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/language_glass.jpg" class="img-fluid figure-img" width="300"></p>
+<figcaption><span class="citation" data-cites="deutscher_language_2010">Deutscher (<a href="#ref-deutscher_language_2010" role="doc-biblioref">2010</a>)</span></figcaption>
+</figure>
+</div>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/language_hoax.jpg" class="img-fluid figure-img" width="325"></p>
+<figcaption><span class="citation" data-cites="mcwhorter_language_2014">McWhorter (<a href="#ref-mcwhorter_language_2014" role="doc-biblioref">2014</a>)</span></figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="the-last-time-i-use-this-i-promise" class="level2">
+<h2 class="anchored" data-anchor-id="the-last-time-i-use-this-i-promise">The Last Time I Use This, I Promise</h2>
+<p><img src="images/yells_at_sapir.jpeg" class="img-fluid"></p>
+</section>
+<section id="historical-example-capitalism-and-the-protestant-ethic" class="level2 crunch-title smaller title-09 crunch-quarto-layout-panel crunch-p crunch-ul crunch-quarto-layout-cell crunch-blockquote">
+<h2 class="crunch-title smaller title-09 crunch-quarto-layout-panel crunch-p crunch-ul crunch-quarto-layout-cell crunch-blockquote anchored" data-anchor-id="historical-example-capitalism-and-the-protestant-ethic">Historical Example: Capitalism and the “Protestant Ethic”</h2>
+<ul>
+<li>Big changes in history are associated with changes in this <strong>good/bad labeling</strong>!</li>
+<li>Max Weber (<a href="https://www.researchgate.net/figure/Top-50-sociologists-according-to-aggregate-weighted-citation-scores-normalized-score_fig1_332447162" target="_blank">second most-cited</a> sociologist of all time*): <em>Protestant value system</em> gave rise to <em>capitalist system</em> by <strong>relabeling</strong> what things are good vs.&nbsp;bad <span class="citation" data-cites="weber_protestant_1904">(<a href="#ref-weber_protestant_1904" role="doc-biblioref">Weber 1904</a>)</span>:</li>
+</ul>
+<div>
+
+</div>
+<div class="quarto-layout-panel" data-layout="[1,1]">
+<div class="quarto-layout-row">
+<div id="bible-money" class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<blockquote class="blockquote">
+<p>Jesus said to his disciples, “Truly, I say to you, only with difficulty will a rich person enter the kingdom of heaven. Again I tell you, it is easier for a camel to go through the eye of a needle than for a rich person to enter the kingdom of God.” (<a href="https://www.biblegateway.com/passage/?search=Matthew%2019&amp;version=ESV" target="_blank">Matthew 19:23-24</a>)</p>
+</blockquote>
+<blockquote class="blockquote">
+<p>Oh, were we loving God worthily, we should have no love at all for money! <span class="citation" data-cites="st.augustine_works_1874">(<a href="#ref-st.augustine_works_1874" role="doc-biblioref">St. Augustine 1874</a>, pg. 28)</span></p>
+</blockquote>
+<p><span class="fn-span">*<em>(…jumpscare: REIFICATION!)</em></span></p>
+</div>
+<div id="protestant-ethic" class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<blockquote class="blockquote">
+<p>The earliest capitalists lacked legitimacy in the moral climate in which they found themselves. One of the means they found [to legitimize their behavior] was to appropriate the evaluative vocabulary of Protestantism. <span class="citation" data-cites="skinner_visions_2012">(<a href="#ref-skinner_visions_2012" role="doc-biblioref">Skinner 2012</a>, pg. 157)</span></p>
+</blockquote>
+<blockquote class="blockquote">
+<p>Calvinism added [to Luther’s doctrine] the necessity of <strong>proving one’s faith</strong> in worldly activity, [replacing] spiritual aristocracy of monks outside of/above the world with spiritual aristocracy of predestined saints within it. (pg. 121).</p>
+</blockquote>
+</div>
+</div>
+</div>
+</section>
+<section id="contemporary-example-palestine" class="level2 smaller crunch-quarto-layout-panel crunch-title crunch-ul crunch-blockquote crunch-li crunch-p">
+<h2 class="smaller crunch-quarto-layout-panel crunch-title crunch-ul crunch-blockquote crunch-li crunch-p anchored" data-anchor-id="contemporary-example-palestine">Contemporary Example: Palestine</h2>
+<ul>
+<li>Very few of the relevant <strong>empirical</strong> facts are in dispute, since opening of crucial archives to three so-called “New Historians” in the 1980s. So why do people still argue?</li>
+</ul>
+<div>
+
+</div>
+<div class="quarto-layout-panel" data-layout="[1,1]">
+<div class="quarto-layout-row">
+<div id="pappe-text" class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<ul>
+<li><strong>Ilan Pappe</strong>, one of these historians, concluded from this material that:
+<ul>
+<li>The Israeli state was built upon a massive ethnic cleansing, and</li>
+<li>Is not morally justifiable <span class="citation" data-cites="pappe_ethnic_2006">(<a href="#ref-pappe_ethnic_2006" role="doc-biblioref">Pappe 2006</a>)</span></li>
+</ul></li>
+</ul>
+<blockquote class="blockquote">
+<p>The immunity Israel has received over the last fifty years encourages others, regimes and oppositions alike, to believe that human and civil rights are irrelevant in the Middle East. The dismantling of the mega-prison in Palestine will send a different, and more hopeful, message.</p>
+</blockquote>
+</div>
+<div id="morris-text" class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<ul>
+<li><strong>Benny Morris</strong>, another of these historians, concluded that:
+<ul>
+<li>The Israeli state was built upon a massive ethnic cleansing, and</li>
+<li>Is morally justifiable <span class="citation" data-cites="morris_birth_1987">(<a href="#ref-morris_birth_1987" role="doc-biblioref">Morris 1987</a>)</span></li>
+</ul></li>
+</ul>
+<blockquote class="blockquote">
+<p>A Jewish state would not have come into being without the uprooting of 700,000 Palestinians. Therefore it was necessary to uproot them. There was no choice but to expel that population. It was necessary to cleanse the hinterland and cleanse the border areas and cleanse the main roads.</p>
+</blockquote>
+<!-- [...] The term "cleanse" doesn't sound nice but that's the term they used at the time. I adopted it from the 1948 documents. -->
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="individual-ethics-rightarrow-social-ethics" class="level1" data-stack-name="Individual vs. Social Ethics">
+<h1 data-stack-name="Individual vs. Social Ethics">Individual Ethics <span class="math inline">\(\rightarrow\)</span> Social Ethics</h1>
+<section id="from-week-1-counterargument-to-consequentialism" class="level2 crunch-title title-07 crunch-quarto-layout-panel crunch-ul crunch-quarto-figure crunch-images">
+<h2 class="crunch-title title-07 crunch-quarto-layout-panel crunch-ul crunch-quarto-figure crunch-images anchored" data-anchor-id="from-week-1-counterargument-to-consequentialism">(From Week 1) Counterargument to Consequentialism</h2>
+<div>
+
+</div>
+<div class="quarto-layout-panel" data-layout="[1,1]">
+<div class="quarto-layout-row">
+<div id="omelas-text" class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<blockquote class="blockquote">
+<p>Millions are kept permanently happy, on the one simple condition that a certain lost soul on the far-off edge of things should lead a life of lonely torture <span class="citation" data-cites="james_moral_1891">(<a href="#ref-james_moral_1891" role="doc-biblioref">James 1891</a>)</span></p>
+</blockquote>
+<ul>
+<li>Modern example: people “out there” suffer so we can have iPhones, etc.</li>
+</ul>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/omelas.jpg" class="img-fluid figure-img" width="360"></p>
+<figcaption><span class="citation" data-cites="leguin_ones_1973">Le Guin (<a href="#ref-leguin_ones_1973" role="doc-biblioref">1973</a>)</span></figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="one-solution-individual-rights" class="level2 smaller crunch-title crunch-quarto-layout-panel crunch-quarto-figure crunch-figcaption crunch-images crunch-math crunch-ul">
+<h2 class="smaller crunch-title crunch-quarto-layout-panel crunch-quarto-figure crunch-figcaption crunch-images crunch-math crunch-ul anchored" data-anchor-id="one-solution-individual-rights">One Solution: Individual Rights</h2>
+<div>
+
+</div>
+<div class="quarto-layout-panel" data-layout="[2,1]">
+<div class="quarto-layout-row quarto-layout-valign-center">
+<div id="rights-text" class="quarto-layout-cell" style="flex-basis: 66.7%;justify-content: flex-start;">
+<ul>
+<li>Rights are <strong>vetoes</strong> which <strong>individuals</strong> can use to cancel out <strong>collective</strong>/institutional decisions which affect them (key example for us: right to <strong>privacy</strong>)</li>
+<li>Rawls/liberalism: individual rights are <strong>lexically prior to</strong> “efficiency” and/or distributional concerns</li>
+<li>Why the buzzword “lexically”? Enter (non-scary) math!</li>
+<li>We can put <em>lowercase</em> letters of English alphabet in an <strong>order</strong>: <span class="math inline">\(\texttt{a} \prec \texttt{b} \prec \cdots \texttt{z}\)</span></li>
+<li>We can put <em>capital</em> letters of English alphabet in an order: <span class="math inline">\(\texttt{A} \prec \texttt{B} \prec \cdots \prec \texttt{Z}\)</span></li>
+<li>What if we need to sort stuff with <strong>both</strong> types? We can decide that capital letters are <strong>lexically prior</strong> to lowercase letters, giving us a combined ordering:</li>
+</ul>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 33.3%;justify-content: flex-start;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/dworkin.jpg" class="img-fluid figure-img" width="300"></p>
+<figcaption><span class="citation" data-cites="dworkin_taking_1977">Dworkin (<a href="#ref-dworkin_taking_1977" role="doc-biblioref">1977</a>)</span></figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<p><span class="math display">\[
+\boxed{\texttt{A} \prec \texttt{B} \prec \cdots \prec \texttt{Z} \prec \texttt{a} \prec \texttt{b} \prec \cdots \prec \texttt{z}}
+\]</span></p>
+</section>
+<section id="lexical-ordering-i-tricked-you" class="level2">
+<h2 class="anchored" data-anchor-id="lexical-ordering-i-tricked-you">Lexical Ordering (I Tricked You 😈)</h2>
+<div>
+
+</div>
+<div class="quarto-layout-panel" data-layout="[2,1]">
+<div class="quarto-layout-row">
+<div id="trick-left" class="quarto-layout-cell" style="flex-basis: 66.7%;justify-content: flex-start;">
+<ul>
+<li>You thought I was just talking about <em>letters</em>, but they’re actually <strong>variables</strong>: capital letters are rights, lowercase letters are distributive principles</li>
+</ul>
+<p><span class="math display">\[
+\underbrace{\texttt{A} \prec \texttt{B} \prec \cdots \prec \texttt{Z}}_{\mathclap{\substack{\text{Individual Rights} \\ \text{Basic Goods}}}} \phantom{\prec} \prec \phantom{\prec} \underbrace{\texttt{a} \prec \texttt{b} \prec \cdots \prec \texttt{z}}_{\mathclap{\substack{\text{Distributive Principles} \\ \text{Money and whatnot}}}}
+\]</span></p>
+</div>
+<div id="trick-right" class="quarto-layout-cell" style="flex-basis: 33.3%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/atrick_nocap.jpg" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="better-metaphor-than-letters" class="level2 smaller crunch-title crunch-ul crunch-math">
+<h2 class="smaller crunch-title crunch-ul crunch-math anchored" data-anchor-id="better-metaphor-than-letters">Better Metaphor Than Letters</h2>
+<ul>
+<li>Letters are where Rawls gets “lexically prior” from, but letters are <strong>total orderings</strong> (we know where <em>every</em> letter “stands” in relation to <em>every</em> other letter)</li>
+<li>Better metaphor: a <strong>high school</strong> with a hierarchy such that</li>
+</ul>
+<p><span class="math display">\[
+\text{Seniors} \prec \text{Juniors} \prec \text{Sophomores}  \prec \text{Freshmen}
+\]</span></p>
+<ul>
+<li><span class="math inline">\(\implies\)</span> If you’re a Freshman, whether at the “top” or “bottom” of a ranking of Freshmen, you’re still <strong>prior to</strong> all Sophomores…</li>
+<li>Why is this more helpful? Because <strong>we don’t need to define</strong> the <strong>rankings <em>within</em> classes</strong> to know the <strong>rankings <em>between</em> classes</strong> in this case</li>
+</ul>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/ordinal_numbers.svg" class="img-fluid quarto-figure quarto-figure-center figure-img" width="300"></p>
+</figure>
+</div>
+</section>
+<section id="counterarguments-to-deontology" class="level2 smaller crunch-title crunch-ul crunch-figcaption shift-ul crunch-li-3 crunch-images">
+<h2 class="smaller crunch-title crunch-ul crunch-figcaption shift-ul crunch-li-3 crunch-images anchored" data-anchor-id="counterarguments-to-deontology">Counterargument(s) to Deontology</h2>
+<div>
+
+</div>
+<div class="quarto-layout-panel" data-layout="[7,3]">
+<div class="quarto-layout-row">
+<div id="deontology-counter-left" class="quarto-layout-cell" style="flex-basis: 70.0%;justify-content: flex-start;">
+<ul>
+<li>Deontological <strong>rule</strong>: <em>“Don’t lie”</em>
+<ul>
+<li>But then: Nazis come to your house, ask you if you’re harboring any Jews</li>
+</ul></li>
+<li>k, new deontological <strong>rule</strong>: <em>“Don’t lie unless necessary”</em>
+<ul>
+<li>Who decides when it’s necessary?</li>
+</ul></li>
+<li>Deontological commitment: <em>Pacifism / Nonviolence</em>
+<ul>
+<li>But then: someone swingin on you</li>
+</ul></li>
+<li>k, new deontological <strong>commitment</strong>: <em>Pacifism / Nonviolence Except In Self-Defense</em>
+<ul>
+<li>Who decides what counts as self-defense?</li>
+</ul></li>
+<li>Deontological <strong>maxim</strong>: <em>“The master’s tools will never dismantle the master’s house”</em>
+<ul>
+<li>Who conceded “ownership” to the master?</li>
+</ul></li>
+<li>(Trolley problems, etc.)</li>
+</ul>
+</div>
+<div id="deontology-counter-right" class="quarto-layout-cell" style="flex-basis: 30.0%;justify-content: flex-start;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/pacifism.jpg" class="img-fluid figure-img" width="340"></p>
+<figcaption><span class="citation" data-cites="churchill_pacifism_1998">Churchill and Ryan (<a href="#ref-churchill_pacifism_1998" role="doc-biblioref">1998</a>)</span> <em>(Derrick Jensen intro removed from later editions so… I <a href="https://github.com/jpowerj/mdb/blob/main/1998_Churchill_PacifismAsPathology.md" target="_blank">put it on dang GitHub</a>)</em></figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="a-synthesis-two-level-utilitarianism" class="level2 title-09 crunch-title crunch-quarto-layout-panel crunch-quarto-figure crunch-images crunch-figcaption">
+<h2 class="title-09 crunch-title crunch-quarto-layout-panel crunch-quarto-figure crunch-images crunch-figcaption anchored" data-anchor-id="a-synthesis-two-level-utilitarianism">A Synthesis: Two-Level Utilitarianism</h2>
+<div>
+
+</div>
+<div class="quarto-layout-panel" data-layout="[1,1]">
+<div class="quarto-layout-row">
+<div id="two-level-text" class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<ul>
+<li>It would be exhausting to compute Nash equilibrium strategies for every scenario</li>
+<li>Instead, we can develop <strong>heuristics</strong> that work for most cases, then <strong>reevaluate</strong> and <strong>update</strong> when we encounter tough cases</li>
+<li>(Brings us back to <strong>reflective equilibrium</strong>!)</li>
+</ul>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/thinking.jpg" class="img-fluid figure-img" width="360"></p>
+<figcaption><span class="citation" data-cites="kahneman_thinking_2011">Kahneman (<a href="#ref-kahneman_thinking_2011" role="doc-biblioref">2011</a>)</span></figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="individual-vs.-social-morality" class="level2 smaller crunch-title crunch-ul crunch-figcaption crunch-images crunch-quarto-figure">
+<h2 class="smaller crunch-title crunch-ul crunch-figcaption crunch-images crunch-quarto-figure anchored" data-anchor-id="individual-vs.-social-morality">Individual vs.&nbsp;Social Morality</h2>
+<ul>
+<li>That was all already hard enough, to reason about <strong>individual</strong> morality</li>
+<li>Now add in the fact that we live in a society 😰</li>
+<li>Things that happen depend not only on <strong>our</strong> choices but also the choices of others</li>
+</ul>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="https://www.youtube.com/watch?v=LHhbdXCzt_A"><img src="images/seinfeld_society.jpeg" class="img-fluid quarto-figure quarto-figure-center figure-img" width="700" alt="Seinfeld: Living in a Society (Clip) | TBS"></a></p>
+</figure>
+</div>
+<figcaption><a href="https://www.youtube.com/watch?v=LHhbdXCzt_A" target="_blank">Seinfeld: Living in a Society (Clip) | TBS</a></figcaption>
+</figure>
+</div>
+</section>
+<section id="enter-game-theory" class="level2 smaller crunch-title crunch-quarto-layout-panel crunch-figcaption crunch-ul">
+<h2 class="smaller crunch-title crunch-quarto-layout-panel crunch-figcaption crunch-ul anchored" data-anchor-id="enter-game-theory">Enter Game Theory</h2>
+<ul>
+<li>A tool for analyzing how <strong>individual choices</strong> + <strong>choices of others</strong> <span class="math inline">\(\rightarrow\)</span> <strong>outcomes</strong>!</li>
+</ul>
+<div>
+
+</div>
+<div class="quarto-layout-panel" data-layout="[1,1]">
+<div class="quarto-layout-row quarto-layout-valign-center">
+<div id="game-theory-text" class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<ul>
+<li>Example: You (<span class="math inline">\(A\)</span>) and a friend (<span class="math inline">\(B\)</span>) committed a robbery, and you’re brought into the police station for questioning.</li>
+<li>You’re placed in separate rooms, and each of you is offered a <strong>plea deal</strong>: if you <strong>testify</strong> while your partner <strong>stays silent</strong>, you go free and they go to jail for 3 years.</li>
+<li>Otherwise, if you <strong>both stay silent</strong>, they have very little evidence and can only jail you for <strong>1 year</strong></li>
+<li>However, there’s a catch: if you <strong>both confess</strong>, you both get <strong>two years</strong> in jail, since they now have maximal evidence</li>
+</ul>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/prisoners_dilemma.svg" class="img-fluid figure-img"></p>
+<figcaption>Source: <a href="https://commons.wikimedia.org/wiki/File:Prisoners_dilemma.svg" target="_blank">Wikimedia Commons</a></figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="individual-decision-making" class="level2 smaller title-11">
+<h2 class="smaller title-11 anchored" data-anchor-id="individual-decision-making">Individual Decision-Making</h2>
+<div>
+
+</div>
+<div class="quarto-layout-panel" data-layout="[1,1]">
+<div class="quarto-layout-row quarto-layout-valign-center">
+<div id="step-by-step" class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<ul>
+<li>Let’s think through <span class="math inline">\(A\)</span>’s <strong>best responses</strong> to the possible choices <span class="math inline">\(B\)</span> could make:</li>
+<li>If <span class="math inline">\(B\)</span> <strong>stays silent</strong>, what is <span class="math inline">\(A\)</span>’s best option?
+<ul>
+<li><strong>Staying silent</strong> results in <strong>1 year</strong> of jail</li>
+<li><strong>Testifying</strong> results in <strong>0 years</strong> of jail</li>
+<li>So it is <strong>better to testify</strong></li>
+</ul></li>
+<li>If <span class="math inline">\(B\)</span> <strong>testifies</strong>, what is <span class="math inline">\(A\)</span>’s best option?
+<ul>
+<li><strong>Staying silent</strong> results in <strong>3 years</strong> of jail</li>
+<li><strong>Testifying</strong> results in <strong>2 years</strong> of jail</li>
+<li>So it is <strong>better to testify</strong></li>
+</ul></li>
+<li>The result: <strong>regardless of what <span class="math inline">\(B\)</span> does</strong>, <span class="math inline">\(A\)</span> is <strong>better off testifying</strong>!</li>
+</ul>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/prisoners_dilemma.svg" class="img-fluid figure-img"></p>
+<figcaption>Source: <a href="https://commons.wikimedia.org/wiki/File:Prisoners_dilemma.svg" target="_blank">Wikimedia Commons</a></figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="the-social-outcome" class="level2 crunch-title crunch-ul">
+<h2 class="crunch-title crunch-ul anchored" data-anchor-id="the-social-outcome">The Social Outcome</h2>
+<div>
+
+</div>
+<div class="quarto-layout-panel" data-layout="[1,1]">
+<div class="quarto-layout-row quarto-layout-valign-center">
+<div id="social-outcome-text" class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<ul>
+<li>The game is <strong>symmetric</strong>, so the same logic applies for <span class="math inline">\(B\)</span></li>
+<li>Conclusion: <strong>the outcome of the game will be <span class="math inline">\(s^* = (\text{Testify}, \text{Testify})\)</span></strong></li>
+<li>This is called a <strong>Nash equilibrium</strong>: no player <span class="math inline">\(i\)</span> can make themselves better off by <strong>deviating</strong> from <span class="math inline">\(s_i\)</span></li>
+</ul>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/prisoners_dilemma.svg" class="img-fluid figure-img"></p>
+<figcaption>Source: <a href="https://commons.wikimedia.org/wiki/File:Prisoners_dilemma.svg" target="_blank">Wikimedia Commons</a></figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="how-do-we-fix-this-conventions" class="level2 crunch-title inline-08 crunch-quarto-layout-cell crunch-quarto-layout-panel">
+<h2 class="crunch-title inline-08 crunch-quarto-layout-cell crunch-quarto-layout-panel anchored" data-anchor-id="how-do-we-fix-this-conventions">How Do We Fix This? <em>Conventions!</em></h2>
+<div>
+
+</div>
+<div class="quarto-layout-panel" data-layout="[1,1]">
+<div class="quarto-layout-row quarto-layout-valign-center">
+<div id="conventions-left" class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<ul>
+<li>We encounter this type of problem every day if we <strong>drive</strong>! You (<span class="math inline">\(A\)</span>) and another driver (<span class="math inline">\(B\)</span>) arrive at an <strong>intersection</strong>:</li>
+</ul>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<table class="game-table table" data-quarto-postprocess="true">
+<tbody>
+<tr class="odd">
+<td class="game-label" style="text-align: left;"></td>
+<td class="game-label" style="text-align: left;"></td>
+<td colspan="2" class="game-label" style="text-align: center;"><span class="math inline">\(B\)</span></td>
+</tr>
+<tr class="even">
+<td class="game-label" style="text-align: left;"></td>
+<td class="game-label" style="text-align: left;"></td>
+<td class="game-label" style="text-align: center;">Stop</td>
+<td class="game-label" style="text-align: center;">Drive</td>
+</tr>
+<tr class="odd">
+<td rowspan="2" class="game-label" style="text-align: left; vertical-align: middle;"><span class="math inline">\(A\)</span></td>
+<td class="game-label" style="text-align: left;">Stop</td>
+<td class="game-cell" style="text-align: center;"><span class="math inline">\(-1,-1\)</span></td>
+<td class="game-cell" style="text-align: center;"><span class="math inline">\(-3,\phantom{-}0\)</span></td>
+</tr>
+<tr class="even">
+<td class="game-label" style="text-align: left;">Drive</td>
+<td class="game-cell" style="text-align: center;"><span class="math inline">\(\phantom{-}0, -3\)</span></td>
+<td class="game-cell" style="text-align: center;"><span class="math inline">\(-10,-10\)</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<ul>
+<li>If <strong>both stop</strong>, we’re mostly bored: <span class="math inline">\(u_A = -1\)</span></li>
+<li>If we stop and the other person drives, we’re mad that they got to go and we didn’t: <span class="math inline">\(u_A = -3\)</span></li>
+<li>If <strong>both drive</strong>, we crash: <span class="math inline">\(u_A = -10\)</span></li>
+</ul>
+</section>
+<section id="without-a-convention" class="level2 smaller crunch-title crunch-quarto-layout-panel crunch-ul crunch-math">
+<h2 class="smaller crunch-title crunch-quarto-layout-panel crunch-ul crunch-math anchored" data-anchor-id="without-a-convention">Without A Convention</h2>
+<div>
+
+</div>
+<div class="quarto-layout-panel" data-layout="[6,4]">
+<div class="quarto-layout-row quarto-layout-valign-center">
+<div id="no-convention-text" class="quarto-layout-cell" style="flex-basis: 60.0%;justify-content: flex-start;">
+<ul>
+<li>We’re “frozen”: this game has <strong>no unique Nash equilibrium</strong>, so we cannot say (on the basis of individual rationality) what will happen!</li>
+<li>Without a convention: <strong>power</strong>/aggression takes over. “War of all against all”, only the strong survive, etc. (life is “nasty, brutish, and short”)</li>
+</ul>
+</div>
+<div id="no-convention-table" class="quarto-layout-cell" style="flex-basis: 40.0%;justify-content: center;">
+<div>
+<table class="game-table table" data-quarto-postprocess="true">
+<tbody>
+<tr class="odd">
+<td class="game-label" style="text-align: left;"></td>
+<td class="game-label" style="text-align: left;"></td>
+<td colspan="2" class="game-label" style="text-align: center;"><span class="math inline">\(B\)</span></td>
+</tr>
+<tr class="even">
+<td class="game-label" style="text-align: left;"></td>
+<td class="game-label" style="text-align: left;"></td>
+<td class="game-label" style="text-align: center;">Stop</td>
+<td class="game-label" style="text-align: center;">Drive</td>
+</tr>
+<tr class="odd">
+<td rowspan="2" class="game-label" style="text-align: left; vertical-align: middle;"><span class="math inline">\(A\)</span></td>
+<td class="game-label" style="text-align: left;">Stop</td>
+<td class="game-cell" style="text-align: center;"><span class="math inline">\({\color{orange}\cancel{\color{black}-1}},{\color{lightblue}\cancel{\color{black}-1}}\)</span></td>
+<td class="game-cell" style="text-align: center;"><span class="math inline">\(\boxed{-3},\boxed{0}\)</span></td>
+</tr>
+<tr class="even">
+<td class="game-label" style="text-align: left;">Drive</td>
+<td class="game-cell" style="text-align: center;"><span class="math inline">\(\boxed{0}, \boxed{-3}\)</span></td>
+<td class="game-cell" style="text-align: center;"><span class="math inline">\({\color{orange}\cancel{\color{black}-10}},{\color{lightblue}\cancel{\color{black}-10}}\)</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+<ul>
+<li>If <span class="math inline">\(A\)</span>’s aggression is <span class="math inline">\(\Pr(s_A = \textsf{Drive}) = X \sim \mathcal{U}[0,1]\)</span>, <span class="math inline">\(B\)</span>’s aggression is <span class="math inline">\(\Pr(s_B = \textsf{Drive}) = Y \sim \mathcal{U}[0,1]\)</span>, what happens at individual and societal levels?</li>
+</ul>
+<p><span class="math display">\[
+\begin{align*}
+\mathbb{E}[u_A] = \mathbb{E}[u_B] &amp;= \int_{0}^{1}\int_{0}^{1}\left(x - 2y -8xy - 1\right)dy \, dx = -3.5 \\
+\underbrace{\mathbb{E}\mkern-3mu\left[u_A + u_B\right]}_{\mathclap{\text{Utilitarian Social Welfare}}} &amp;= -3.5
+\end{align*}
+\]</span></p>
+</section>
+<section id="the-convention-of-traffic-lights" class="level2 smaller crunch-title">
+<h2 class="smaller crunch-title anchored" data-anchor-id="the-convention-of-traffic-lights">The Convention of Traffic Lights</h2>
+<ul>
+<li>If we don’t want a world where <span class="math inline">\(\text{Happiness}(i) \propto \Pr(i \text{ more aggro than }j)\)</span>, we can introduce <strong>traffic lights</strong>:</li>
+</ul>
+<div>
+
+</div>
+<div class="quarto-layout-panel" data-layout="[1,1]">
+<div class="quarto-layout-row">
+<div id="traffic-light-text" class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<ul>
+<li>Now in <strong>“correlated equilibrium”</strong>, where we ensure* coordinated <span class="math inline">\(\Pr((\textsf{Drive}, \textsf{Stop})) = 0.5\)</span>, <span class="math inline">\(\Pr((\textsf{Stop}, \textsf{Drive})) = 0.5\)</span></li>
+<li><span class="math inline">\(\mathbb{E}[u_A] = (0.5)(0) + (0.5)(-3) = -1.5\)</span></li>
+<li><span class="math inline">\(\mathbb{E}[u_B] = (0.5)(-3) + (0.5)(0) = -1.5\)</span></li>
+</ul>
+</div>
+<div id="traffic-light-table" class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<div>
+<table class="game-table table" data-quarto-postprocess="true">
+<tbody>
+<tr class="odd">
+<td class="game-label" style="text-align: left;"></td>
+<td class="game-label" style="text-align: left;"></td>
+<td colspan="2" class="game-label" style="text-align: center;"><span class="math inline">\(B\)</span></td>
+</tr>
+<tr class="even">
+<td class="game-label" style="text-align: left;"></td>
+<td class="game-label" style="text-align: left;"></td>
+<td class="game-label" style="text-align: center;">Stop</td>
+<td class="game-label" style="text-align: center;">Drive</td>
+</tr>
+<tr class="odd">
+<td rowspan="2" class="game-label" style="text-align: left; vertical-align: middle;"><span class="math inline">\(A\)</span></td>
+<td class="game-label" style="text-align: left;">Stop</td>
+<td class="game-cell" style="text-align: center;"><span class="math inline">\({\color{orange}\cancel{\color{black}-1}},{\color{lightblue}\cancel{\color{black}-1}}\)</span></td>
+<td class="game-cell" style="text-align: center;"><span class="math inline">\(\boxed{-3},\boxed{0}\)</span></td>
+</tr>
+<tr class="even">
+<td class="game-label" style="text-align: left;">Drive</td>
+<td class="game-cell" style="text-align: center;"><span class="math inline">\(\boxed{0}, \boxed{-3}\)</span></td>
+<td class="game-cell" style="text-align: center;"><span class="math inline">\({\color{orange}\cancel{\color{black}-10}},{\color{lightblue}\cancel{\color{black}-10}}\)</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+<ul>
+<li>Empirical (anthropological) findings across literally thousands of different cultures throughout the world: people are willing to <strong>give up rewards</strong> to <strong>ensure fairness</strong> (see, e.g., <span class="citation" data-cites="henrich_search_2001">Henrich et al. (<a href="#ref-henrich_search_2001" role="doc-biblioref">2001</a>)</span>)</li>
+</ul>
+<p><span class="fn-span">*<em>(through, for example, traffic laws: equal in theory… In practice? Another story)</em></span></p>
+</section>
+<section id="so-how-should-we-makechoose-conventions" class="level2 title-08">
+<h2 class="title-08 anchored" data-anchor-id="so-how-should-we-makechoose-conventions">So How Should We Make/Choose Conventions?</h2>
+<ul>
+<li><span class="citation" data-cites="hobbes_leviathan_1651">Hobbes (<a href="#ref-hobbes_leviathan_1651" role="doc-biblioref">1651</a>)</span>: Only way out of “war of all against all” is to surrender all power to one <strong>sovereign</strong> (the <em>Leviathan</em>)</li>
+<li><span class="citation" data-cites="rousseau_social_1762">Rousseau (<a href="#ref-rousseau_social_1762" role="doc-biblioref">1762</a>)</span>: Social contract</li>
+<li><em>[Big big ~200 year gap here… can you think of why? Hint: French Revolution in 1789]</em></li>
+<li><span class="citation" data-cites="rawls_theory_1971">Rawls (<a href="#ref-rawls_theory_1971" role="doc-biblioref">1971</a>)</span>: Social contract <strong>behind the “veil of ignorance”</strong>
+<ul>
+<li>If we didn’t know <strong>where we were going to end up</strong> in society, how would we set it up? <!-- * @dworkin_what_1981: Yes, plus also people can **buy insurance** against ending up in a bad place $\rightarrow$ level of "just" redistribution --></li>
+</ul></li>
+</ul>
+</section>
+<section id="rawls-veil-of-ignorance" class="level2 crunch-title">
+<h2 class="crunch-title anchored" data-anchor-id="rawls-veil-of-ignorance">Rawls’ Veil of Ignorance</h2>
+<ul>
+<li>Probably the most important tool for policy whitepapers!</li>
+<li>“Justice as fairness” (next week: fairness in AI 😜)</li>
+<li>We don’t know whether we’ll be <span class="math inline">\(A\)</span> or <span class="math inline">\(B\)</span> in the intersection game, so we’d choose the <strong>traffic light</strong>!</li>
+<li>More profoundly: We don’t know what <strong>race</strong>, <strong>gender</strong>, <strong>class</strong>, <strong>ethnicity</strong>, <strong>sexuality</strong>, <strong>disability status</strong> we’ll have; We don’t know whether we’ll be <strong>Israeli</strong> or <strong>Palestinian</strong>; we don’t know whether we’ll own <strong>means of production</strong> or own only our <strong>labor power</strong> (and thus have to sell it on a market to survive)… 🤔</li>
+</ul>
+</section>
+</section>
+<section id="nuts-and-bolts-for-fairness" class="level1" data-stack-name="Fairness">
+<h1 data-stack-name="Fairness">Nuts and Bolts for Fairness</h1>
+<section id="one-final-reminder" class="level2 crunch-title">
+<h2 class="crunch-title anchored" data-anchor-id="one-final-reminder">One Final Reminder</h2>
+<ul>
+<li>Industry rule #4080: Cannot “prove” <span class="math inline">\(q(x) = \text{``Algorithm }x\text{ is fair''}\)</span>! Only <span class="math inline">\(p(x) \implies q(y)\)</span>:</li>
+</ul>
+<p><span class="math display">\[
+\underbrace{p(x)}_{\substack{\text{Accept ethical} \\ \text{framework }x}} \implies \underbrace{q(y)}_{\substack{\text{Algorithms should} \\ \text{satisfy condition }y}}
+\]</span></p>
+<ul>
+<li>Before: <strong>possible ethical frameworks</strong> (values for <span class="math inline">\(x\)</span>)</li>
+<li>Now: <strong>possible fairness criteria</strong> (values for <span class="math inline">\(y\)</span>)</li>
+</ul>
+</section>
+<section id="categories-of-fairness-criteria" class="level2 smaller crunch-title">
+<h2 class="smaller crunch-title anchored" data-anchor-id="categories-of-fairness-criteria">Categories of Fairness Criteria</h2>
+<style>
+#fairness-box .columns {
+  display: flex !important;
+  height: 100% !important;
+}
+
+#fairness-box .column {
+  /* border: 2px solid black !important; */
+  padding: 14px !important;
+  box-sizing: border-box !important;
+  /* height: 100% !important; */
+}
+</style>
+<p>Roughly, approaches to fairness/bias in AI can be categorized as follows:</p>
+<div id="fairness-box" style="border: 2px solid black !important; box-sizing: border-box !important;">
+<center>
+<strong>Fairness</strong>
+</center>
+<!-- start columns -->
+<div class="columns">
+<div class="column" style="width:46%;">
+<div style="border: 2px solid black !important; height: 100% !important;">
+<center>
+<strong>Context-Free</strong>
+</center>
+<ul>
+<li>Single-Threshold Fairness</li>
+<li>Equal Prediction</li>
+<li>Equal Decision</li>
+</ul>
+</div>
+</div><div class="column" style="width:8%;">
+<center>
+<span style="font-size: 180% !important;"><i class="bi bi-repeat"></i>
+</span></center>
+</div><div class="column" style="width:46%;">
+<div style="border: 2px solid black !important; height: 100% !important;">
+<center style="margin: 0px !important;">
+<strong>Context-Sensitive</strong>
+</center>
+<ul>
+<li>Fairness via Similarity Metric(s)</li>
+<li>Causal Definitions</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<!-- end quarto box -->
+<ul>
+<li>[Today] <strong>Context-Free</strong> Fairness: Easier to grasp from CS/data science perspective; rooted in “language” of Machine Learning (you already know much of it, given DSAN 5000!)</li>
+<li>But <strong>easy-to-grasp notion</strong> <span class="math inline">\(\neq\)</span> <strong>“good” notion</strong>!</li>
+<li>Your job: push yourself to (a) consider what is getting <strong>left out of</strong> the context-free definitions, and (b) the <strong>loopholes</strong> that are thus introduced into them, whereby people/computers can discriminate while remaining “technically fair”</li>
+</ul>
+</section>
+<section id="laws-often-perfectly-technically-fair" class="level2 title-09">
+<h2 class="title-09 anchored" data-anchor-id="laws-often-perfectly-technically-fair">Laws: Often Perfectly “Technically Fair”</h2>
+<blockquote class="blockquote">
+<p><em>Ah, la majestueuse égalité des lois, qui interdit au riche comme au pauvre de coucher sous les ponts, de mendier dans les rues et de voler du pain!</em></p>
+</blockquote>
+<blockquote class="blockquote">
+<p>(Ah, the majestic equality of the law, which prohibits rich and poor alike from sleeping under bridges, begging in the streets, and stealing loaves of bread!)</p>
+</blockquote>
+<p>Anatole France, <em>Le Lys Rouge</em> <span class="citation" data-cites="france_lys_1894">(<a href="#ref-france_lys_1894" role="doc-biblioref">France 1894</a>)</span></p>
+</section>
+</section>
+<section id="context-free-fairness" class="level1 smaller not-title-slide crunch-title">
+<h1 class="smaller not-title-slide crunch-title">Context-Free Fairness</h1>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/chomsky-hierarchy.jpeg" class="no-stretch img-fluid figure-img" width="200"></p>
+<figcaption>From <a href="https://www.cs.sfu.ca/~anoop/courses/MACM-300-Spring-2006/complexity.pdf" target="_blank"><em>Introduction to Formal Languages and Automata</em></a>, Simon Fraser University (2006). This figure summarizes the <strong>Chomsky Hierarchy</strong> of Languages, developed by Noam Chomsky, who also has a lot to say about Ethics and Policy…</figcaption>
+</figure>
+</div>
+<section id="the-brogrammers-criterion" class="level2 crunch-title crunch-ul">
+<h2 class="crunch-title crunch-ul anchored" data-anchor-id="the-brogrammers-criterion">The Brogrammer’s Criterion</h2>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>df.drop(columns<span class="op">=</span>[<span class="st">"race"</span>], inplace<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ul>
+<li>Racism solved, folks! 🥳🎊🎉 End of the course, have a great rest of your data science career ✌️</li>
+</ul>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/flocka.jpeg" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+</section>
+<section id="no-fairness-through-unawareness" class="level2 smaller crunch-title crunch-ul crunch-figcaption">
+<h2 class="smaller crunch-title crunch-ul crunch-figcaption anchored" data-anchor-id="no-fairness-through-unawareness">(No) Fairness Through Unawareness</h2>
+<ul>
+<li><strong>HW1</strong>: Using tiny sample (<span class="math inline">\(N &lt; 10K\)</span>) of Florida voter registrations… <a href="https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestClassifier.html" target="_blank">RandomForestClassifier</a> (default settings, no hyperparameter tuning, no cross-validation, no ensembling with other methods) will predict self-reported race with <span class="math inline">\(&gt;90\%\)</span> accuracy (in balanced sample) from just <strong>surname</strong> and <strong>county of residence</strong>
+<ul>
+<li>Can reach <span class="math inline">\(70\text{-}75\%\)</span> with <strong>just</strong> surname or <strong>just</strong> county of residence</li>
+</ul></li>
+<li>Also in HW1: <strong>Facebook</strong> ad matching service provides <strong>over 1,000 different user attributes</strong> for <strong>(micro)targeting</strong></li>
+</ul>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/proxy.svg" class="img-fluid figure-img"></p>
+<figcaption>From <span class="citation" data-cites="datta_proxy_2017">Datta et al. (<a href="#ref-datta_proxy_2017" role="doc-biblioref">2017</a>)</span></figcaption>
+</figure>
+</div>
+</section>
+<section id="to-make-it-even-more-concrete" class="level2 smaller crunch-title">
+<h2 class="smaller crunch-title anchored" data-anchor-id="to-make-it-even-more-concrete">To Make It Even More Concrete…</h2>
+<ul>
+<li><em>Bloomberg</em> analysis of neighborhoods with same-day delivery from Amazon:</li>
+</ul>
+<div id="fig-bloomberg" class="quarto-layout-panel">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-bloomberg-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="quarto-layout-row quarto-layout-valign-center">
+<div class="quarto-layout-cell" style="flex-basis: 33.3%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/amazon-six-cities-at.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 33.3%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/amazon-six-cities-ch.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 33.3%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/amazon-six-cities-dc.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-bloomberg-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;3: Figures from <span class="citation" data-cites="ingold_amazon_2016">Ingold and Soper (<a href="#ref-ingold_amazon_2016" role="doc-biblioref">2016</a>)</span>
+</figcaption>
+</figure>
+</div>
+</section>
+<section id="we-can-do-a-bit-better" class="level2 smaller">
+<h2 class="smaller anchored" data-anchor-id="we-can-do-a-bit-better">We Can Do (A Bit) Better…</h2>
+<ul>
+<li>Use <strong>random variables</strong> to model inferences made by an algorithm (or a human!)</li>
+<li><span class="math inline">\(\implies\)</span> fairness by statistically <strong>equalizing</strong> loan rejections, error rate, etc. between groups</li>
+<li>Obvious <strong>societal</strong> drawback: <strong>equality</strong> does not ameliorate the effects of <strong>past injustices</strong> (see: police contact vs.&nbsp;trust-in-government plot from last week)
+<ul>
+<li>This one we saw coming, given “context-free” nature!</li>
+</ul></li>
+<li>Less obvious <strong>mathematical</strong> drawback: <strong>impossibility results</strong> (because algebra 😳)
+<ul>
+<li>Roughly: can’t satisfy [more than] two statistical fairness criteria at once; similar to how setting <span class="math inline">\(\Pr(X) = p\)</span> also determines <span class="math inline">\(\Pr(\text{not }X) = 1 - p\)</span>, or how plugging <span class="math inline">\(x = 3\)</span> into <span class="math inline">\(x + y = 5\)</span> leaves only one possibility <span class="math inline">\(y = 2\)</span></li>
+</ul></li>
+<li><strong>BUT</strong>, “impossibility” <span class="math inline">\(\neq\)</span> impossibility: (a) one criteria may be “all you need” in given setting; (b) can derive <strong>more robust</strong> measures by “relaxing” confusion-matrix measures</li>
+</ul>
+</section>
+<section id="what-the-fairness-measures-will-feel-like-for-now" class="level2 smaller crunch-title title-10">
+<h2 class="smaller crunch-title title-10 anchored" data-anchor-id="what-the-fairness-measures-will-feel-like-for-now">What the Fairness Measures Will Feel Like For Now</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/rock_on_rich_brian.jpeg" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+<ul>
+<li>(They will get more robust and will <strong>incorporate context</strong> soon, I promise!)</li>
+</ul>
+</section>
+<section id="who-remembers-confusion-matrices" class="level2 smaller crunch-title title-11">
+<h2 class="smaller crunch-title title-11 anchored" data-anchor-id="who-remembers-confusion-matrices">Who Remembers… 🎉<em>Confusion Matrices!!!</em>🎉</h2>
+<ul>
+<li>Terrifyingly higher stakes than in DSAN 5000, however!</li>
+<li>Now <span class="math inline">\(D = 1\)</span> could literally mean <em>“shoot this person”</em> or <em>“throw this person in jail for life”</em></li>
+</ul>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/mitchell_et_al.svg" class="img-fluid figure-img"></p>
+<figcaption>From <span class="citation" data-cites="mitchell_algorithmic_2021">Mitchell et al. (<a href="#ref-mitchell_algorithmic_2021" role="doc-biblioref">2021</a>)</span></figcaption>
+</figure>
+</div>
+</section>
+<section id="our-first-fairness-measure-finally" class="level2 crunch-title smaller crunch-ul crunch-math">
+<h2 class="crunch-title smaller crunch-ul crunch-math anchored" data-anchor-id="our-first-fairness-measure-finally">Our First Fairness Measure (Finally)!</h2>
+<ul>
+<li>Standard across the literature: Random Variable <span class="math inline">\(A_i\)</span> “encoding” membership in protected/sensitive group. In HW1, for example:</li>
+</ul>
+<p><span class="math display">\[
+A_i = \begin{cases}
+0 &amp;\text{if }i\text{ self-reported ``white''} \\
+1 &amp;\text{if }i\text{ self-reported ``black''}
+\end{cases}
+\]</span></p>
+<ul>
+<li><p><strong>Notice</strong>: choice of mapping into <span class="math inline">\(\{0, 1\}\)</span> here <strong>non-arbitrary</strong>!</p></li>
+<li><p>We want our models/criteria to be <strong>descriptively</strong> but also <strong>normatively robust</strong>; e.g.:</p></li>
+<li><p><strong>If</strong> (antecedent I hold, though <a href="https://www.pewresearch.org/politics/2021/08/12/deep-divisions-in-americans-views-of-nations-racial-history-and-how-to-address-it/" target="_blank">majority in US</a> do not) one believes that ending (much less repairing) centuries of unrelenting white supremacist violence here might require asymmetric race-based policies,</p></li>
+<li><p><strong>Then</strong> our model should allow different <strong>normative labels</strong> and differential <strong>weights</strong> on</p>
+<p><span class="math display">\[
+\begin{align*}
+\Delta &amp;= (\text{Fairness} \mid A = 1) - (\text{Fairness} \mid A = 0) \\
+\nabla &amp;= (\text{Fairness} \mid A = 0) - (\text{Fairness} \mid A = 1)
+\end{align*}
+\]</span></p>
+<p>despite the <strong>descriptive</strong> fact that <span class="math inline">\(\Delta = -\nabla\)</span>.</p></li>
+</ul>
+</section>
+<section id="where-descriptive-and-normative-become-intertwined" class="level2 crunch-title title-07">
+<h2 class="crunch-title title-07 anchored" data-anchor-id="where-descriptive-and-normative-become-intertwined">Where Descriptive and Normative Become Intertwined</h2>
+<ul>
+<li>Allowing this <strong>asymmetry</strong> is precisely what enables bring <strong>descriptive</strong> facts to bear on <strong>normative</strong> concerns!</li>
+<li><strong>Mathematically</strong> we can always “flip” the mapping from racial labels into <span class="math inline">\(\{0, 1\}\)</span>…</li>
+<li>But this (in a precise, mathematical sense: namely, <em>isomorphism</em>) implies that we’re treating <strong>racial categorization</strong> as the same type of phenomenon as <strong>driving on left or right side of road</strong> (see: prev slides on why we make the descriptive vs.&nbsp;normative distinction)</li>
+<li>(See also: Sweden’s <a href="https://en.wikipedia.org/wiki/Dagen_H" target="_blank">Dagen H</a>!)</li>
+</ul>
+</section>
+<section id="fairness-through-equalized-positive-rates" class="level2 crunch-title crunch-ul title-08">
+<h2 class="crunch-title crunch-ul title-08 anchored" data-anchor-id="fairness-through-equalized-positive-rates">“Fairness” Through Equalized <em>Positive</em> Rates</h2>
+<p><span class="math display">\[
+\Pr(D = 1 \mid A = 0) = \Pr(D = 1 \mid A = 1)
+\]</span></p>
+<ul>
+<li>This works specifically for discrete, <strong>binary</strong>-valued categories</li>
+<li>For general attributes (whether discrete or continuous!), generalizes to:</li>
+</ul>
+<p><span class="math display">\[
+D \perp A \iff \Pr(D = d, A = a) = \Pr(D = d)\Pr(A = a)
+\]</span></p>
+</section>
+<section id="fairness-through-equalized-error-rates" class="level2 smaller crunch-title title-12">
+<h2 class="smaller crunch-title title-12 anchored" data-anchor-id="fairness-through-equalized-error-rates">“Fairness” Through Equalized <em>Error</em> Rates</h2>
+<ul>
+<li>Equalized <strong>False Positive Rate</strong>:</li>
+</ul>
+<p><span class="math display">\[
+\Pr(D = 1 \mid Y = 0, A = 0) = \Pr(D = 1 \mid Y = 0, A = 1)
+\]</span></p>
+<ul>
+<li>Equalized <strong>False Negative Rate</strong>:</li>
+</ul>
+<p><span class="math display">\[
+\Pr(D = 0 \mid Y = 1, A = 0) = \Pr(D = 0 \mid Y = 1, A = 1)
+\]</span></p>
+<ul>
+<li>For general (non-binary) attributes: <span class="math inline">\((D \perp A) \mid Y\)</span>:</li>
+</ul>
+<p><span class="math display">\[
+\Pr(D = d, A = a \mid Y = y) = \Pr(D = d \mid Y = y)\Pr(A = a \mid Y = y)
+\]</span></p>
+</section>
+<section id="no-more-equations" class="level2 smaller">
+<h2 class="smaller anchored" data-anchor-id="no-more-equations">NO MORE EQUATIONS! 😤</h2>
+<ul>
+<li>Depending on your background and/or learning style (say, visual vs.&nbsp;auditory), you may be able to look at equations on previous slides and “see” what they’re “saying”</li>
+<li>If your brain works similarly to <strong>mine</strong>, however, your eyes glazed over, you began dissociating, planning an escape route, etc.</li>
+<li>If you’re in the latter group, welcome to the <strong>cult of Probabilistic Graphical Models</strong> 😈</li>
+</ul>
+</section>
+<section id="baby-steps-a-real-world-confusion-matrix" class="level2 title-11 crunch-title smaller">
+<h2 class="title-11 crunch-title smaller anchored" data-anchor-id="baby-steps-a-real-world-confusion-matrix">Baby Steps: A Real-World Confusion Matrix</h2>
+<table class="table">
+<colgroup>
+<col style="width: 27%">
+<col style="width: 36%">
+<col style="width: 36%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th>Labeled Low-Risk</th>
+<th>Labeled High-Risk</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Didn’t Do More Crimes</strong></td>
+<td><em>True Negative</em></td>
+<td><em>False Positive</em></td>
+</tr>
+<tr class="even">
+<td><strong>Did More Crimes</strong></td>
+<td><em>False Negative</em></td>
+<td><em>True Positive</em></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>What kinds of <strong>causal connections</strong> and/or <strong>feedback loops</strong> might there be between our <strong>decision variable</strong> (low vs.&nbsp;high risk) and our <strong>outcome variable</strong> (did vs.&nbsp;didn’t do more crimes)</li>
+<li>What types of <strong>policy implications</strong> might this process have, after it “runs” for several “iterations”?</li>
+<li>Why might some segments of society, with some shared ethical framework(s), <strong>weigh</strong> the <strong>“costs”</strong> of false negatives and false positives <strong>differently</strong> from other segments of society with different shared ethical framework(s)?</li>
+<li>(Non-rhetorical questions!)</li>
+</ul>
+<!-- ## Minimizing Loss Function Penalizing (Only) These Errors $\iff$ Single-Threshold Fairness {.smaller .crunch-title .title-09}
+
+* Loss function: $\ell(d, \widehat{d})$
+* An **optimal classifier** minimizes the expected loss: $\mathbb{E}[\ell(\widehat{d},d)]$
+* A **decision** is considered to be fair if individuals with the same score $s_i = \psi(v_i)$ are treated equally, regardless of group membership (Corbett-Davies & Goel 2018). -->
+</section>
+<section id="references" class="level2">
+<h2 class="anchored" data-anchor-id="references">References</h2>
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-awad_computational_2022" class="csl-entry" role="listitem">
+Awad, Edmond, Sydney Levine, Michael Anderson, Susan Leigh Anderson, Vincent Conitzer, M. J. Crockett, Jim A. C. Everett, et al. 2022. <span>“Computational Ethics.”</span> <em>Trends in Cognitive Sciences</em> 26 (5): 388–405. <a href="https://doi.org/10.1016/j.tics.2022.02.009">https://doi.org/10.1016/j.tics.2022.02.009</a>.
+</div>
+<div id="ref-bishop_80_2017" class="csl-entry" role="listitem">
+Bishop, Marlon, and Tatiana Fernandez. 2017. <span>“80 <span>Years On</span>, <span>Dominicans And Haitians Revisit Painful Memories Of Parsley Massacre</span>.”</span> <em>NPR</em>, October. <a href="https://www.npr.org/sections/parallels/2017/10/07/555871670/80-years-on-dominicans-and-haitians-revisit-painful-memories-of-parsley-massacre">https://www.npr.org/sections/parallels/2017/10/07/555871670/80-years-on-dominicans-and-haitians-revisit-painful-memories-of-parsley-massacre</a>.
+</div>
+<div id="ref-bourdieu_sociology_2010" class="csl-entry" role="listitem">
+Bourdieu, Pierre. 2010. <em>Sociology Is a <span>Martial Art</span>: <span>Political Writings</span> by <span>Pierre Bourdieu</span></em>. New Press.
+</div>
+<div id="ref-churchill_pacifism_1998" class="csl-entry" role="listitem">
+Churchill, Ward, and Michael Ryan. 1998. <em>Pacifism as <span>Pathology</span>: <span>Reflections</span> on the <span>Role</span> of <span>Armed Struggle</span> in <span>North America</span></em>. PM Press.
+</div>
+<div id="ref-crawford_excavating_2019" class="csl-entry" role="listitem">
+Crawford, Kate, and Trevor Paglen. 2019. <span>“Excavating <span>AI</span>: <span>The Politics</span> of <span>Training Sets</span> for <span>Machine Learning</span>.”</span> AI Now Institute, NYU. <a href="https://excavating.ai">https://excavating.ai</a>.
+</div>
+<div id="ref-datta_proxy_2017" class="csl-entry" role="listitem">
+Datta, Anupam, Matt Fredrikson, Gihyuk Ko, Piotr Mardziel, and Shayak Sen. 2017. <span>“Proxy <span>Non-Discrimination</span> in <span>Data-Driven Systems</span>.”</span> arXiv. <a href="https://doi.org/10.48550/arXiv.1707.08120">https://doi.org/10.48550/arXiv.1707.08120</a>.
+</div>
+<div id="ref-deutscher_language_2010" class="csl-entry" role="listitem">
+Deutscher, Guy. 2010. <em>Through the <span>Language Glass</span>: <span>Why</span> the <span>World Looks Different</span> in <span>Other Languages</span></em>. <span>Henry Holt and Company</span>.
+</div>
+<div id="ref-dube_monopsony_2020" class="csl-entry" role="listitem">
+Dube, Arindrajit, Jeff Jacobs, Suresh Naidu, and Siddharth Suri. 2020. <span>“Monopsony in <span>Online Labor Markets</span>.”</span> <em>American Economic Review: Insights</em> 2 (1): 33–46. <a href="https://doi.org/10.1257/aeri.20180150">https://doi.org/10.1257/aeri.20180150</a>.
+</div>
+<div id="ref-dworkin_taking_1977" class="csl-entry" role="listitem">
+Dworkin, Ronald. 1977. <em>Taking <span>Rights Seriously</span></em>. A&amp;C Black.
+</div>
+<div id="ref-fields_racecraft_2012" class="csl-entry" role="listitem">
+Fields, Barbara J., and Karen E. Fields. 2012. <em>Racecraft: <span>The Soul</span> of <span>Inequality</span> in <span>American Life</span></em>. Verso Books.
+</div>
+<div id="ref-france_lys_1894" class="csl-entry" role="listitem">
+France, Anatole. 1894. <em>Le <span>Lys Rouge</span> (<span>The Red Lily</span>)</em>. G. Wells.
+</div>
+<div id="ref-gould_mismeasure_1980" class="csl-entry" role="listitem">
+Gould, Stephen Jay. 1980. <em>The <span>Mismeasure</span> of <span>Man</span> (<span>Revised</span> and <span>Expanded</span>)</em>. W. W. Norton &amp; Company.
+</div>
+<div id="ref-gray_ghost_2019" class="csl-entry" role="listitem">
+Gray, Mary L., and Siddharth Suri. 2019. <em>Ghost <span>Work</span>: <span>How</span> to <span>Stop Silicon Valley</span> from <span>Building</span> a <span>New Global Underclass</span></em>. HarperCollins.
+</div>
+<div id="ref-henrich_search_2001" class="csl-entry" role="listitem">
+Henrich, Joseph, Robert Boyd, Samuel Bowles, Colin Camerer, Ernst Fehr, Herbert Gintis, and Richard McElreath. 2001. <span>“In <span>Search</span> of <span>Homo Economicus</span>: <span>Behavioral Experiments</span> in 15 <span>Small-Scale Societies</span>.”</span> <em>American Economic Review</em> 91 (2): 73–78. <a href="https://doi.org/10.1257/aer.91.2.73">https://doi.org/10.1257/aer.91.2.73</a>.
+</div>
+<div id="ref-hobbes_leviathan_1651" class="csl-entry" role="listitem">
+Hobbes, Thomas. 1651. <em>Leviathan: <span>With</span> Selected Variants from the <span>Latin</span> Edition of 1668</em>. Hackett Publishing.
+</div>
+<div id="ref-ingold_amazon_2016" class="csl-entry" role="listitem">
+Ingold, David, and Spencer Soper. 2016. <span>“Amazon <span>Doesn</span>’t <span>Consider</span> the <span>Race</span> of <span>Its Customers</span>. <span>Should It</span>?”</span> <em>Bloomberg</em>, April. <a href="http://www.bloomberg.com/graphics/2016-amazon-same-day/">http://www.bloomberg.com/graphics/2016-amazon-same-day/</a>.
+</div>
+<div id="ref-james_moral_1891" class="csl-entry" role="listitem">
+James, William. 1891. <span>“The <span>Moral Philosopher</span> and the <span>Moral Life</span>.”</span> <em>International Journal of Ethics</em> 1 (3): 330–54. <a href="https://www.jstor.org/stable/2375309">https://www.jstor.org/stable/2375309</a>.
+</div>
+<div id="ref-kahneman_thinking_2011" class="csl-entry" role="listitem">
+Kahneman, Daniel. 2011. <em>Thinking, <span>Fast</span> and <span>Slow</span></em>. <span>Farrar, Straus and Giroux</span>.
+</div>
+<div id="ref-labov_language_2013" class="csl-entry" role="listitem">
+Labov, William. 2013. <em>The <span>Language</span> of <span>Life</span> and <span>Death</span>: <span>The Transformation</span> of <span>Experience</span> in <span>Oral Narrative</span></em>. Cambridge University Press.
+</div>
+<div id="ref-leguin_ones_1973" class="csl-entry" role="listitem">
+Le Guin, Ursula K. 1973. <em>The <span>Ones Who Walk Away</span> from <span>Omelas</span>: <span>A Story</span></em>. HarperCollins.
+</div>
+<div id="ref-mcwhorter_language_2014" class="csl-entry" role="listitem">
+McWhorter, John H. 2014. <em>The <span>Language Hoax</span>: <span>Why</span> the <span>World Looks</span> the <span>Same</span> in <span>Any Language</span></em>. Oxford University Press.
+</div>
+<div id="ref-mitchell_algorithmic_2021" class="csl-entry" role="listitem">
+Mitchell, Shira, Eric Potash, Solon Barocas, Alexander D’Amour, and Kristian Lum. 2021. <span>“Algorithmic <span>Fairness</span>: <span>Choices</span>, <span>Assumptions</span>, and <span>Definitions</span>.”</span> <em>Annual Review of Statistics and Its Application</em> 8 (1): 141–63. <a href="https://doi.org/10.1146/annurev-statistics-042720-125902">https://doi.org/10.1146/annurev-statistics-042720-125902</a>.
+</div>
+<div id="ref-morris_birth_1987" class="csl-entry" role="listitem">
+Morris, Benny. 1987. <em>The <span>Birth</span> of the <span>Palestinian Refugee Problem</span>, 1947-1949</em>. Cambridge University Press.
+</div>
+<div id="ref-pappe_ethnic_2006" class="csl-entry" role="listitem">
+Pappe, Ilan. 2006. <em>The <span>Ethnic Cleansing</span> of <span>Palestine</span></em>. <span>Simon and Schuster</span>.
+</div>
+<div id="ref-pellicer_understanding_2023" class="csl-entry" role="listitem">
+Pellicer, Miquel, and Vimal Ranchhod. 2023. <span>“Understanding the Effects of Racial Classification in <span>Apartheid South Africa</span>.”</span> <em>Journal of Development Economics</em> 160 (January): 102998. <a href="https://doi.org/10.1016/j.jdeveco.2022.102998">https://doi.org/10.1016/j.jdeveco.2022.102998</a>.
+</div>
+<div id="ref-rawls_outline_1951" class="csl-entry" role="listitem">
+Rawls, John. 1951. <span>“Outline of a <span>Decision Procedure</span> for <span>Ethics</span>.”</span> <em>The Philosophical Review</em> 60 (2): 177–97. <a href="https://doi.org/10.2307/2181696">https://doi.org/10.2307/2181696</a>.
+</div>
+<div id="ref-rawls_theory_1971" class="csl-entry" role="listitem">
+———. 1971. <em>A <span>Theory</span> of <span>Justice</span>: <span>Original Edition</span></em>. Harvard University Press.
+</div>
+<div id="ref-roemer_free_1988" class="csl-entry" role="listitem">
+Roemer, John E. 1988. <em>Free to <span>Lose</span>: <span>An Introduction</span> to <span>Marxist Economic Philosophy</span></em>. Harvard University Press.
+</div>
+<div id="ref-rousseau_social_1762" class="csl-entry" role="listitem">
+Rousseau, Jean-Jacques. 1762. <em>The <span>Social Contract</span></em>. Geneva: J. M. Dent.
+</div>
+<div id="ref-skinner_visions_2012" class="csl-entry" role="listitem">
+Skinner, Quentin. 2012. <em>Visions of <span>Politics</span>, <span>Volume</span> 1: <span>Regarding Method</span></em>. Cambridge: Cambridge University Press.
+</div>
+<div id="ref-st.augustine_works_1874" class="csl-entry" role="listitem">
+St. Augustine. 1874. <em>The <span>Works</span> of <span>Aurelius Augustine</span>: <span>Lectures</span> or Tractates on the <span>Gospel</span> According to <span>St</span>. <span>John</span>, v. 2</em>. T. &amp; T. Clark.
+</div>
+<div id="ref-weber_protestant_1904" class="csl-entry" role="listitem">
+Weber, Max. 1904. <em>The <span>Protestant Ethic</span> and the <span>Spirit</span> of <span>Capitalism</span></em>. Courier Corporation.
+</div>
+</div>
+
+
+</section>
+</section>
+
+
+<div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+
+<ol>
+<li id="fn1"><p><span class="citation" data-cites="fields_racecraft_2012">Fields and Fields (<a href="#ref-fields_racecraft_2012" role="doc-biblioref">2012</a>)</span>, for example, coined <strong>“racecraft”</strong> to describe reification of blackness in US… <em>much</em> more on this later!<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section></div></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

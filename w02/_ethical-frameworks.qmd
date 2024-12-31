@@ -1,0 +1,449 @@
+# Metaethics {data-stack-name="Metaethics"}
+
+* Consequentialism
+* Deontology
+* Virtue Ethics
+
+## Reflective Equilibrium {.crunch-title .crunch-quarto-figure}
+
+* Most criticisms of any framework boil down to, "great in theory, but doesn't work in practice"
+* The way to take this seriously: **reflective equilibrium** 
+* Introduced by @rawls_outline_1951, but popularized by @rawls_theory_1971
+
+![From @awad_computational_2022](images/reflective.jpg){fig-align="center"}
+
+## Rawls vs. Everyone Else {.smaller .crunch-title .crunch-ul}
+
+* Q: What book had the greatest impact on modern (Anglophone) philosophy?
+* One approach: citations in a widely-used <a href='https://plato.stanford.edu/entries/reflective-equilibrium/' target='_blank'>encyclopedia of philosophy</a>\* <a href='http://schwitzsplinters.blogspot.com/2020/07/the-233-most-cited-works-in-stanford.html' target='_blank'>The results</a>:
+
+```{=html}
+<table style='width: 100% !important;'>
+<thead>
+<tr>
+    <th style='width: 5% !important;'></th>
+    <th style='width: 45% !important;' class='split-table'>Book</th>
+    <th style='width: 5% !important;'></th>
+    <th style='width: 45% !important;'>Book</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+    <td>1</td>
+    <td class='split-table'><span data-qmd="Rawls 1972, *A Theory of Justice* (115)"></span></td>
+    <td>6</td>
+    <td><span data-qmd="Parfit 1984, *Reasons and Persons* (62)"></span></td>
+</tr>
+<tr>
+    <td>2</td>
+    <td class='split-table'><span data-qmd="Kripke 1980, *Naming and Necessity* (88)"></span></td>
+    <td>7</td>
+    <td><span data-qmd="Scanlon 1998, *What We Owe to Each Other* (56)"></span></td>
+</tr>
+<tr>
+    <td>3</td>
+    <td class='split-table'><span data-qmd="Lewis 1986, *On the Plurality of Worlds* (63)"></span></td>
+    <td>8</td>
+    <td><span data-qmd="Wittgenstein 1953, *Philosophical Investigations* (55)"></span></td>
+</tr>
+<tr>
+    <td>3</td>
+    <td class='split-table'><span data-qmd="Nozick 1974, *Anarchy, State and Utopia* (63)"></span></td>
+    <td>9</td>
+    <td><span data-qmd="Chalmers 1996, *The Conscious Mind* (53)"></span></td>
+</tr>
+<tr>
+    <td>3</td>
+    <td class='split-table'><span data-qmd="Quine 1960, *Word and Object* (63)"></span></td>
+    <td>10</td>
+    <td><span data-qmd="Rawls 1993, *Political Liberalism* (48)"></span></td>
+</tr>
+</tbody>
+</table>
+```
+
+# Descriptive vs. Normative Meaning {data-stack-name="Descriptive vs. Normative"}
+
+## Easy Mode: Descriptive Judgements {.smaller .crunch-title}
+
+**How did you acquire the concept "red"?**
+
+* People pointed to stuff with certain properties and said "red" (or "rojo" or "红"), as part of constructing an **intersubjective** communication system
+* These **descriptive** concepts exist essentially for *coordination*, like driving on the left vs. right side of the road!
+* Nothing very profound or difficult seems to come from the **commitments** implied by this descriptive coordination: *"for ease of communication, I'll vibrate my vocal chords like this (or write these symbols) to indicate $x$, and I'll vibrate them like this (or write these other symbols) to indicate $y$"*
+<!-- * Technically you have the free will to **refuse** this prescription. But, nothing very "" -->
+* Our linguistic choices, when it comes to **description**, are arbitrary: Our mouths can make <a href='https://en.wikipedia.org/wiki/International_Phonetic_Alphabet' target='_blank'>these sounds</a>, and each language is a mapping: [combinations of sounds] $\leftrightarrow$ [things]
+<!-- * Our lives/the world would not be very different if "red" was switched with "green"; i.e., the main change would just be vibrating different vocal chords or writing different symbols to communicate the concept -->
+
+## What Makes Ethical Judgements "More Difficult"? {.smaller .title-11 .crunch-title}
+
+**How did you acquire the concept "good"?**
+
+* People pointed to actions/decisions with certain properties and said "good" (and pointed at others and said "bad"), as part of instilling **values** in you
+* "Grass is green" just links two **descriptive** referents together, while "Honesty is good" takes the **descriptive** concept "honesty" and *links it* with the **normative** concept "good"
+* In doing this, parents/teachers/friends are doing way more than just linking sounds and things in the world: they are also **prescribing** rules of moral conduct!
+* These **normative** concepts go beyond communication: the course of your life, the way the future unfolds, is different if you **act on** one set of norms vs. another
+* Ethics therefore centrally involves non-arbitrarily-chosen **commitments**!
+* tl;dr: languages are arbitrary conventions for communication, while ethical systems use this language to non-arbitrarily mark out things that are good/bad:
+  * Life would **not** be very different if we "shuffled" words (we'd just vibrate our vocal chords differently), but **would** be very different if we "shuffled" good/bad labeling
+
+## Historical Example: Capitalism and the "Protestant Ethic" {.crunch-title .smaller .title-09 .crunch-quarto-layout-panel}
+
+* Big changes in history are associated with changes in this **good/bad labeling**!
+* Max Weber (<a href='https://www.researchgate.net/figure/Top-50-sociologists-according-to-aggregate-weighted-citation-scores-normalized-score_fig1_332447162' target='_blank'>second most-cited</a> sociologist of all time): Protestantism gave rise to the capitalist system by **relabeling** what things are good vs. bad [@weber_protestant_1904]:
+
+::: {layout="[1,1]"}
+
+::: {#bible-money}
+
+> Jesus said to his disciples, "Truly, I say to you, only with difficulty will a rich person enter the kingdom of heaven. Again I tell you, it is easier for a camel to go through the eye of a needle than for a rich person to enter the kingdom of God." (<a href='https://www.biblegateway.com/passage/?search=Matthew%2019&version=ESV' target='_blank'>Matthew 19:23-24</a>)
+
+> Oh, were we loving God worthily, we should have no love at all for money! [@st.augustine_works_1874, pg. 28]
+
+:::
+
+> The earliest capitalists lacked legitimacy in the moral climate in which they found themselves. One of the means they found [to legitimize their behavior] was to appropriate the evaluative vocabulary of Protestantism. [@skinner_visions_2012, pg. 157]
+
+:::
+
+## Contemporary Example: Palestine {.smaller .crunch-quarto-layout-panel .crunch-title .crunch-ul .crunch-blockquote .crunch-li .crunch-p}
+
+* Very few of the relevant **empirical** facts are in dispute, since opening of crucial archives to three so-called "New Historians" in the 1980s. So why do people still argue?
+
+::: {layout="[1,1]"}
+::: {#pappe-text}
+
+* **Ilan Pappe**, one of these historians, concluded from this material that:
+  * The Israeli state was built upon a massive ethnic cleansing, and
+  * Is not morally justifiable [@pappe_ethnic_2006]
+
+> The immunity Israel has received over the last fifty years encourages others, regimes and oppositions alike, to believe that human and civil rights are irrelevant in the Middle East. The dismantling of the mega-prison in Palestine will send a different, and more hopeful, message.
+
+:::
+::: {#morris-text}
+
+* **Benny Morris**, another of these historians, concluded that:
+  * The Israeli state was built upon a massive ethnic cleansing, and
+  * Is morally justifiable [@morris_birth_1987]
+
+> A Jewish state would not have come into being without the uprooting of 700,000 Palestinians. Therefore it was necessary to uproot them. There was no choice but to expel that population. It was necessary to cleanse the hinterland and cleanse the border areas and cleanse the main roads.
+
+<!-- [...] The term "cleanse" doesn't sound nice but that's the term they used at the time. I adopted it from the 1948 documents. -->
+
+:::
+:::
+
+# Ethical Frameworks {data-stack-name="Frameworks"}
+
+## (From W01) Promise-Keeping {.smaller .crunch-title .crunch-quarto-layout-panel .crunch-ul .title-12}
+
+* Scenario: You just baked a pie, and you promised your friend you'd give them the pie. You're walking over to the friend's house to give them the pie.
+* Suddenly, you turn the corner to encounter a hostage situation: the hostage-taker is going to kill their hostage unless someone gives them a pie in the next 30 seconds
+* Do you give the hostage-taker the pie?
+
+::: {layout="[1,1]"}
+::: {#conseqentialism}
+
+<center>
+**Consequentialist Ethics $\implies$ Yes**
+</center>
+
+* To be ethical is to weigh consequences of your actions
+* The **positive consequences** of giving the pie to the hostage-taker (saving a life) outweigh the **negative consequences** (breaking your promise to your friend)
+* *(Ex: **Utilitarianism**, associated with British philosopher **Jeremy Bentham**)*
+
+:::
+::: {#deontology}
+
+<center>
+**Deontological Ethics $\implies$ No**
+</center>
+
+* To be ethical is to live by rules which you would **want everyone to follow**.
+* As a **rule** (a "categorical imperative"), you **must not break promises**. (Breaking this rule $\implies$ others can also "pick and choose" when to honor promises to you)
+* *(Ex: **Kantian Ethics**, associated with German philosopher **Immanuel Kant**)*
+
+:::
+
+:::
+
+## Counterargument to Consequentialism {.crunch-title .title-09 .crunch-quarto-layout-panel .crunch-ul .crunch-quarto-figure .crunch-images}
+
+::: {layout="[1,1]"}
+
+::: {#omelas-text}
+
+> Millions are kept permanently happy, on the one simple condition that a certain lost soul on the far-off edge of things should lead a life of lonely torture [@james_moral_1891]
+
+* Modern example: people "out there" suffer so we can have iPhones, etc.
+
+:::
+
+![@leguin_ones_1973](images/omelas.jpg){fig-align="center" width="360"}
+
+:::
+
+## One Solution: Individual Rights {.crunch-title .crunch-quarto-layout-panel .crunch-quarto-figure .crunch-figcaption .crunch-images}
+
+::: {layout="[1,1]"}
+
+::: {#rights-text}
+
+* Rights are **vetoes** which **individuals** can use to cancel out **collective**/institutional decisions which affect them
+* Key example for us: right to **privacy**
+
+:::
+
+![@dworkin_taking_1977](images/dworkin.jpg){fig-align="center" width="360"}
+
+:::
+
+## Counterargument to Deontology
+
+* Deontological rule: "Don't lie"
+* Real-world case: Nazis come to your house, ask you if you're harboring any Jews
+
+## A Synthesis: Two-Level Utilitarianism {.title-09 .crunch-title .crunch-quarto-layout-panel .crunch-quarto-figure .crunch-images .crunch-figcaption}
+
+::: {layout="[1,1]"}
+
+::: {#two-level-text}
+
+* It would be exhausting to compute Nash equilibrium strategies for every interaction
+* Instead, we can develop **heuristics** that work for most cases, then **reevaluate** and **update** when we encounter tough cases
+* (Brings us back to **reflective equilibrium**!)
+
+:::
+
+![@kahneman_thinking_2011](images/thinking.jpg){fig-align="center" width="360"}
+
+:::
+
+## Individual vs. Social Morality
+
+* It's already quite difficult to reason about **individual** morality
+* Now add in the fact that we live in a society 😰
+* Things that happen depend not only on **our** choices but also the choices of others
+
+## Enter Game Theory {.smaller .crunch-title .crunch-quarto-layout-panel .crunch-figcaption .crunch-ul}
+
+* A tool for analyzing how **individual choices** + **choices of others** $\rightarrow$ **outcomes**!
+
+::: {layout="[1,1]" layout-valign="center"}
+
+::: {#game-theory-text}
+
+* Example: You ($A$) and a friend ($B$) committed a robbery, and you're brought into the police station for questioning.
+* You're placed in separate rooms, and each of you is offered a **plea deal**: if you **testify** while your partner **stays silent**, you go free and they go to jail for 3 years.
+* Otherwise, if you **both stay silent**, they have very little evidence and can only jail you for **1 year**
+* However, there's a catch: if you **both confess**, you both get **two years** in jail, since they now have maximal evidence
+
+:::
+
+![Source: <a href='https://commons.wikimedia.org/wiki/File:Prisoners_dilemma.svg' target='_blank'>Wikimedia Commons</a>](images/prisoners_dilemma.svg){fig-align="center"}
+
+:::
+
+## Individual Decision-Making {.smaller .title-11}
+
+::: {layout="[1,1]" layout-valign="center"}
+
+::: {#step-by-step}
+
+* Let's think through $A$'s **best responses** to the possible choices $B$ could make:
+* If $B$ **stays silent**, what is $A$'s best option?
+  * **Staying silent** results in **1 year** of jail
+  * **Testifying** results in **0 years** of jail
+  * So it is **better to testify**
+* If $B$ **testifies**, what is $A$'s best option?
+  * **Staying silent** results in **3 years** of jail
+  * **Testifying** results in **2 years** of jail
+  * So it is **better to testify**
+* The result: **regardless of what $B$ does**, $A$ is **better off testifying**!
+
+:::
+
+![Source: <a href='https://commons.wikimedia.org/wiki/File:Prisoners_dilemma.svg' target='_blank'>Wikimedia Commons</a>](images/prisoners_dilemma.svg){fig-align="center"}
+
+:::
+
+## The Social Outcome
+
+::: {layout="[1,1]" layout-valign="center"}
+
+::: {#social-outcome-text}
+
+* The game is **symmetric**, so the same logic applies for $B$
+* Conclusion: **the outcome of the game will be $s^* = (\text{Testify}, \text{Testify})$**
+* This is called a **Nash equilibrium**: no player can make themselves better off by **deviating** from this choice
+
+:::
+
+![Source: <a href='https://commons.wikimedia.org/wiki/File:Prisoners_dilemma.svg' target='_blank'>Wikimedia Commons</a>](images/prisoners_dilemma.svg){fig-align="center"}
+
+:::
+
+## How Do We Fix This? *Conventions!*
+
+* We encounter this type of problem every day if we **drive**! You ($A$) and another driver ($B$) arrive at an **intersection**:
+
+::: {layout="[1,1]"}
+
+::: {#intersection-text}
+
+* If we **both stop**, we're mostly bored ($u_A = -1$)
+* If we stop and the other person drives, we're mad that they got to go and we didn't ($u_A = -3$)
+* If we **both drive**, we crash ($u_A = -5$)
+
+:::
+::: {#intersection-table}
+
+```{=html}
+<table class='game-table'>
+<thead>
+</thead>
+<tbody>
+<tr>
+  <td class='game-label'></td>
+  <td class='game-label'></td>
+  <td colspan="2" align="center" class='game-label'><span data-qmd="$B$"></span></td>
+</tr>
+<tr>
+  <td class='game-label'></td>
+  <td class='game-label'></td>
+  <td class='game-label'>Stop</td>
+  <td class='game-label'>Drive</td>
+</tr>
+<tr>
+  <td rowspan="2" style="vertical-align: middle;" class='game-label'><span data-qmd="$A$"></span></td>
+  <td class='game-label'>Stop</td>
+  <td class='game-cell'><span data-qmd="$-1,-1$"></span></td>
+  <td class='game-cell'><span data-qmd="$-3,\phantom{-}0$"></span></td>
+</tr>
+<tr>
+  <td class='game-label'>Drive</td>
+  <td class='game-cell'><span data-qmd="$\phantom{-}0, -3$"></span></td>
+  <td class='game-cell'><span data-qmd="$-5,-5$"></span></td>
+</tr>
+</tbody>
+</table>
+```
+
+:::
+
+:::
+
+## Without A Convention {.smaller .crunch-title .crunch-quarto-layout-panel}
+
+::: {layout="[1,1]" layout-valign="center"}
+
+::: {#no-convention-text}
+
+* We're "frozen": this game has **no unique Nash equilibrium**, so we cannot say (on the basis of individual rationality) what will happen!
+* Without a convention: **power** takes over. "War of all against all", only the strong survive, etc.
+* If my power is $p$ and the other player's power is $q$, we can model $\Pr((Drive, Stop)) = \frac{p}{p+q}$, $\Pr((Stop, Drive)) = \frac{q}{p+q}$
+* $\mathbb{E}[u_A] = p(0) + q(-3) = -3\frac{q}{p+q}$
+* $\mathbb{E}[u_B] = q(0) + p(-3) = -3\frac{p}{p+q}$
+
+:::
+::: {#no-convention-table}
+
+```{=html}
+<table class='game-table'>
+<thead>
+</thead>
+<tbody>
+<tr>
+  <td class='game-label'></td>
+  <td class='game-label'></td>
+  <td colspan="2" align="center" class='game-label'><span data-qmd="$B$"></span></td>
+</tr>
+<tr>
+  <td class='game-label'></td>
+  <td class='game-label'></td>
+  <td class='game-label'>Stop</td>
+  <td class='game-label'>Drive</td>
+</tr>
+<tr>
+  <td rowspan="2" style="vertical-align: middle;" class='game-label'><span data-qmd="$A$"></span></td>
+  <td class='game-label'>Stop</td>
+  <td class='game-cell'><span data-qmd="${\color{orange}\cancel{\color{black}-1}},{\color{lightblue}\cancel{\color{black}-1}}$"></span></td>
+  <td class='game-cell'><span data-qmd="$\boxed{-3},\boxed{0}$"></span></td>
+</tr>
+<tr>
+  <td class='game-label'>Drive</td>
+  <td class='game-cell'><span data-qmd="$\boxed{0}, \boxed{-3}$"></span></td>
+  <td class='game-cell'><span data-qmd="${\color{orange}\cancel{\color{black}-5}},{\color{lightblue}\cancel{\color{black}-5}}$"></span></td>
+</tr>
+</tbody>
+</table>
+```
+
+:::
+:::
+
+## The Convention of Traffic Lights {.smaller .crunch-title}
+
+* If we don't want a world where happiness $\propto$ power, we can introduce **traffic lights**: 
+
+::: {layout="[1,1]"}
+::: {#traffic-light-text}
+
+* Now $\Pr((Drive, Stop)) = 0.5$, $\Pr((Stop, Drive)) = 0.5$
+* $\mathbb{E}[u_A] = (0.5)(0) + (0.5)(-3) = -1.5$
+* $\mathbb{E}[u_B] = (0.5)(-3) + (0.5)(0) = -1.5$
+
+:::
+::: {#traffic-light-table}
+
+```{=html}
+<table class='game-table'>
+<thead>
+</thead>
+<tbody>
+<tr>
+  <td class='game-label'></td>
+  <td class='game-label'></td>
+  <td colspan="2" align="center" class='game-label'><span data-qmd="$B$"></span></td>
+</tr>
+<tr>
+  <td class='game-label'></td>
+  <td class='game-label'></td>
+  <td class='game-label'>Stop</td>
+  <td class='game-label'>Drive</td>
+</tr>
+<tr>
+  <td rowspan="2" style="vertical-align: middle;" class='game-label'><span data-qmd="$A$"></span></td>
+  <td class='game-label'>Stop</td>
+  <td class='game-cell'><span data-qmd="${\color{orange}\cancel{\color{black}-1}},{\color{lightblue}\cancel{\color{black}-1}}$"></span></td>
+  <td class='game-cell'><span data-qmd="$\boxed{-3},\boxed{0}$"></span></td>
+</tr>
+<tr>
+  <td class='game-label'>Drive</td>
+  <td class='game-cell'><span data-qmd="$\boxed{0}, \boxed{-3}$"></span></td>
+  <td class='game-cell'><span data-qmd="${\color{orange}\cancel{\color{black}-5}},{\color{lightblue}\cancel{\color{black}-5}}$"></span></td>
+</tr>
+</tbody>
+</table>
+```
+
+:::
+:::
+
+* Empirical (anthropological) findings across literally thousands of different cultures throughout the world: people are willing to **give up rewards** to **ensure fairness** (see, e.g., @henrich_search_2001)
+
+## So How Should We Make/Choose Conventions? {.title-08}
+
+* @hobbes_leviathan_1651: Only way out of "war of all against all" is to surrender all power to one **sovereign** (the *Leviathan*)
+* @rousseau_social_1762: Social contract
+* @rawls_theory_1971: Social contract **behind the "veil of ignorance"**
+  * If we didn't know **where we were going to end up** in society, how would we set it up?
+<!-- * @dworkin_what_1981: Yes, plus also people can **buy insurance** against ending up in a bad place $\rightarrow$ level of "just" redistribution -->
+
+## Rawls' Veil of Ignorance {.crunch-title}
+
+* Probably the most important tool for policy whitepapers!
+* "Justice as fairness" (next week: fairness in AI 😜)
+* We don't know whether we'll be $A$ or $B$ in the intersection game, so we'd choose the **traffic light**!
+* More profoundly: We don't know what **race**, **gender**, **class**, **ethnicity**, **sexuality**, **disability status** we'll have; We don't know whether we'll be **Israeli** or **Palestinian**; we don't know whether we'll own **means of production** or own only our **labor power** (and thus have to sell it on a market to survive)... 🤔
+

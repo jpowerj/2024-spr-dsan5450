@@ -1,0 +1,35 @@
+
+::: {#game-theory-table}
+
+```{=html}
+<table class='game-table'>
+<thead>
+</thead>
+<tbody>
+<tr>
+  <td></td>
+  <td></td>
+  <td colspan="2" align="center"><span data-qmd="$j$"></span></td>
+</tr>
+<tr>
+  <td></td>
+  <td></td>
+  <td>Stay Silent</td>
+  <td>Confess</td>
+</tr>
+<tr>
+  <td rowspan="2" style="vertical-align: middle;"><span data-qmd="$i$"></span></td>
+  <td>Stay Silent</td>
+  <td><span data-qmd="$-1,-1$"></span></td>
+  <td><span data-qmd="$-5,\phantom{-}0$"></span></td>
+</tr>
+<tr>
+  <td>Confess</td>
+  <td><span data-qmd="$\phantom{-}0, -5$"></span></td>
+  <td><span data-qmd="$-5,-5$"></span></td>
+</tr>
+</tbody>
+</table>
+```
+
+:::

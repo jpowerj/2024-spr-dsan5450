@@ -1,0 +1,1173 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.5.23">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Jeff Jacobs">
+
+<title>DSAN 5450 – Week 12: Final Projects, Causality and Racecraft</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../favicon.png" rel="icon" type="image/png">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script><script src="../jjcustom.js"></script>
+
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../styles.css">
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../w12/index.html">Week 12: {{&lt; var w12.date-md &gt;}}</a></li></ol></nav>
+        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../">DSAN 5450: Data Ethics and Policy</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><i class="bi bi-house pe-1"></i> Home</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../syllabus.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Syllabus</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../writeups/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Writeups</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../assignments.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Assignments</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../final.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Final Project</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../recordings/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Recordings</span></a>
+  </div>
+</li>
+        <li class="px-0"><hr class="sidebar-divider hi "></li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../w01/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Week 1: Jan 17</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../w02/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Week 2: Jan 24</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../w03/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Week 3: Jan 31</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../w04/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Week 4: Feb 7</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../w05/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Week 5: Feb 14</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../w06/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Week 6: Feb 21</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../w07/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Week 7: Feb 28</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../w08/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Week 8: Mar 13</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../w09/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Week 9: Mar 20</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../w10/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Week 10: Mar 27</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../w11/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Week 11: Apr 3</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../w12/index.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Week 12: Apr 10</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../w13/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Week 13: Apr 17</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../w14/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Week 14: Apr 24</span></a>
+  </div>
+</li>
+        <li class="px-0"><hr class="sidebar-divider hi "></li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="https://forms.gle/LLQsiwGy5kkH5n3PA" class="sidebar-item-text sidebar-link" target="&quot;_blank&quot;">
+ <span class="menu-text">Anonymous Suggestions<i class="bi bi-box-arrow-up-right ps-1"></i></span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#making-projects-less-scary" id="toc-making-projects-less-scary" class="nav-link active" data-scroll-target="#making-projects-less-scary">Making Projects Less Scary</a>
+  <ul class="collapse">
+  <li><a href="#how-do-i-pick-a-topic" id="toc-how-do-i-pick-a-topic" class="nav-link" data-scroll-target="#how-do-i-pick-a-topic">How Do I Pick A Topic?</a></li>
+  <li><a href="#the-rating-system" id="toc-the-rating-system" class="nav-link" data-scroll-target="#the-rating-system">The Rating System</a></li>
+  <li><a href="#discussing-fairness" id="toc-discussing-fairness" class="nav-link" data-scroll-target="#discussing-fairness">Discussing Fairness</a></li>
+  <li><a href="#evaluating-policy" id="toc-evaluating-policy" class="nav-link" data-scroll-target="#evaluating-policy">Evaluating Policy</a></li>
+  <li><a href="#frequently-awesome-questions" id="toc-frequently-awesome-questions" class="nav-link" data-scroll-target="#frequently-awesome-questions">Frequently Awesome Questions</a></li>
+  <li><a href="#getting-from-here-to-there" id="toc-getting-from-here-to-there" class="nav-link" data-scroll-target="#getting-from-here-to-there">Getting From Here to There</a></li>
+  </ul></li>
+  <li><a href="#causality-and-identity-formation" id="toc-causality-and-identity-formation" class="nav-link" data-scroll-target="#causality-and-identity-formation">Causality and Identity Formation</a>
+  <ul class="collapse">
+  <li><a href="#but-first-phenomenology" id="toc-but-first-phenomenology" class="nav-link" data-scroll-target="#but-first-phenomenology">But First… Phenomenology</a></li>
+  <li><a href="#w.e.b.-du-bois-and-the-epistemological-one-way-mirror" id="toc-w.e.b.-du-bois-and-the-epistemological-one-way-mirror" class="nav-link" data-scroll-target="#w.e.b.-du-bois-and-the-epistemological-one-way-mirror">W.E.B. Du Bois and the Epistemological One-Way Mirror</a></li>
+  <li><a href="#textsfrace_textsfvariable-vs.-textsfrace_textsfconstruct" id="toc-textsfrace_textsfvariable-vs.-textsfrace_textsfconstruct" class="nav-link" data-scroll-target="#textsfrace_textsfvariable-vs.-textsfrace_textsfconstruct"><span class="math inline">\(\textsf{Race}_{\textsf{Variable}}\)</span> vs.&nbsp;<span class="math inline">\(\textsf{Race}_{\textsf{Construct}}\)</span></a></li>
+  <li><a href="#racial-discrimination" id="toc-racial-discrimination" class="nav-link" data-scroll-target="#racial-discrimination">Racial Discrimination</a></li>
+  <li><a href="#controlling-for-everything-besides-race" id="toc-controlling-for-everything-besides-race" class="nav-link" data-scroll-target="#controlling-for-everything-besides-race">“Controlling for” Everything Besides Race</a></li>
+  <li><a href="#age-discrimination" id="toc-age-discrimination" class="nav-link" data-scroll-target="#age-discrimination">Age Discrimination?</a></li>
+  <li><a href="#cool-theory-i-guess" id="toc-cool-theory-i-guess" class="nav-link" data-scroll-target="#cool-theory-i-guess">“Cool Theory, I Guess…”</a></li>
+  <li><a href="#cool-theory-i-guess-1" id="toc-cool-theory-i-guess-1" class="nav-link" data-scroll-target="#cool-theory-i-guess-1">“Cool Theory, I Guess…”</a></li>
+  <li><a href="#opening-a-big-can-of-worms" id="toc-opening-a-big-can-of-worms" class="nav-link" data-scroll-target="#opening-a-big-can-of-worms">Opening A Big Can Of Worms</a></li>
+  <li><a href="#opening-a-big-can-of-worms-1" id="toc-opening-a-big-can-of-worms-1" class="nav-link" data-scroll-target="#opening-a-big-can-of-worms-1">Opening A Big Can Of Worms</a></li>
+  <li><a href="#opening-a-big-can-of-worms-2" id="toc-opening-a-big-can-of-worms-2" class="nav-link" data-scroll-target="#opening-a-big-can-of-worms-2">Opening A Big Can Of Worms</a></li>
+  <li><a href="#opening-a-big-can-of-worms-3" id="toc-opening-a-big-can-of-worms-3" class="nav-link" data-scroll-target="#opening-a-big-can-of-worms-3">Opening A Big Can Of Worms</a></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
+  </ul></li>
+  </ul>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="slides.html"><i class="bi bi-file-slides"></i>RevealJS</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Week 12: Final Projects, Causality and Racecraft</h1>
+<p class="subtitle lead"><em>DSAN 5450: Data Ethics and Policy</em><br><span class="subsubtitle">Spring 2024, Georgetown University</span></p>
+  <div class="quarto-categories">
+    <div class="quarto-category">Class Sessions</div>
+  </div>
+  </div>
+
+
+<div class="quarto-title-meta-author">
+  <div class="quarto-title-meta-heading">Author</div>
+  <div class="quarto-title-meta-heading">Affiliation</div>
+  
+    <div class="quarto-title-meta-contents">
+    <p class="author">Jeff Jacobs </p>
+  </div>
+  <div class="quarto-title-meta-contents">
+        <p class="affiliation">
+            <a href="mailto:jj1088@georgetown.edu" target="_blank"><code>jj1088@georgetown.edu</code></a>
+          </p>
+      </div>
+  </div>
+
+<div class="quarto-title-meta">
+
+      
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">Wednesday, April 10, 2024</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<center>
+<a class="h2" href="./slides.html" target="_blank">Open slides in new window →</a>
+</center>
+<section id="making-projects-less-scary" class="level1" data-stack-name="Final Projects">
+<h1 data-stack-name="Final Projects">Making Projects Less Scary</h1>
+<section id="how-do-i-pick-a-topic" class="level2">
+<h2 class="anchored" data-anchor-id="how-do-i-pick-a-topic">How Do I Pick A Topic?</h2>
+<ul>
+<li>I know that “whatever is interesting to you” can be way overly-vague!</li>
+<li>So, one approach is: imagine yourself in a job interview for your dream job, and they bring up DSAN 5450: “Interesting, what did you do in that class?”</li>
+<li>[Insert final project elevator pitch] “Wow, that’s such a cool project, we really want someone who can [say] take a data-driven approach to a policy question like that. You’re hired!”</li>
+<li>(Jeff gets a commission: 10% of your salary)</li>
+</ul>
+</section>
+<section id="the-rating-system" class="level2 crunch-title smaller crunch-images">
+<h2 class="crunch-title smaller crunch-images anchored" data-anchor-id="the-rating-system">The Rating System</h2>
+<div id="fig-ratings" class="quarto-figure quarto-figure-center quarto-float anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-ratings-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<p><a href="https://jpj.georgetown.domains/dsan5450-scratch/cinema.mp4" target="_blank"><img src="images/rating.png" class="img-fluid figure-img"></a></p>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-ratings-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: <a href="https://jpj.georgetown.domains/dsan5450-scratch/cinema.mp4" target="_blank">On Cinema at the Cinema S1E09 <i class="bi bi-box-arrow-up-right ps-1"></i></a>
+</figcaption>
+</figure>
+</div>
+</section>
+<section id="discussing-fairness" class="level2 crunch-title smaller">
+<h2 class="crunch-title smaller anchored" data-anchor-id="discussing-fairness">Discussing Fairness</h2>
+<div>
+<table data-quarto-postprocess="true" class="table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Below Expectations</strong><br>
+<img src="images/1_bag.png" class="img-fluid" width="50"></td>
+<td>"This algorithm is unfair"</td>
+</tr>
+<tr class="even">
+<td><strong>Meets Expectations</strong><br>
+<img src="images/1_bag.png" class="img-fluid" width="50"><img src="images/1_bag.png" class="img-fluid" width="50"><img src="images/1_bag.png" class="img-fluid" width="50"></td>
+<td>"This algorithm violates the Predictive Parity criterion of fairness when run on this dataset"</td>
+</tr>
+<tr class="odd">
+<td><strong>Exceeds Expectations</strong><br>
+<img src="images/1_bag.png" class="img-fluid" width="50"><img src="images/1_bag.png" class="img-fluid" width="50"><img src="images/1_bag.png" class="img-fluid" width="50"><img src="images/1_bag.png" class="img-fluid" width="50"><img src="images/1_bag.png" class="img-fluid" width="50"></td>
+<td>"This algorithm violates the Predictive Parity criterion when run on this dataset, but that’s because [other mitigating factor]. It still satisfies Within-<span class="math inline">\(\varepsilon\)</span> Predictive Parity, for <span class="math inline">\(\varepsilon = 0.02\)</span>"</td>
+</tr>
+<tr class="even">
+<td><strong>Doing Too Much</strong><br>
+<img src="images/1_bag.png" class="img-fluid" width="50"><img src="images/1_bag.png" class="img-fluid" width="50"><img src="images/1_bag.png" class="img-fluid" width="50"><img src="images/1_bag.png" class="img-fluid" width="50"><img src="images/1_bag.png" class="img-fluid" width="50"> <img src="images/soda.png" class="img-fluid" width="20"> <img src="images/soda.png" class="img-fluid" width="20"></td>
+<td>All of the above, plus I developed a new better algorithm that is more fair</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="evaluating-policy" class="level2 crunch-title smaller">
+<h2 class="crunch-title smaller anchored" data-anchor-id="evaluating-policy">Evaluating Policy</h2>
+<div>
+<table data-quarto-postprocess="true" class="table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Below Expectations</strong><br>
+<img src="images/1_bag.png" class="img-fluid" width="50"></td>
+<td>"This policy is bad"</td>
+</tr>
+<tr class="even">
+<td><strong>Meets Expectations</strong><br>
+<img src="images/1_bag.png" class="img-fluid" width="50"><img src="images/1_bag.png" class="img-fluid" width="50"><img src="images/1_bag.png" class="img-fluid" width="50"></td>
+<td>"This policy is bad bc it's biased towards [group 1], and doesn't take sufficient account of the welfare of [group 2]"</td>
+</tr>
+<tr class="odd">
+<td><strong>Exceeds Expectations</strong><br>
+<img src="images/1_bag.png" class="img-fluid" width="50"><img src="images/1_bag.png" class="img-fluid" width="50"><img src="images/1_bag.png" class="img-fluid" width="50"><img src="images/1_bag.png" class="img-fluid" width="50"><img src="images/1_bag.png" class="img-fluid" width="50"></td>
+<td>"This policy is bad bc it's biased towards [group 1], and doesn't take sufficient account of the welfare of [group 2], which violates the Rawlsian notion of what would be chosen by rational agents behind a 'veil of ignorance'"</td>
+</tr>
+<tr class="even">
+<td><strong>Doing Too Much</strong><br>
+<img src="images/1_bag.png" class="img-fluid" width="50"><img src="images/1_bag.png" class="img-fluid" width="50"><img src="images/1_bag.png" class="img-fluid" width="50"><img src="images/1_bag.png" class="img-fluid" width="50"><img src="images/1_bag.png" class="img-fluid" width="50"> <img src="images/soda.png" class="img-fluid" width="20"> <img src="images/soda.png" class="img-fluid" width="20"></td>
+<td>"This policy is bad bc the inferred welfare weights <span class="math inline">\(\omega_i\)</span> are <span class="math inline">\(0.1632\)</span> off from the optimal welfare weights <span class="math inline">\(\omega_i^*\)</span>"</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="frequently-awesome-questions" class="level2 crunch-title crunch-ul crunch-li-6">
+<h2 class="crunch-title crunch-ul crunch-li-6 anchored" data-anchor-id="frequently-awesome-questions">Frequently Awesome Questions</h2>
+<ul>
+<li><em>How much data-processing/R/Python is required?</em> None!
+<ul>
+<li>You can think of it like: In every other DSAN class, we plop a dataset in front of you and say “do the thing”</li>
+<li>Here you can (and should) first ask, “is [data sci technique] an <strong>effective way to address</strong> this issue?”</li>
+</ul></li>
+<li>Example: <strong>archive of missing datasets</strong></li>
+<li>Sometimes the problem is not “We haven’t trained a neural net on this yet!” but instead “nobody with power cares enough about this to make a dataset in the first place [or they purposefully prevent it]”</li>
+</ul>
+<!-- ## Fruitfully Asked Questions {.crunch-title .crunch-ul .crunch-li-6}
+
+* * -->
+</section>
+<section id="getting-from-here-to-there" class="level2">
+<h2 class="anchored" data-anchor-id="getting-from-here-to-there">Getting From Here to There</h2>
+<style>
+.honk-honk {
+  font-size: 180% !important;
+  /* font-family: "Bungee Spice", sans-serif; */
+  font-family: "Honk", sans-serif;
+  /* font-optical-sizing: auto; */
+  font-weight: 400;
+  font-style: normal;
+}
+</style>
+<ul>
+<li><span class="honk-honk"><strong>Minimum Viable Product</strong></span> (<strong>MVP</strong>)</li>
+<li><span class="math inline">\(\leadsto\)</span> Final Product (but… Hofstadter’s Law)</li>
+</ul>
+<div class="callout callout-style-default callout-note no-icon callout-titled" title="<i class='bi bi-info-circle pe-1'></i> Hofstadter's Law (Paraphrase)">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<i class="bi bi-info-circle pe-1"></i> Hofstadter’s Law (Paraphrase)
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The pieces of your DSAN final project will take longer than you expect, even if you take Hofstadter’s Law into account</p>
+</div>
+</div>
+</section>
+</section>
+<section id="causality-and-identity-formation" class="level1" data-stack-name="Racecraft">
+<h1 data-stack-name="Racecraft">Causality and Identity Formation</h1>
+<ul>
+<li>Race as a <strong>Noun</strong> vs.&nbsp;Race as a <strong>Verb</strong> (“Racecraft”)</li>
+<li>Race as a static property vs.&nbsp;race as a <strong>social practice</strong></li>
+</ul>
+<section id="but-first-phenomenology" class="level2 crunch-title crunch-blockquote smaller crunch-ul crunch-quarto-figure">
+<h2 class="crunch-title crunch-blockquote smaller crunch-ul crunch-quarto-figure anchored" data-anchor-id="but-first-phenomenology">But First… Phenomenology</h2>
+<ul>
+<li>“Objective” account: Roquentin sits down on a bus seat; <a href="https://jpj.georgetown.domains/dsan5450-scratch/nausea.mp3" target="_blank">“Subjective” account</a>:</li>
+</ul>
+<blockquote class="blockquote">
+<p>I lean my hand on <strong>the seat</strong> but pull it back hurriedly: it exists. This thing I’m sitting on, leaning my hand on, is called a seat. They made it purposely for people to sit on, they took leather, springs and cloth, they went to work with the idea of making a seat and when they finished, that was what they had made. They carried it here, into this car and the car is now rolling and jolting with its rattling windows, carrying this red thing in its bosom. I murmur: “It’s a seat,” a little like an exorcism. But the word stays on my lips: it refuses to go and put itself on the thing. It stays what it is, with its red plush, thousands of little red paws in the air, all still, little dead paws…</p>
+</blockquote>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/train_seat.webp" class="img-fluid figure-img"></p>
+<figcaption>(From <a href="https://eternalisedofficial.com/2021/04/21/book-review-nausea-jean-paul-sartre/" target="_blank">“Book Review: Nausea - Jean-Paul Sartre</a>)</figcaption>
+</figure>
+</div>
+</section>
+<section id="w.e.b.-du-bois-and-the-epistemological-one-way-mirror" class="level2 smaller crunch-title title-09">
+<h2 class="smaller crunch-title title-09 anchored" data-anchor-id="w.e.b.-du-bois-and-the-epistemological-one-way-mirror">W.E.B. Du Bois and the Epistemological One-Way Mirror</h2>
+<blockquote class="blockquote">
+<p>Black people in America are […] born with a veil […] in this American world—a world which yields him no true self-consciousness, but only lets him see himself through the revelation of the other world. It is a peculiar sensation, this double-consciousness, this sense of always looking at oneself through the eyes of others, of measuring one’s soul by the tape of a world that looks on in amused contempt and pity. One ever feels his two-ness—an American, a Negro; two souls, two thoughts, two unreconciled strivings; two warring ideals in one dark body. <span class="citation" data-cites="dubois_souls_1903">(<a href="#ref-dubois_souls_1903" role="doc-biblioref">Du Bois 1903</a>)</span></p>
+</blockquote>
+<ul>
+<li>The veil: the world is seen and <strong>experienced differently</strong> on either side of the color line</li>
+<li><strong>One-way mirror</strong>: Whites project their constructions of Blacks onto the veil and see their projections reflected on it <span class="math inline">\(\Rightarrow\)</span> the power to <strong>define themselves and others</strong></li>
+<li>The projections of whites onto the veil <strong>become realities</strong> that Black subjects have to contend with in their self-formation.</li>
+<li><strong>Twoness</strong>: in process of self-formation, the racialized subject <strong>must account for</strong> the views of two different social worlds—the Black world, constructed behind the veil, and the white world, which dehumanizes via lack of recognition of their humanity.</li>
+</ul>
+</section>
+<section id="textsfrace_textsfvariable-vs.-textsfrace_textsfconstruct" class="level2 crunch-title crunch-ul">
+<h2 class="crunch-title crunch-ul anchored" data-anchor-id="textsfrace_textsfvariable-vs.-textsfrace_textsfconstruct"><span class="math inline">\(\textsf{Race}_{\textsf{Variable}}\)</span> vs.&nbsp;<span class="math inline">\(\textsf{Race}_{\textsf{Construct}}\)</span></h2>
+<ul>
+<li>Careful scientific, causal studies measure the effect that <strong>changing <span class="math inline">\(X\)</span></strong> (<span class="math inline">\(do(X)\)</span>) has on <span class="math inline">\(Y\)</span>, controlling for <span class="math inline">\(C\)</span> (via, at least under the hood, “Do-Calculus”)</li>
+<li>But, even the most careful, controlled (and thus informative!) experiments must, at some level, partition variables into “race” and “not race”</li>
+<li>Keep in back of your mind as we look at example of how (measured by thorough, statistically-principled experiment), <strong>race can have direct, measurable, causal impacts on important aspects of our everyday lives</strong></li>
+</ul>
+</section>
+<section id="racial-discrimination" class="level2 smaller crunch-title">
+<h2 class="smaller crunch-title anchored" data-anchor-id="racial-discrimination">Racial Discrimination</h2>
+<ul>
+<li>Marianne Bertrand and Sendhil Mullainathan. 2004. “Are Emily and Greg More Employable Than Lakisha and Jamal? A Field Experiment on Labor Market Discrimination.” <em>American Economic Review</em>. <span class="citation" data-cites="bertrand_are_2004">(<a href="#ref-bertrand_are_2004" role="doc-biblioref">Bertrand and Mullainathan 2004</a>)</span></li>
+</ul>
+<blockquote class="blockquote">
+<p>We study <strong>race</strong> in the labor market by sending fictitious resumes to help-wanted ads in Boston and Chicago newspapers. To manipulate perceived race, resumes are <strong>randomly assigned</strong> African-American- or White-sounding <strong>names</strong>. <strong>White names</strong> receive <strong>50 percent more callbacks</strong> for interviews. Callbacks are also more responsive to resume quality for White names than for African-American ones. The racial gap is uniform across occupation, industry, and employer size. We also find little evidence that employers are inferring social class from the names. Differential treatment by race still appears to still be prominent in the U.S. labor market.</p>
+</blockquote>
+</section>
+<section id="controlling-for-everything-besides-race" class="level2 smaller crunch-title title-11">
+<h2 class="smaller crunch-title title-11 anchored" data-anchor-id="controlling-for-everything-besides-race">“Controlling for” Everything Besides Race</h2>
+<div>
+
+</div>
+<div class="quarto-layout-panel" data-layout="[1,1]">
+<div class="quarto-layout-row quarto-layout-valign-center">
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/resume_greg_baker.jpeg" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/resume_jamal_jones.jpeg" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="age-discrimination" class="level2 smaller crunch-title">
+<h2 class="smaller crunch-title anchored" data-anchor-id="age-discrimination">Age Discrimination?</h2>
+<div>
+
+</div>
+<div class="quarto-layout-panel" data-layout="[1,1]">
+<div class="quarto-layout-row quarto-layout-valign-center">
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/resume_age_12.jpeg" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/resume_age_22.jpeg" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<ul>
+<li>Based on Lily Hu, <a href="https://www.youtube.com/watch?v=8qMC1fZJMi4" target="_blank"><em>What is ‘Race’ in Algorithmic Discrimination on the Basis of Race? - IPAM at UCLA</em></a> (YouTube)</li>
+</ul>
+</section>
+<section id="cool-theory-i-guess" class="level2 smaller crunch-title crunch-quarto-layout-panel">
+<h2 class="smaller crunch-title crunch-quarto-layout-panel anchored" data-anchor-id="cool-theory-i-guess">“Cool Theory, I Guess…”</h2>
+<ul>
+<li>“Good luck measuring ideas inside of people’s heads… I’ll be over here measuring real things and doing real data science!” -My Opps</li>
+</ul>
+<div>
+
+</div>
+<div class="quarto-layout-panel" data-layout="[1,1]">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/representations.jpeg" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/sperber.jpg" class="img-fluid quarto-figure quarto-figure-center figure-img" width="320"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="cool-theory-i-guess-1" class="level2 smaller crunch-title">
+<h2 class="smaller crunch-title anchored" data-anchor-id="cool-theory-i-guess-1">“Cool Theory, I Guess…”</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/representations_bilingual.jpeg" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+</section>
+<section id="opening-a-big-can-of-worms" class="level2 smaller crunch-title crunch-quarto-layout-panel crunch-quarto-figure crunch-quarto-layout-cell">
+<h2 class="smaller crunch-title crunch-quarto-layout-panel crunch-quarto-figure crunch-quarto-layout-cell anchored" data-anchor-id="opening-a-big-can-of-worms">Opening A Big Can Of Worms</h2>
+<div>
+
+</div>
+<div class="quarto-layout-panel" data-layout="[1,1]">
+<div class="quarto-layout-row">
+<div id="worms1-left" class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<ul>
+<li>Social interactions among <span class="math inline">\(t^e_0\)</span>, <span class="math inline">\(t^e_1\)</span>, <span class="math inline">\(t^e_2\)</span>…</li>
+</ul>
+</div>
+<div id="worms-right" class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/race_graph_step1.svg" class="img-fluid quarto-figure quarto-figure-center figure-img" width="500"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="opening-a-big-can-of-worms-1" class="level2 smaller crunch-title crunch-quarto-layout-panel crunch-quarto-figure crunch-quarto-layout-cell">
+<h2 class="smaller crunch-title crunch-quarto-layout-panel crunch-quarto-figure crunch-quarto-layout-cell anchored" data-anchor-id="opening-a-big-can-of-worms-1">Opening A Big Can Of Worms</h2>
+<div>
+
+</div>
+<div class="quarto-layout-panel" data-layout="[1,1]">
+<div class="quarto-layout-row">
+<div id="worms2-left" class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<ul>
+<li>Social interactions among <span class="math inline">\(t^e_0\)</span>, <span class="math inline">\(t^e_1\)</span>, <span class="math inline">\(t^e_2\)</span>…</li>
+<li><strong>Mediated</strong> by external things <span class="math inline">\(o^e_3\)</span> to <span class="math inline">\(o^e_8\)</span> (giving rise to <strong>patterns of interaction</strong>)…</li>
+</ul>
+</div>
+<div id="worms2-right" class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/race_graph_step2.svg" class="img-fluid quarto-figure quarto-figure-center figure-img" width="500"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="opening-a-big-can-of-worms-2" class="level2 smaller crunch-title crunch-quarto-figure crunch-quarto-layout-panel crunch-quarto-layout-cell">
+<h2 class="smaller crunch-title crunch-quarto-figure crunch-quarto-layout-panel crunch-quarto-layout-cell anchored" data-anchor-id="opening-a-big-can-of-worms-2">Opening A Big Can Of Worms</h2>
+<div>
+
+</div>
+<div class="quarto-layout-panel" data-layout="[1,1]">
+<div class="quarto-layout-row">
+<div id="worms3-left" class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<ul>
+<li>Social interactions among <span class="math inline">\(t^e_0\)</span>, <span class="math inline">\(t^e_1\)</span>, <span class="math inline">\(t^e_2\)</span>…</li>
+<li><strong>Mediated</strong> by external things <span class="math inline">\(o^e_3\)</span> to <span class="math inline">\(o^e_8\)</span> (giving rise to <strong>patterns of interaction</strong>)…</li>
+<li>Each person <span class="math inline">\(x\)</span> forming their own <strong>internal representations</strong> <span class="math inline">\(\widetilde{t^x_0}\)</span>, <span class="math inline">\(\widetilde{t^x_1}\)</span>, <span class="math inline">\(\widetilde{t^x_2}\)</span> of one another based on <strong>patterns of interaction</strong>, then</li>
+<li>Generalizing to an internal representation of a <strong>“type of person” <span class="math inline">\(\widetilde{t^x_9}\)</span></strong>…</li>
+</ul>
+</div>
+<div id="worms3-right" class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/race_graph_step3.svg" class="img-fluid quarto-figure quarto-figure-center figure-img" width="600"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="opening-a-big-can-of-worms-3" class="level2 smaller crunch-title crunch-quarto-figure crunch-quarto-layout-panel crunch-quarto-layout-cell crunch-ul">
+<h2 class="smaller crunch-title crunch-quarto-figure crunch-quarto-layout-panel crunch-quarto-layout-cell crunch-ul anchored" data-anchor-id="opening-a-big-can-of-worms-3">Opening A Big Can Of Worms</h2>
+<div>
+
+</div>
+<div class="quarto-layout-panel" data-layout="[1,1]">
+<div class="quarto-layout-row">
+<div id="worms4-left" class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<ul>
+<li>Social interactions among <span class="math inline">\(t^e_0\)</span>, <span class="math inline">\(t^e_1\)</span>, <span class="math inline">\(t^e_2\)</span></li>
+<li><strong>Mediated</strong> by external things <span class="math inline">\(o^e_3\)</span> to <span class="math inline">\(o^e_8\)</span> (giving rise to <strong>patterns of interaction</strong>)</li>
+<li>Each person <span class="math inline">\(x\)</span> forming their own <strong>internal representations</strong> <span class="math inline">\(\widetilde{t^x_0}\)</span>, <span class="math inline">\(\widetilde{t^x_1}\)</span>, <span class="math inline">\(\widetilde{t^x_2}\)</span> based on <strong>patterns of interaction</strong>, then</li>
+<li>Generalizing to an internal representation of a <strong>“type of person” <span class="math inline">\(\widetilde{t^x_9}\)</span></strong></li>
+<li>Which they then <strong>externalize</strong> as <span class="math inline">\(t^x_9\)</span>.</li>
+<li><span class="math inline">\(t^0_9\)</span>, <span class="math inline">\(t^1_9\)</span>, <span class="math inline">\(t^2_9\)</span> “congeal” into a <strong>shared external representation</strong> <span class="math inline">\(t_9^e\)</span> via social mechanism (discussion, media, culture, propaganda, parenting, religion, education, …) <span class="math inline">\(\Rightarrow t^e_9\)</span> <strong>“reified”</strong> (causal effects on <span class="math inline">\(t_0\)</span>, <span class="math inline">\(t_1\)</span>, <span class="math inline">\(t_2\)</span>)</li>
+</ul>
+</div>
+<div id="worms4-right" class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/race_graph_step4.svg" class="img-fluid quarto-figure quarto-figure-center figure-img" width="600"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="references" class="level2">
+<h2 class="anchored" data-anchor-id="references">References</h2>
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-bertrand_are_2004" class="csl-entry" role="listitem">
+Bertrand, Marianne, and Sendhil Mullainathan. 2004. <span>“Are <span>Emily</span> and <span>Greg More Employable Than Lakisha</span> and <span>Jamal</span>? <span>A Field Experiment</span> on <span>Labor Market Discrimination</span>.”</span> <em>American Economic Review</em> 94 (4): 991–1013. <a href="https://doi.org/10.1257/0002828042002561">https://doi.org/10.1257/0002828042002561</a>.
+</div>
+<div id="ref-dubois_souls_1903" class="csl-entry" role="listitem">
+Du Bois, W. E. B. 1903. <em>The <span>Souls</span> of <span>Black Folk</span>: <span>Essays</span> and <span>Sketches</span></em>. A. C. McClurg.
+</div>
+</div>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

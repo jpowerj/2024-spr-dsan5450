@@ -1,0 +1,9 @@
+* Generating Training Data
+
+::: {layout="[1,1]" layout-valign="center"}
+
+![](images/snorkel_human_labelers.jpg)
+
+![](images/snorkel_training_data.jpg)
+
+:::

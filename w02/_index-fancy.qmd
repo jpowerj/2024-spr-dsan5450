@@ -1,0 +1,139 @@
+
+## Operationalization {.smaller .crunch-title .crunch-li}
+
+::: {layout="[3,2]"}
+
+::: {#oper-text}
+
+* Think about claims commonly made on the basis of "data":
+  * Markets create economic prosperity
+  * A glass of wine in the evening prevents cancer
+  * Policing makes communities safer
+* How exactly are "prosperity", "preventing cancer", "policing", "community safety" being **measured**?
+
+<center>
+{{< video https://jpj.georgetown.domains/dsan5450-scratch/huey.mp4 height="300" >}}
+</center>
+
+:::
+
+![@stiglitz_mismeasuring_2010](images/mismeasuring.jpg){fig-align="center"}
+
+:::
+
+```{=html}
+<iframe src="https://elissaredmiles.com/" width="100%" height="550" style="margin-top: 5px !important;"></iframe>
+```
+
+
+## Categories of Fairness Criteria {.smaller .crunch-title}
+
+```{=html}
+<style>
+  #fairness-box .columns {
+  height: 100% !important;
+}
+
+#fairness-box .column {
+  /* border: 2px solid black !important; */
+  padding: 14px !important;
+  box-sizing: border-box !important;
+  height: 100% !important;
+  max-height: 100% !important;
+  min-height: 50px !important;
+  flex-grow: 1 !important;
+}
+</style>
+```
+
+* Roughly, approaches to fairness/bias in AI can be categorized as follows:
+
+::: {#fairness-box style="border: 2px solid black !important; box-sizing: border-box !important; display: flex !important; flex-direction: column;"}
+
+<center>
+**Fairness**
+</center>
+
+<!-- start columns -->
+::: {.columns}
+::: {.column width="45%"}
+
+<div style="border: 2px solid black;">
+<center>
+**Context-Free**
+</center>
+
+* Single-Threshold Fairness
+* Equal Prediction
+* Equal Decision
+
+</div>
+
+:::
+::: {.column width="10%"}
+
+<center>
+<span style="font-size: 180% !important;"><i class='bi bi-repeat'></i>
+</center>
+
+:::
+::: {.column width="45%"}
+
+<div style="border: 2px solid black !important;">
+<center style="margin: 0px !important;">
+**Context-Sensitive**
+</center>
+
+* Fairness via Similarity Metric(s)
+* Causal Definitions
+
+</div>
+
+:::
+:::
+
+:::
+<!-- end quarto box -->
+
+
+* If $A$'s aggression is $p_A = \Pr(s_A = \textsf{Drive})$, $B$'s aggression is $p_B = \Pr(s_B = \textsf{Drive})$:
+
+::: {layout="[1,1]" layout-valign="center"}
+
+::: {#power-math-left}
+
+* $\mathbb{E}[u_A] = \int_{0}^{1}\int_{0}^{1}p_A - 2p_B -8p_Ap_B - 1dp_Bdp_A = -3.5$
+* $\mathbb{E}[u_B] = q(0) + p(-3) = -3\frac{p}{p+q}$
+
+:::
+::: {#power-math-right}
+
+* $\mathbb{E}\mkern-3mu\left[\frac{u_A + u_B}{2}\right] = -\frac{3}{2}$
+
+:::
+:::
+
+
+```{=html}
+<table>
+<thead>
+</thead>
+<tbody>
+<tr>
+  <td></td>
+  <td>Labeled Low-Risk</td>
+  <td>Labeled High-Risk</td>
+</tr>
+<tr>
+  <td>Didn't Do More Crimes</td>
+  <td><i>True Negative</i></td>
+  <td><i>False Positive</i></td>
+</tr>
+<tr>
+  <td>Did More Crimes</td>
+  <td><i>False Negative</i></td>
+  <td><i>True Positive</i></td>
+</tr>
+</tbody>
+</table>
+```

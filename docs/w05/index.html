@@ -1,0 +1,1400 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.5.23">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Jeff Jacobs">
+
+<title>DSAN 5450 – Week 5: Context-Sensitive Fairness</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../favicon.png" rel="icon" type="image/png">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script><script src="../jjcustom.js"></script>
+
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../styles.css">
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../w05/index.html">Week 5: {{&lt; var w05.date-md &gt;}}</a></li></ol></nav>
+        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../">DSAN 5450: Data Ethics and Policy</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><i class="bi bi-house pe-1"></i> Home</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../syllabus.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Syllabus</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../writeups/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Writeups</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../assignments.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Assignments</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../final.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Final Project</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../recordings/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Recordings</span></a>
+  </div>
+</li>
+        <li class="px-0"><hr class="sidebar-divider hi "></li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../w01/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Week 1: Jan 17</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../w02/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Week 2: Jan 24</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../w03/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Week 3: Jan 31</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../w04/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Week 4: Feb 7</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../w05/index.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Week 5: Feb 14</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../w06/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Week 6: Feb 21</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../w07/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Week 7: Feb 28</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../w08/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Week 8: Mar 13</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../w09/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Week 9: Mar 20</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../w10/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Week 10: Mar 27</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../w11/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Week 11: Apr 3</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../w12/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Week 12: Apr 10</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../w13/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Week 13: Apr 17</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../w14/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Week 14: Apr 24</span></a>
+  </div>
+</li>
+        <li class="px-0"><hr class="sidebar-divider hi "></li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="https://forms.gle/LLQsiwGy5kkH5n3PA" class="sidebar-item-text sidebar-link" target="&quot;_blank&quot;">
+ <span class="menu-text">Anonymous Suggestions<i class="bi bi-box-arrow-up-right ps-1"></i></span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#context-free-rightarrow-context-sensitive" id="toc-context-free-rightarrow-context-sensitive" class="nav-link active" data-scroll-target="#context-free-rightarrow-context-sensitive">Context-Free <span class="math inline">\(\rightarrow\)</span> Context-Sensitive</a>
+  <ul class="collapse">
+  <li><a href="#impossibility-results" id="toc-impossibility-results" class="nav-link" data-scroll-target="#impossibility-results">Impossibility Results</a></li>
+  <li><a href="#impossibility-vs.-impossibility" id="toc-impossibility-vs.-impossibility" class="nav-link" data-scroll-target="#impossibility-vs.-impossibility">“Impossibility” vs.&nbsp;Impossibility</a></li>
+  <li><a href="#arrows-impossibility-theorem" id="toc-arrows-impossibility-theorem" class="nav-link" data-scroll-target="#arrows-impossibility-theorem">Arrow’s Impossibility Theorem</a></li>
+  <li><a href="#propublica-vs.-northpointe" id="toc-propublica-vs.-northpointe" class="nav-link" data-scroll-target="#propublica-vs.-northpointe">ProPublica vs.&nbsp;Northpointe</a></li>
+  <li><a href="#so-what-do-we-do" id="toc-so-what-do-we-do" class="nav-link" data-scroll-target="#so-what-do-we-do">So… What Do We Do?</a></li>
+  <li><a href="#why-not-both" id="toc-why-not-both" class="nav-link" data-scroll-target="#why-not-both">Why Not Both??</a></li>
+  </ul></li>
+  <li><a href="#bringing-in-context" id="toc-bringing-in-context" class="nav-link" data-scroll-target="#bringing-in-context">Bringing in <em>Context</em></a>
+  <ul class="collapse">
+  <li><a href="#motivation-linguistic-meaning" id="toc-motivation-linguistic-meaning" class="nav-link" data-scroll-target="#motivation-linguistic-meaning">Motivation: Linguistic Meaning</a></li>
+  <li><a href="#the-meaning-of-fairness" id="toc-the-meaning-of-fairness" class="nav-link" data-scroll-target="#the-meaning-of-fairness">The “Meaning” of Fairness</a></li>
+  </ul></li>
+  <li><a href="#similarity-based-fairness" id="toc-similarity-based-fairness" class="nav-link" data-scroll-target="#similarity-based-fairness">Similarity-Based Fairness</a>
+  <ul class="collapse">
+  <li><a href="#group-fairness-rightarrow-individual-fairness" id="toc-group-fairness-rightarrow-individual-fairness" class="nav-link" data-scroll-target="#group-fairness-rightarrow-individual-fairness">Group Fairness <span class="math inline">\(\rightarrow\)</span> Individual Fairness</a></li>
+  <li><a href="#the-normative-antecedent" id="toc-the-normative-antecedent" class="nav-link" data-scroll-target="#the-normative-antecedent">The (Normative!) Antecedent</a></li>
+  <li><a href="#bringing-in-context-1" id="toc-bringing-in-context-1" class="nav-link" data-scroll-target="#bringing-in-context-1">Bringing In Context</a></li>
+  <li><a href="#remember-distance-metrics" id="toc-remember-distance-metrics" class="nav-link" data-scroll-target="#remember-distance-metrics">Remember Distance Metrics?(!)</a></li>
+  <li><a href="#satisfying-individual-vs.-group-fairness" id="toc-satisfying-individual-vs.-group-fairness" class="nav-link" data-scroll-target="#satisfying-individual-vs.-group-fairness">Satisfying Individual vs.&nbsp;Group Fairness</a></li>
+  <li><a href="#the-importance-of-not-excluding-race" id="toc-the-importance-of-not-excluding-race" class="nav-link" data-scroll-target="#the-importance-of-not-excluding-race">The Importance of <em>Not</em> Excluding Race!</a></li>
+  <li><a href="#equality-of-opportunity" id="toc-equality-of-opportunity" class="nav-link" data-scroll-target="#equality-of-opportunity">Equality of Opportunity</a></li>
+  <li><a href="#roemers-algorithm" id="toc-roemers-algorithm" class="nav-link" data-scroll-target="#roemers-algorithm">Roemer’s Algorithm</a></li>
+  </ul></li>
+  <li><a href="#causal-fairness" id="toc-causal-fairness" class="nav-link" data-scroll-target="#causal-fairness">Causal Fairness</a>
+  <ul class="collapse">
+  <li><a href="#the-state-of-the-art" id="toc-the-state-of-the-art" class="nav-link" data-scroll-target="#the-state-of-the-art">The State of the Art!</a></li>
+  <li><a href="#the-antecedent" id="toc-the-antecedent" class="nav-link" data-scroll-target="#the-antecedent">The Antecedent</a></li>
+  <li><a href="#the-new-object-of-analysis-causal-pathways" id="toc-the-new-object-of-analysis-causal-pathways" class="nav-link" data-scroll-target="#the-new-object-of-analysis-causal-pathways">The New Object of Analysis: <em>Causal Pathways</em></a></li>
+  <li><a href="#causal-fairness-in-hw2" id="toc-causal-fairness-in-hw2" class="nav-link" data-scroll-target="#causal-fairness-in-hw2">Causal Fairness in HW2</a></li>
+  <li><a href="#causal-building-blocks" id="toc-causal-building-blocks" class="nav-link" data-scroll-target="#causal-building-blocks">Causal Building Blocks</a></li>
+  <li><a href="#the-intuitive-problem-of-causal-inference" id="toc-the-intuitive-problem-of-causal-inference" class="nav-link" data-scroll-target="#the-intuitive-problem-of-causal-inference">The Intuitive Problem of Causal Inference</a></li>
+  <li><a href="#the-fundamental-problem-of-causal-inference" id="toc-the-fundamental-problem-of-causal-inference" class="nav-link" data-scroll-target="#the-fundamental-problem-of-causal-inference">The <em>Fundamental</em> Problem of Causal Inference</a></li>
+  <li><a href="#what-is-to-be-done" id="toc-what-is-to-be-done" class="nav-link" data-scroll-target="#what-is-to-be-done">What Is To Be Done?</a></li>
+  <li><a href="#face-everything-and-rise-controlled-randomized-experiment-paradigm" id="toc-face-everything-and-rise-controlled-randomized-experiment-paradigm" class="nav-link" data-scroll-target="#face-everything-and-rise-controlled-randomized-experiment-paradigm">Face Everything And Rise: Controlled, Randomized Experiment Paradigm</a></li>
+  <li><a href="#selecting-on-the-dependent-variable" id="toc-selecting-on-the-dependent-variable" class="nav-link" data-scroll-target="#selecting-on-the-dependent-variable">Selecting on the Dependent Variable</a></li>
+  <li><a href="#complications-selection" id="toc-complications-selection" class="nav-link" data-scroll-target="#complications-selection">Complications: Selection</a></li>
+  <li><a href="#complications-compliance" id="toc-complications-compliance" class="nav-link" data-scroll-target="#complications-compliance">Complications: Compliance</a></li>
+  <li><a href="#next-week-and-hw2-experimental-rightarrow-observational-data" id="toc-next-week-and-hw2-experimental-rightarrow-observational-data" class="nav-link" data-scroll-target="#next-week-and-hw2-experimental-rightarrow-observational-data">Next Week and HW2: Experimental <span class="math inline">\(\rightarrow\)</span> Observational Data</a></li>
+  <li><a href="#for-now-matching" id="toc-for-now-matching" class="nav-link" data-scroll-target="#for-now-matching">For Now: <em>Matching</em></a></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
+  </ul></li>
+  </ul>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="slides.html"><i class="bi bi-file-slides"></i>RevealJS</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Week 5: Context-Sensitive Fairness</h1>
+<p class="subtitle lead"><em>DSAN 5450: Data Ethics and Policy</em><br><span class="subsubtitle">Spring 2024, Georgetown University</span></p>
+  <div class="quarto-categories">
+    <div class="quarto-category">Class Sessions</div>
+  </div>
+  </div>
+
+
+<div class="quarto-title-meta-author">
+  <div class="quarto-title-meta-heading">Author</div>
+  <div class="quarto-title-meta-heading">Affiliation</div>
+  
+    <div class="quarto-title-meta-contents">
+    <p class="author">Jeff Jacobs </p>
+  </div>
+  <div class="quarto-title-meta-contents">
+        <p class="affiliation">
+            <a href="mailto:jj1088@georgetown.edu" target="_blank"><code>jj1088@georgetown.edu</code></a>
+          </p>
+      </div>
+  </div>
+
+<div class="quarto-title-meta">
+
+      
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">Wednesday, February 14, 2024</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<center>
+<a class="h2" href="./slides.html" target="_blank">Open slides in new window →</a>
+</center>
+<section id="context-free-rightarrow-context-sensitive" class="level1" data-stack-name="Impossibility Results">
+<h1 data-stack-name="Impossibility Results">Context-Free <span class="math inline">\(\rightarrow\)</span> Context-Sensitive</h1>
+<div class="hidden">
+<p><span class="math display">\[
+\DeclareMathOperator*{\argmax}{argmax}
+\DeclareMathOperator*{\argmin}{argmin}
+\newcommand{\nimplies}{\;\;\not\!\!\!\!\implies}
+\]</span></p>
+</div>
+<section id="impossibility-results" class="level2">
+<h2 class="anchored" data-anchor-id="impossibility-results">Impossibility Results</h2>
+<ul>
+<li>tldr: We cannot possibly achieve all three of <strong>equalized positive rates</strong> (often also termed “anti-classification”), classification <strong>parity</strong>, and <strong>calibration</strong> (regardless of <strong>base rates</strong>)</li>
+<li>More alarmingly: We can’t even achieve both classification <strong>parity</strong> and <strong>calibration</strong>, except in the special case of <strong>equal base rates</strong></li>
+</ul>
+</section>
+<section id="impossibility-vs.-impossibility" class="level2 smaller crunch-title">
+<h2 class="smaller crunch-title anchored" data-anchor-id="impossibility-vs.-impossibility">“Impossibility” vs.&nbsp;Impossibility</h2>
+<ul>
+<li>Sometimes “impossibility results” are, for all intents and purposes, mathematical curiosities: often there’s some <strong>pragmatic</strong> way of getting around them</li>
+<li>Example: “Arrow’s Impossibility Theorem”
+<ul>
+<li>[In theory] It is mathematically impossible to <strong>aggregate individual preferences</strong> into <strong>societal preferences</strong></li>
+<li>[The catch] True only if people are restricted to <strong>ordinal preferences</strong>: “I prefer <span class="math inline">\(x\)</span> to <span class="math inline">\(y\)</span>.” No more information allowed</li>
+<li>[The way around it] Allow people to indicate the <strong>magnitude</strong> of their preferences: “I prefer <span class="math inline">\(x\)</span> 5 times more than <span class="math inline">\(y\)</span>”</li>
+</ul></li>
+<li>In this case, though, there are direct and (often) unavoidable real-world barriers that fairness impossibility imposes 😕</li>
+</ul>
+</section>
+<section id="arrows-impossibility-theorem" class="level2 crunch-title smaller crunch-ul">
+<h2 class="crunch-title smaller crunch-ul anchored" data-anchor-id="arrows-impossibility-theorem">Arrow’s Impossibility Theorem</h2>
+<ul>
+<li>Aziza, Bogdan, and Charles are competing in a <strong>fitness test</strong> with four events. Goal: determine who is <strong>most fit overall</strong></li>
+</ul>
+<table class="table">
+<thead>
+<tr class="header">
+<th></th>
+<th>Run</th>
+<th>Jump</th>
+<th>Hurdle</th>
+<th>Weights</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Aziza</td>
+<td>10.1”</td>
+<td>6.0’</td>
+<td>40”</td>
+<td>150 lb</td>
+</tr>
+<tr class="even">
+<td>Bogdan</td>
+<td>9.2”</td>
+<td>5.9’</td>
+<td>42”</td>
+<td>140 lb</td>
+</tr>
+<tr class="odd">
+<td>Charles</td>
+<td>10.0”</td>
+<td>6.1’</td>
+<td>39”</td>
+<td>145 lb</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>We <strong>can</strong> rank unambiguously on <strong>individual events</strong>: <strong>Jump</strong>: Charles <span class="math inline">\(\succ_J\)</span> Aziza <span class="math inline">\(\succ_J\)</span> Bogdan</li>
+<li>Now, <strong>axioms</strong> for aggregation:
+<ul>
+<li><span class="math inline">\(\text{WP}\)</span> (Weak Pareto Optimality): if <span class="math inline">\(x \succ_i y\)</span> for all events <span class="math inline">\(i\)</span>, <span class="math inline">\(x \succ y\)</span></li>
+<li><span class="math inline">\(\text{IIA}\)</span> (Independence of Irrelevant Alternatives): If a fourth competitor enters, but Aziza and Bogdan still have the same relative standing on all events, their relative standing overall should not change</li>
+</ul></li>
+<li>Long story short: only aggregation that can satisfy these is “dictatorship”: choose one event, give it importance of 100%, the rest have importance 0% 😰</li>
+</ul>
+</section>
+<section id="propublica-vs.-northpointe" class="level2 smaller crunch-title">
+<h2 class="smaller crunch-title anchored" data-anchor-id="propublica-vs.-northpointe">ProPublica vs.&nbsp;Northpointe</h2>
+<ul>
+<li>This is… an example with 1000s of books and papers and discussions around it! (A red flag 🚩, since, obsession with one example may conceal much wider range of issues!)</li>
+<li>But, tldr, Northpointe created a ML algorithm called COMPAS, used by court systems all over the US to predict “risk” of arrestees</li>
+<li>In 2016, ProPublica published results from an investigative report documenting COMPAS’s racial discrimination, in the form of violating <strong>equal error rates</strong> between black and white arrestees</li>
+<li>Northpointe responded that COMPAS does <strong>not</strong> discriminate, as it satisfies <strong>calibration</strong></li>
+<li>People have argued about who is “right” for 8 years, with some progress, but… not a lot</li>
+</ul>
+</section>
+<section id="so-what-do-we-do" class="level2 smaller crunch-title crunch-ul crunch-blockquote">
+<h2 class="smaller crunch-title crunch-ul crunch-blockquote anchored" data-anchor-id="so-what-do-we-do">So… What Do We Do?</h2>
+<ul>
+<li>One option: argue about which of the two definitions is “better” for the next 100 years (what is the best way to give food to the poor?)</li>
+</ul>
+<blockquote class="blockquote">
+<p>It appears to reveal an unfortunate but inexorable fact about our world: we must choose between two intuitively appealing ways to understand fairness in ML. Many scholars have done just that, defending either ProPublica’s or Northpointe’s definitions against what they see as the misguided alternative. <span class="citation" data-cites="simons_algorithms_2023">(<a href="#ref-simons_algorithms_2023" role="doc-biblioref">Simons 2023</a>)</span></p>
+</blockquote>
+<ul>
+<li>Another option: study and then work to ameliorate the social conditions which <strong>force us into</strong> this realm of mathematical impossibility (why do the poor have no food?)</li>
+</ul>
+<blockquote class="blockquote">
+<p>The impossibility result is about much more than math. [It occurs because] the underlying outcome is distributed unevenly in society. This is a fact about society, not mathematics, and requires engaging with a complex, checkered history of systemic racism in the US. Predicting an outcome whose distribution is shaped by this history requires tradeoffs because the inequalities and injustices are encoded in data—in this case, because America has criminalized Blackness for as long as America has existed.</p>
+</blockquote>
+</section>
+<section id="why-not-both" class="level2 smaller crunch-title crunch-ul">
+<h2 class="smaller crunch-title crunch-ul anchored" data-anchor-id="why-not-both">Why Not Both??</h2>
+<ul>
+<li>On the one hand: yes, both! On the other hand: <a hrf="https://en.wikipedia.org/wiki/Argument_to_moderation" target="_blank">fallacy of the “middle ground”</a></li>
+<li>We’re back at <strong>descriptive vs.&nbsp;normative</strong>:
+<ul>
+<li><strong>Descriptively</strong>, given 100 values <span class="math inline">\(v_1, \ldots, v_{100}\)</span>, their <strong>mean</strong> may be a good way to summarize, if we have to choose a single number</li>
+<li>But, <strong>normatively</strong>, imagine that these are <strong>opinions</strong> that people hold about fairness.</li>
+<li>Now, if it’s the US South in 1860 and <span class="math inline">\(v_i\)</span> represents person <span class="math inline">\(i\)</span>’s approval of slavery, from a sample of 100 people, then approx. 97 of the <span class="math inline">\(v_i\)</span>’s are “does not disapprove” <span class="citation" data-cites="rousey_friends_2001">(<a href="#ref-rousey_friends_2001" role="doc-biblioref">Rousey 2001</a>)</span> — in this case, normatively, is the mean <span class="math inline">\(0.97\)</span> the “correct” answer?</li>
+</ul></li>
+<li>We have another case where, like the “grass is green” vs.&nbsp;“grass ought to be green” example, we cannot just “import” our logical/mathematical tools from the former to solve the latter! (However: this does <strong>not</strong> mean they are <strong>useless</strong>! This is the fallacy of the <strong>excluded middle</strong>, sort of the opposite of the fallacy of the middle ground)</li>
+<li>This is why we have <strong>ethical frameworks</strong> in the first place! Going back to <strong>Rawls</strong>: “97% of Americans think black people shouldn’t have rights” &nbsp;<span class="math inline">\(\nimplies\)</span>“black people shouldn’t have rights”, since rights are a <strong>primary good</strong></li>
+</ul>
+</section>
+</section>
+<section id="bringing-in-context" class="level1" data-stack-name="Context-Sensitive Fairness">
+<h1 data-stack-name="Context-Sensitive Fairness">Bringing in <em>Context</em></h1>
+<section id="motivation-linguistic-meaning" class="level2">
+<h2 class="anchored" data-anchor-id="motivation-linguistic-meaning">Motivation: Linguistic Meaning</h2>
+<div class="callout callout-style-default callout-note no-icon callout-titled" title="<i class='bi bi-info-circle pe-1'></i> The Distributional Hypothesis [@firth_selected_1968, 179]">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<i class="bi bi-info-circle pe-1"></i> The Distributional Hypothesis <span class="citation" data-cites="firth_selected_1968">(<a href="#ref-firth_selected_1968" role="doc-biblioref">Firth 1968, 179</a>)</span>
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>You shall know a word by the company it keeps!</strong></p>
+</div>
+</div>
+<ul>
+<li>Related to Chomsky’s <strong>context-free</strong> vs.&nbsp;<strong>context-sensitive</strong> distinction!</li>
+<li>But why is it relevant to DSAN 5450?…</li>
+</ul>
+</section>
+<section id="the-meaning-of-fairness" class="level2">
+<h2 class="anchored" data-anchor-id="the-meaning-of-fairness">The “Meaning” of Fairness</h2>
+<div class="callout callout-style-default callout-note no-icon callout-titled" title="<i class='bi bi-info-circle pe-1'></i> The Distributional [Fairness] Hypothesis">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<i class="bi bi-info-circle pe-1"></i> The Distributional [Fairness] Hypothesis
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>You shall know “fairness” by the company it keeps [i.e., the context it incorporates].</strong></p>
+</div>
+</div>
+<ul>
+<li>Context-free (confusion-matrix-based) fairness: “plug the confusion matrix values into a formula and see if the formula is satisfied”</li>
+<li>Context-sensitive fairness: analyze fairness <strong>relative to</strong> a set of <strong>antecedents</strong> regarding how <strong>normative concerns</strong> should enter into our measurements of fairness</li>
+</ul>
+</section>
+</section>
+<section id="similarity-based-fairness" class="level1" data-stack-name="Similarity-Based Fairness">
+<h1 data-stack-name="Similarity-Based Fairness">Similarity-Based Fairness</h1>
+<section id="group-fairness-rightarrow-individual-fairness" class="level2">
+<h2 class="anchored" data-anchor-id="group-fairness-rightarrow-individual-fairness">Group Fairness <span class="math inline">\(\rightarrow\)</span> Individual Fairness</h2>
+<ul>
+<li>The crucial insight of Dwork: <strong>group-level</strong> fairness does not ensure that <strong>individuals</strong> are treated fairly <strong>as individuals</strong></li>
+<li>Exactly the issue we’ve seen with <strong>utilitarianism</strong>: optimizing <strong>society-level</strong> “happiness” may lead to <strong>individuals</strong> being brutally mistreated (e.g., having their rights violated)</li>
+<li>So, at a high level, Dwork’s proposal could provide a Rawls-style <strong>ordering</strong>: individual fairness <strong>lexically prior</strong> to group-level fairness (optimize group-level fairness once individual-level is satisfied)</li>
+</ul>
+</section>
+<section id="the-normative-antecedent" class="level2 crunch-title crunch-ul crunch-callout crunch-blockquote crunch-quarto-layout-panel">
+<h2 class="crunch-title crunch-ul crunch-callout crunch-blockquote crunch-quarto-layout-panel anchored" data-anchor-id="the-normative-antecedent">The (Normative!) Antecedent</h2>
+<div class="callout callout-style-default callout-note no-icon callout-titled" title="Fairness Through Awareness [@dwork_fairness_2011]">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Fairness Through Awareness <span class="citation" data-cites="dwork_fairness_2011">(<a href="#ref-dwork_fairness_2011" role="doc-biblioref">Dwork et al. 2011</a>)</span>
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Individuals who are similar with respect to a task should be classified similarly.</strong></p>
+</div>
+</div>
+<div>
+
+</div>
+<div class="quarto-layout-panel" data-layout="[1,1]">
+<div class="quarto-layout-row">
+<div id="awareness-left" class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<ul>
+<li>Not well-liked in industry / policy because you can’t just “plug in” results of your classifier and get True/False “we satisfied fairness!” …But this is <strong>exactly the point!</strong></li>
+</ul>
+</div>
+<div id="awareness-right" class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/manymetrics.png" class="img-fluid figure-img" width="370"></p>
+<figcaption>From <span class="citation" data-cites="kiat_machines_2018">Kiat (<a href="#ref-kiat_machines_2018" role="doc-biblioref">2018</a>)</span></figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="bringing-in-context-1" class="level2">
+<h2 class="anchored" data-anchor-id="bringing-in-context-1">Bringing In Context</h2>
+<ul>
+<li><em>In itself, the principle of equal treatment is abstract, a formal relationship that <strong>lacks substantive content</strong>”</em></li>
+<li><em>The principle must be given content by defining which cases are similar and which are different, and by considering what kinds of differences <strong>justify differential treatment</strong></em></li>
+<li><em>Deciding what differences are relevant, and what kinds of differential treatment are justified by particular differences, requires <strong>wrestling with moral and political debates</strong> about the responsibilities of different institutions to address persistent injustice</em> <span class="citation" data-cites="simons_algorithms_2023">(<a href="#ref-simons_algorithms_2023" role="doc-biblioref">Simons 2023, 51</a>)</span></li>
+</ul>
+</section>
+<section id="remember-distance-metrics" class="level2 crunch-title crunch-quarto-layout-panel crunch-ul text-90">
+<h2 class="crunch-title crunch-quarto-layout-panel crunch-ul text-90 anchored" data-anchor-id="remember-distance-metrics">Remember Distance Metrics?(!)</h2>
+<div>
+
+</div>
+<div class="quarto-layout-panel" data-layout="[1,1]">
+<div class="quarto-layout-row">
+<div id="distance-left" class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<ul>
+<li>A core element in <strong>both</strong> similarity-based and causal fairness!</li>
+<li>Already difficult to choose a metric on <strong>pragmatic</strong> grounds (ambulance needs to get to hospital)</li>
+<li>Now people will also have <strong>fundamental normative disagreements</strong> about what should and should not <strong>determine difference</strong></li>
+</ul>
+</div>
+<div id="distance-right" class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/medical_distances.jpg" class="img-fluid figure-img" width="380"></p>
+<figcaption>From <span class="citation" data-cites="shahid_comparison_2009">Shahid et al. (<a href="#ref-shahid_comparison_2009" role="doc-biblioref">2009</a>)</span></figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="satisfying-individual-vs.-group-fairness" class="level2 smaller crunch-title title-09">
+<h2 class="smaller crunch-title title-09 anchored" data-anchor-id="satisfying-individual-vs.-group-fairness">Satisfying Individual vs.&nbsp;Group Fairness</h2>
+<ul>
+<li><p>An algorithm is <strong>individually fair</strong> if, for all individuals <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span>, we have</p>
+<p><span class="math display">\[
+\textsf{dist}(r(x), r(y)) \leq \textsf{dist}(x, y)
+\]</span></p>
+<p><span class="math inline">\(\implies\)</span> an advertising system must show similar sets of ads to similar users.</p></li>
+<li><p>It achieves <strong>group fairness-through-parity</strong> for two groups of users <span class="math inline">\(S\)</span> and <span class="math inline">\(T\)</span> when:</p>
+<p><span class="math display">\[
+\textsf{dist}(\mathbb{E}_{s \in S}[r(s)], \mathbb{E}_{t \in T}[r(t)]) \leq \varepsilon
+\]</span></p>
+<p>where <span class="math inline">\(\mathbb{E}_{s \in S}\)</span> and <span class="math inline">\(\mathbb{E}_{t \in T}\)</span> denote the expectation of ads seen by an individual chosen uniformly among <span class="math inline">\(S\)</span> and <span class="math inline">\(T\)</span>. This definition implies that the difference in probability between two groups of seeing a particular ad will be bounded by <span class="math inline">\(\varepsilon\)</span>.</p></li>
+<li><p>Given these definitions: Individual fairness&nbsp; <span class="math inline">\(\nimplies\)</span> group fairness, and vice versa! <span class="citation" data-cites="riederer_price_2017">(<a href="#ref-riederer_price_2017" role="doc-biblioref">Riederer and Chaintreau 2017</a>)</span></p></li>
+</ul>
+</section>
+<section id="the-importance-of-not-excluding-race" class="level2 crunch-title title-09">
+<h2 class="crunch-title title-09 anchored" data-anchor-id="the-importance-of-not-excluding-race">The Importance of <em>Not</em> Excluding Race!</h2>
+<ul>
+<li>On HW2 you will see how, on the one hand: <strong>excluding</strong> race from the similarity metric ensures <strong>race-blind fairness</strong></li>
+<li>But, on the other hand: race-blind fairness can not only <strong>maintain</strong> but also <strong>amplify</strong> preexisting inequalities</li>
+<li>By <strong>including race</strong> in our similarity metric, we can explicitly take this into account!</li>
+<li>Ex: someone with a (morally irrelevant) disadvantage due to <strong>birth lottery</strong> who achieves an SAT score of 1400 is <strong>similar to</strong> someone with a (morally irrelevant) advantage due to birth lottery who achieves an SAT score of 1500</li>
+</ul>
+</section>
+<section id="equality-of-opportunity" class="level2 crunch-title crunch-ul crunch-quarto-layout-panel smaller">
+<h2 class="crunch-title crunch-ul crunch-quarto-layout-panel smaller anchored" data-anchor-id="equality-of-opportunity">Equality of Opportunity</h2>
+<div>
+
+</div>
+<div class="quarto-layout-panel" data-layout="[1,1]">
+<div class="quarto-layout-row">
+<div id="roemer-left" class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<ul>
+<li>This notion (last bullet of the previous slide) is <strong>contentious</strong>, to say the least</li>
+<li>But also, crucially: our job is not to <strong>decide the similarity metric unilaterally</strong>!</li>
+<li>The <strong>equality of opportunity</strong> approach is <strong>not itself a similarity metric!</strong></li>
+<li>It is a <strong>“meta-algorithm”</strong> for <strong>translating</strong> normative positions (consequents of an ethical framework) into <strong>concrete fairness constraints</strong> that you can then impose on ML algorithms</li>
+</ul>
+</div>
+<div id="roemer-right" class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/roemer-equality.jpg" class="img-fluid figure-img" width="340"></p>
+<figcaption><span class="citation" data-cites="roemer_equality_1998">Roemer (<a href="#ref-roemer_equality_1998" role="doc-biblioref">1998</a>)</span></figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="roemers-algorithm" class="level2 smaller crunch-title">
+<h2 class="smaller crunch-title anchored" data-anchor-id="roemers-algorithm">Roemer’s Algorithm</h2>
+<ul>
+<li>Roughly, the Equality of Opportunity algorithm boils down to:</li>
+<li><em>Input 1 (!)</em>: A set of attributes <span class="math inline">\(X_{\text{advantage}}\)</span> that a society (real or hypothetical) considers <strong>normatively relevant</strong> for an outcome, but that people are not <strong>individually responsible</strong> for (e.g., race or nationality via birth lottery)</li>
+<li><em>Input 2</em>: A set of attributes <span class="math inline">\(X_{\text{merit}}\)</span> that a society considers appropriate to hold people <strong>individually responsible</strong> for (e.g., effort, sacrificing short-term pleasure for longer-term benefits, etc.)</li>
+<li><em>Step 1</em>: Set of individuals in society <span class="math inline">\(S\)</span> is <strong>partitioned</strong> into subsets <span class="math inline">\(S_i\)</span>, where <span class="math inline">\(i\)</span> is some combination of particular <strong>values</strong> for the attributes in <span class="math inline">\(X_{\text{advantage}}\)</span></li>
+<li><em>Step 2</em>: Individuals’ <strong>context-sensitive scores</strong> are computed <strong>relative to their group</strong> <span class="math inline">\(S_i\)</span>, as <span class="math inline">\(z\)</span>-score of their <span class="math inline">\(X_{\text{merit}}\)</span> value relative to <strong>distribution</strong> of <span class="math inline">\(X_{\text{merit}}\)</span> values across <span class="math inline">\(S_i\)</span></li>
+<li><em>Outcome</em>: Now that we have <strong>incorporated social context</strong>, by converting the original <strong>context-free units</strong> (e.g., numeric SAT score) into <strong>context-sensitive units</strong> (<span class="math inline">\(z\)</span>-score of numeric SAT score within distribution of comparable individuals), we can compare people <strong>across groups</strong> on the basis of <strong>context-sensitive</strong> scores!</li>
+</ul>
+</section>
+</section>
+<section id="causal-fairness" class="level1" data-stack-name="Causal Fairness">
+<h1 data-stack-name="Causal Fairness">Causal Fairness</h1>
+<section id="the-state-of-the-art" class="level2">
+<h2 class="anchored" data-anchor-id="the-state-of-the-art">The State of the Art!</h2>
+<ul>
+<li>My view of the current state of fairness in AI: measures which explicitly model <strong>causal connections</strong> between variables of interest are the most promising for <strong>robust</strong> notions of fairness</li>
+<li>Robust in the sense of:
+<ul>
+<li>Being <strong>normatively desirable</strong> (as in, matching the key tenets of our ethical frameworks) while also being</li>
+<li><strong>Descriptively tractable</strong> (as in, concretely implementable in math/code, and transparent enough to allow us to <em>evaluate</em> and <em>update</em> these implementations, using a process like <em>reflective equilibrium</em>).</li>
+</ul></li>
+</ul>
+</section>
+<section id="the-antecedent" class="level2">
+<h2 class="anchored" data-anchor-id="the-antecedent">The Antecedent</h2>
+<blockquote class="blockquote">
+<p>Since it’s impossible to <strong>eliminate</strong> information about sensitive attributes like race/gender/etc. from our ML algorithms, fairness should instead be defined on the basis of <strong>how this sensitive information “flows” through the causal chain of decisions</strong> which lead to an given (observed) outcome</p>
+</blockquote>
+</section>
+<section id="the-new-object-of-analysis-causal-pathways" class="level2">
+<h2 class="anchored" data-anchor-id="the-new-object-of-analysis-causal-pathways">The New Object of Analysis: <em>Causal Pathways</em></h2>
+<p>The reason this approach is so promising is because, once we have a <strong>model</strong> of the <strong>causal connections</strong> among the variables that we care about (socially/normatively), and among the variables that are used by a Machine Learning algorithm, we can then use techniques developed by statisticians who study <strong>causal inference</strong> to <strong>block</strong> certain “causal pathways” that we deem normatively unjustifiable while <strong>allowing</strong> other pathways that we deem to be normatively justifiable.</p>
+</section>
+<section id="causal-fairness-in-hw2" class="level2">
+<h2 class="anchored" data-anchor-id="causal-fairness-in-hw2">Causal Fairness in HW2</h2>
+<p>Given this, the first subpart of this portion of the assignment will focus specifically on helping you develop intuition around the way of thinking required to make the jump from the <strong>correlational</strong> approach used in statistics and probability generally (and used in DSAN 5100 specifically!) to the <strong>causal</strong> approach which builds on the correlational approach but has a stricter standard for determining whether two or more Random Variables are related to one another. Then, in the second subpart, you will take this intuition and use it to evaluate fairness in a real-world setting!</p>
+</section>
+<section id="causal-building-blocks" class="level2 crunch-ul text-90">
+<h2 class="crunch-ul text-90 anchored" data-anchor-id="causal-building-blocks">Causal Building Blocks</h2>
+<ul>
+<li>DSAN 5100 precedent: nodes in the network <span class="math inline">\(X\)</span>, <span class="math inline">\(Y\)</span> are <strong>Random Variables</strong>, connections <span class="math inline">\(X \leftrightarrow Y\)</span> are <strong>joint distributions</strong> <span class="math inline">\(\Pr(X, Y)\)</span></li>
+<li><strong>Directional</strong> edges <span class="math inline">\(X \rightarrow Y\)</span>, then, just represent <strong>conditional</strong> distributions: <span class="math inline">\(X \rightarrow Y\)</span> is <span class="math inline">\(\Pr(Y \mid X)\)</span></li>
+<li>Where we’re going: connections <span class="math inline">\(X \leftrightarrow Y\)</span> represent <strong>unknown but extant causal connections</strong> between <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span>, while <span class="math inline">\(X \rightarrow Y\)</span> represents a <strong>causal relationship</strong> between <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span></li>
+<li>Specifically, <span class="math inline">\(X \rightarrow Y\)</span> now means: <strong>an intervention that changes the value of <span class="math inline">\(X\)</span></strong> by <span class="math inline">\(\varepsilon\)</span> <strong>causes a change in the value of <span class="math inline">\(Y\)</span></strong> by <span class="math inline">\(f(\varepsilon)\)</span></li>
+</ul>
+</section>
+<section id="the-intuitive-problem-of-causal-inference" class="level2 title-09">
+<h2 class="title-09 anchored" data-anchor-id="the-intuitive-problem-of-causal-inference">The Intuitive Problem of Causal Inference</h2>
+<div class="columns">
+<div class="column" style="width:65%;">
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">"../_globals.r"</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'dplyr'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following objects are masked from 'package:stats':
+
+    filter, lag</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following objects are masked from 'package:base':
+
+    intersect, setdiff, setequal, union</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>ga_lawyers <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">21362</span>, <span class="dv">22254</span>, <span class="dv">23134</span>, <span class="dv">23698</span>, <span class="dv">24367</span>, <span class="dv">24930</span>, <span class="dv">25632</span>, <span class="dv">26459</span>, <span class="dv">27227</span>, <span class="dv">27457</span>)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>ski_df <span class="ot">&lt;-</span> tibble<span class="sc">::</span><span class="fu">tribble</span>(</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="sc">~</span>year, <span class="sc">~</span>varname, <span class="sc">~</span>value,</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="dv">2000</span>, <span class="st">"ski_revenue"</span>, <span class="dv">1551</span>,</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  <span class="dv">2001</span>, <span class="st">"ski_revenue"</span>, <span class="dv">1635</span>,</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>  <span class="dv">2002</span>, <span class="st">"ski_revenue"</span>, <span class="dv">1801</span>,</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>  <span class="dv">2003</span>, <span class="st">"ski_revenue"</span>, <span class="dv">1827</span>,</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>  <span class="dv">2004</span>, <span class="st">"ski_revenue"</span>, <span class="dv">1956</span>,</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>  <span class="dv">2005</span>, <span class="st">"ski_revenue"</span>, <span class="dv">1989</span>,</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>  <span class="dv">2006</span>, <span class="st">"ski_revenue"</span>, <span class="dv">2178</span>,</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>  <span class="dv">2007</span>, <span class="st">"ski_revenue"</span>, <span class="dv">2257</span>,</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>  <span class="dv">2008</span>, <span class="st">"ski_revenue"</span>, <span class="dv">2476</span>,</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>  <span class="dv">2009</span>, <span class="st">"ski_revenue"</span>, <span class="dv">2438</span>,</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>ski_mean <span class="ot">&lt;-</span> <span class="fu">mean</span>(ski_df<span class="sc">$</span>value)</span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>ski_sd <span class="ot">&lt;-</span> <span class="fu">sd</span>(ski_df<span class="sc">$</span>value)</span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>ski_df <span class="ot">&lt;-</span> ski_df <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">val_scaled =</span> <span class="dv">12</span><span class="sc">*</span>value, <span class="at">val_norm =</span> (value <span class="sc">-</span> ski_mean)<span class="sc">/</span>ski_sd)</span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>law_df <span class="ot">&lt;-</span> tibble<span class="sc">::</span><span class="fu">tibble</span>(<span class="at">year=</span><span class="dv">2000</span><span class="sc">:</span><span class="dv">2009</span>, <span class="at">varname=</span><span class="st">"ga_lawyers"</span>, <span class="at">value=</span>ga_lawyers)</span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>law_mean <span class="ot">&lt;-</span> <span class="fu">mean</span>(law_df<span class="sc">$</span>value)</span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>law_sd <span class="ot">&lt;-</span> <span class="fu">sd</span>(law_df<span class="sc">$</span>value)</span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>law_df <span class="ot">&lt;-</span> law_df <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">val_norm =</span> (value <span class="sc">-</span> law_mean)<span class="sc">/</span>law_sd)</span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>spur_df <span class="ot">&lt;-</span> dplyr<span class="sc">::</span><span class="fu">bind_rows</span>(ski_df, law_df)</span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(spur_df, <span class="fu">aes</span>(<span class="at">x=</span>year, <span class="at">y=</span>val_norm, <span class="at">color=</span><span class="fu">factor</span>(varname, <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Ski Revenue"</span>,<span class="st">"Lawyers in Georgia"</span>)))) <span class="sc">+</span></span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_smooth</span>(<span class="at">method=</span><span class="st">"loess"</span>, <span class="at">se=</span><span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size=</span>g_pointsize<span class="sc">/</span><span class="fl">1.5</span>) <span class="sc">+</span></span>
+<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a>    <span class="at">fill=</span><span class="st">""</span>,</span>
+<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a>    <span class="at">title=</span><span class="st">"Ski Revenue vs. Georgia Lawyers"</span>,</span>
+<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a>    <span class="at">x=</span><span class="st">"Year"</span>,</span>
+<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a>    <span class="at">color=</span><span class="st">"Correlation: 99.2%"</span>,</span>
+<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a>    <span class="at">linetype=</span><span class="cn">NULL</span></span>
+<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">dsan_theme</span>(<span class="st">"custom"</span>, <span class="dv">18</span>) <span class="sc">+</span></span>
+<span id="cb5-35"><a href="#cb5-35" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(</span>
+<span id="cb5-36"><a href="#cb5-36" aria-hidden="true" tabindex="-1"></a>    <span class="at">breaks=</span><span class="fu">seq</span>(<span class="at">from=</span><span class="dv">2000</span>, <span class="at">to=</span><span class="dv">2014</span>, <span class="at">by=</span><span class="dv">2</span>)</span>
+<span id="cb5-37"><a href="#cb5-37" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb5-38"><a href="#cb5-38" aria-hidden="true" tabindex="-1"></a>  <span class="co">#scale_y_continuous(</span></span>
+<span id="cb5-39"><a href="#cb5-39" aria-hidden="true" tabindex="-1"></a>  <span class="co">#  name="Total Revenue, Ski Facilities (Million USD)",</span></span>
+<span id="cb5-40"><a href="#cb5-40" aria-hidden="true" tabindex="-1"></a>  <span class="co">#  sec.axis = sec_axis(~ . * law_sd + law_mean, name = "Number of Lawyers in Georgia")</span></span>
+<span id="cb5-41"><a href="#cb5-41" aria-hidden="true" tabindex="-1"></a>  <span class="co">#) +</span></span>
+<span id="cb5-42"><a href="#cb5-42" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">breaks =</span> <span class="sc">-</span><span class="dv">1</span><span class="sc">:</span><span class="dv">1</span>,</span>
+<span id="cb5-43"><a href="#cb5-43" aria-hidden="true" tabindex="-1"></a>    <span class="at">labels =</span> <span class="sc">~</span> . <span class="sc">*</span> <span class="fu">round</span>(ski_sd,<span class="dv">1</span>) <span class="sc">+</span> <span class="fu">round</span>(ski_mean,<span class="dv">1</span>),</span>
+<span id="cb5-44"><a href="#cb5-44" aria-hidden="true" tabindex="-1"></a>    <span class="at">name=</span><span class="st">"Total Revenue, Ski Facilities (Million USD)"</span>,</span>
+<span id="cb5-45"><a href="#cb5-45" aria-hidden="true" tabindex="-1"></a>    <span class="at">sec.axis =</span> <span class="fu">sec_axis</span>(<span class="sc">~</span> . <span class="sc">*</span> law_sd <span class="sc">+</span> law_mean, <span class="at">name =</span> <span class="st">"Number of Lawyers in Georgia"</span>)) <span class="sc">+</span></span>
+<span id="cb5-46"><a href="#cb5-46" aria-hidden="true" tabindex="-1"></a>  <span class="fu">expand_limits</span>(<span class="at">x=</span><span class="dv">2010</span>) <span class="sc">+</span></span>
+<span id="cb5-47"><a href="#cb5-47" aria-hidden="true" tabindex="-1"></a>  <span class="co">#geom_hline(aes(yintercept=x, color="Mean Values"), as.data.frame(list(x=0)), linewidth=0.75, alpha=1.0, show.legend = TRUE) +</span></span>
+<span id="cb5-48"><a href="#cb5-48" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(</span>
+<span id="cb5-49"><a href="#cb5-49" aria-hidden="true" tabindex="-1"></a>    <span class="at">breaks=</span><span class="fu">c</span>(<span class="st">'Ski Revenue'</span>, <span class="st">'Lawyers in Georgia'</span>),</span>
+<span id="cb5-50"><a href="#cb5-50" aria-hidden="true" tabindex="-1"></a>    <span class="at">values=</span><span class="fu">c</span>(<span class="st">'Ski Revenue'</span><span class="ot">=</span>cbPalette[<span class="dv">1</span>], <span class="st">'Lawyers in Georgia'</span><span class="ot">=</span>cbPalette[<span class="dv">2</span>]))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`geom_smooth()` using formula = 'y ~ x'</code></pre>
+</div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="index_files/figure-html/ski-revenue-lawyers-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</div><div class="column" style="width:35%;">
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(ski_df<span class="sc">$</span>value, law_df<span class="sc">$</span>value)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.9921178</code></pre>
+</div>
+</div>
+<div style="font-size: 50% !important;">
+<p>(Based on <a href="http://web.archive.org/web/20191006000802/http://tylervigen.com/view_correlation?id=29272" target="_blank">Spurious Correlations</a>, Tyler Vigen)</p>
+</div>
+</div>
+</div>
+</section>
+<section id="the-fundamental-problem-of-causal-inference" class="level2 crunch-title crunch-ul crunch-callout title-08">
+<h2 class="crunch-title crunch-ul crunch-callout title-08 anchored" data-anchor-id="the-fundamental-problem-of-causal-inference">The <em>Fundamental</em> Problem of Causal Inference</h2>
+<p>The only workable definition of “<span class="math inline">\(X\)</span> causes <span class="math inline">\(Y\)</span>”:</p>
+<div class="callout callout-style-default callout-note no-icon callout-titled" title="<i class='bi bi-info-circle pe-1'></i> Defining Causality">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<i class="bi bi-info-circle pe-1"></i> Defining Causality
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><span class="math inline">\(X\)</span> causes <span class="math inline">\(Y\)</span> if and only if:</p>
+<ol type="1">
+<li><em>X</em> temporally precedes <span class="math inline">\(Y\)</span> and</li>
+<li><em>In two worlds <span class="math inline">\(W_0\)</span> and <span class="math inline">\(W_1\)</span> where everything is exactly the same <strong>except that</strong> <span class="math inline">\(X = 0\)</span> in <span class="math inline">\(W_0\)</span> and <span class="math inline">\(X = 1\)</span> in <span class="math inline">\(W_1\)</span>, <span class="math inline">\(Y = 0\)</span> in <span class="math inline">\(W_0\)</span> and <span class="math inline">\(Y = 1\)</span> in <span class="math inline">\(W_1\)</span></em> <span class="citation" data-cites="hume_treatise_1739">(<a href="#ref-hume_treatise_1739" role="doc-biblioref">Hume 1739</a>)</span></li>
+</ol>
+</div>
+</div>
+<ul>
+<li>The problem? We live in <strong>one</strong> world, not two simultaneous worlds 😭</li>
+</ul>
+</section>
+<section id="what-is-to-be-done" class="level2">
+<h2 class="anchored" data-anchor-id="what-is-to-be-done">What Is To Be Done?</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/face_everything_and_rise.jpg" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+</section>
+<section id="face-everything-and-rise-controlled-randomized-experiment-paradigm" class="level2">
+<h2 class="anchored" data-anchor-id="face-everything-and-rise-controlled-randomized-experiment-paradigm">Face Everything And Rise: Controlled, Randomized Experiment Paradigm</h2>
+<ul>
+<li>Find good comparison cases: <strong>Treatment</strong> and <strong>Control</strong></li>
+<li>Without a control group, you cannot make inferences!</li>
+<li><em>Selecting on the dependent variable…</em></li>
+</ul>
+</section>
+<section id="selecting-on-the-dependent-variable" class="level2 smaller">
+<h2 class="smaller anchored" data-anchor-id="selecting-on-the-dependent-variable">Selecting on the Dependent Variable</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/school-shootings.jpeg" class="img-fluid figure-img"></p>
+<figcaption><a href="https://www.pbs.org/newshour/show/what-research-says-about-identifying-people-who-might-commit-mass-shootings" target="_blank">What “““research”“” “““says”“” about identifying people who might commit mass shootings</a></figcaption>
+</figure>
+</div>
+<ul>
+<li>Jeff’s rant: If you care about actually solving social issues, this should <strong>infuriate you</strong></li>
+</ul>
+</section>
+<section id="complications-selection" class="level2">
+<h2 class="anchored" data-anchor-id="complications-selection">Complications: Selection</h2>
+<ul>
+<li>Tldr: Why did this person (unit) end up in the treatment group? Why did this other person (unit) end up in the control group?</li>
+<li>Are there systematic differences?</li>
+<li>Vietnam/Indochina Draft: Why can’t we just study [men who join the military] versus [men who don’t], and take the difference as a causal estimate?</li>
+</ul>
+</section>
+<section id="complications-compliance" class="level2">
+<h2 class="anchored" data-anchor-id="complications-compliance">Complications: Compliance</h2>
+<ul>
+<li>We ideally want people assigned to the treatment to take the treatment, and people assigned to the control to take the control.</li>
+<li>“Compliance”: degree to which this is true in experiment
+<ul>
+<li>High compliance = most people actually took what they were assigned</li>
+<li>Low compliance = lots of people who were assigned to treatment actually took control, and vice-versa</li>
+</ul></li>
+<li>What problems might exist w.r.t compliance in the Draft example?</li>
+</ul>
+</section>
+<section id="next-week-and-hw2-experimental-rightarrow-observational-data" class="level2">
+<h2 class="anchored" data-anchor-id="next-week-and-hw2-experimental-rightarrow-observational-data">Next Week and HW2: Experimental <span class="math inline">\(\rightarrow\)</span> Observational Data</h2>
+<ul>
+<li>In observational studies, researchers have no control over assignment to treatment/control 😨</li>
+<li>On the one hand… Forget Everything And Run [to randomized, controlled experiments], if you can.</li>
+<li>On the other hand… statisticians over the last ~4 centuries have developed fancy causal inference tools/techniques to help us Face Everything And Rise 🧐</li>
+</ul>
+</section>
+<section id="for-now-matching" class="level2">
+<h2 class="anchored" data-anchor-id="for-now-matching">For Now: <em>Matching</em></h2>
+<ul>
+<li>In a <strong>randomized, controlled experiment</strong>, we can <strong>ensure</strong> (since we have control over the <strong>assignment mechanism</strong>) that the <strong>only systematic difference</strong> between <span class="math inline">\(C\)</span> and <span class="math inline">\(T\)</span> is that <span class="math inline">\(T\)</span> received the treatment and <span class="math inline">\(C\)</span> did not</li>
+<li>In an <strong>observational study</strong>, we “show up too late”!</li>
+<li>Thus, we no longer refer to <strong>assignment</strong> but to <strong>selection</strong></li>
+<li>And, our job is to <strong>figure out</strong> (reverse engineer!) the <strong>selection mechanism</strong>, then <strong>correct for its non-randomness</strong>: basically, we “transform” from observational to experimental setting through <strong>weighting</strong></li>
+</ul>
+</section>
+<section id="references" class="level2">
+<h2 class="anchored" data-anchor-id="references">References</h2>
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-dwork_fairness_2011" class="csl-entry" role="listitem">
+Dwork, Cynthia, Moritz Hardt, Toniann Pitassi, Omer Reingold, and Rich Zemel. 2011. <span>“Fairness <span>Through Awareness</span>.”</span> arXiv. <a href="https://doi.org/10.48550/arXiv.1104.3913">https://doi.org/10.48550/arXiv.1104.3913</a>.
+</div>
+<div id="ref-firth_selected_1968" class="csl-entry" role="listitem">
+Firth, John Rupert. 1968. <em>Selected <span>Papers</span> of <span>J</span>.<span>R</span>. <span>Firth</span>, 1952-59</em>. Longmans.
+</div>
+<div id="ref-hume_treatise_1739" class="csl-entry" role="listitem">
+Hume, David. 1739. <em>A <span>Treatise</span> of <span>Human Nature</span>: <span>Being</span> an <span>Attempt</span> to <span>Introduce</span> the <span>Experimental Method</span> of <span>Reasoning Into Moral Subjects</span>; and <span>Dialogues Concerning Natural Religion</span></em>. Longmans, Green.
+</div>
+<div id="ref-kiat_machines_2018" class="csl-entry" role="listitem">
+Kiat, Lim Swee. 2018. <span>“Machines <span>Gone Wrong</span>.”</span> PhD thesis, Singapore University of Technology; Design. <a href="https://machinesgonewrong.com/about/">https://machinesgonewrong.com/about/</a>.
+</div>
+<div id="ref-riederer_price_2017" class="csl-entry" role="listitem">
+Riederer, Christopher, and Augustin Chaintreau. 2017. <span>“The <span>Price</span> of <span>Fairness</span> in <span>Location Based Advertising</span>.”</span> <em>Fairness, Accountability, and Transparency Workshop on Responsible Recommendation</em>. <a href="https://doi.org/10.18122/B2MD8C">https://doi.org/10.18122/B2MD8C</a>.
+</div>
+<div id="ref-roemer_equality_1998" class="csl-entry" role="listitem">
+Roemer, John E. 1998. <em>Equality of <span>Opportunity</span></em>. Harvard University Press.
+</div>
+<div id="ref-rousey_friends_2001" class="csl-entry" role="listitem">
+Rousey, Dennis C. 2001. <span>“Friends and <span>Foes</span> of <span>Slavery</span>: <span>Foreigners</span> and <span>Northerners</span> in the <span>Old South</span>.”</span> <em>Journal of Social History</em> 35 (2): 373–96. <a href="https://www.jstor.org/stable/3790193">https://www.jstor.org/stable/3790193</a>.
+</div>
+<div id="ref-shahid_comparison_2009" class="csl-entry" role="listitem">
+Shahid, Rizwan, Stefania Bertazzon, Merril L. Knudtson, and William A. Ghali. 2009. <span>“Comparison of Distance Measures in Spatial Analytical Modeling for Health Service Planning.”</span> <em>BMC Health Services Research</em> 9 (1): 200. <a href="https://doi.org/10.1186/1472-6963-9-200">https://doi.org/10.1186/1472-6963-9-200</a>.
+</div>
+<div id="ref-simons_algorithms_2023" class="csl-entry" role="listitem">
+Simons, Josh. 2023. <em>Algorithms for the <span>People</span>: <span>Democracy</span> in the <span>Age</span> of <span>AI</span></em>. Princeton University Press.
+</div>
+</div>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

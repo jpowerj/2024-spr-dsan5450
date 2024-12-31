@@ -1,0 +1,150 @@
+---
+title: "Week 14: Republican Liberty and the Kindly Slavemaster"
+subtitle: "*DSAN 5450: Data Ethics and Policy*<br><span class='subsubtitle'>Spring 2024, Georgetown University</span>"
+author: "Jeff Jacobs"
+institute: "<a href='mailto:jj1088@georgetown.edu' target='_blank'>`jj1088@georgetown.edu`</a>"
+bibliography: "../_DSAN5450.bib"
+date: 2024-04-24
+date-format: full
+lecnum: 14
+categories:
+  - "Class Sessions"
+format:
+  revealjs:
+    df-print: kable
+    footer: "DSAN 5450 Week 14: {{< var w14.footer >}}"
+    output-file: "slides.html"
+    html-math-method: mathjax
+    theme: ["../_jjslides.scss"]
+    include-in-header:
+      text: "<link href='https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css' rel='stylesheet' integrity='sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN' crossorigin='anonymous'><link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css'><link rel='preconnect' href='https://fonts.googleapis.com'><link rel='preconnect' href='https://fonts.gstatic.com' crossorigin><link href='https://fonts.googleapis.com/css2?family=Honk&display=swap' rel='stylesheet'>"
+    scrollable: true
+    slide-number: true
+    simplemenu:
+      flat: true
+      barhtml:
+        header: "<div class='menubar'><span style='position: absolute; left: 8; padding-left: 8px;'><a href='./index.html'>&larr; Return to Notes</a></span><ul class='menu'></ul></div>"
+      scale: 0.4
+    revealjs-plugins:
+      - simplemenu
+  html:
+    df-print: kable
+    output-file: "index.html"
+    html-math-method: mathjax
+---
+
+::: {.content-visible unless-format="revealjs"}
+
+<center>
+<a class="h2" href="./slides.html" target="_blank">Open slides in new window &rarr;</a>
+</center>
+
+:::
+
+# First: An Update and a Dark Confession Regarding Fred {data-stack-name="Fred Affairs"}
+
+## An Official Apology to Fred VanVleet and the Fred VanVleet Community
+
+* I cheated
+* I used ChatGPT to generate my birthday DM to you, Fred, and I have no excuse
+* I hope to mend ties between Georgetown DSAN and Fred, and heal the wounds I imagine the Fred VanVleet Community is experiencing right now
+
+## The Receipts {.smaller .crunch-title}
+
+::: {layout="[1,1]" layout-valign="center"}
+
+![](images/gpt.jpeg){fig-align="center" width="400"}
+
+![](images/ig.jpeg){fig-align="center" width="330"}
+
+:::
+
+## {.smaller}
+
+Dear Students,
+
+I hope this message finds you well. I am writing to offer a sincere apology for my recent actions during our Data Ethics class, specifically in relation to Fred VanVleet's birthday greeting.
+
+It deeply pains me to admit that I deviated from the authenticity and sincerity that we aim to uphold in our interactions, particularly when it comes to someone as respected and admired as Fred VanVleet. By using ChatGPT to generate a message instead of expressing genuine sentiments from the heart, I failed not only Fred but also the entire Fred VanVleet community.
+
+Fred VanVleet represents resilience, determination, and integrity, both on and off the court. As a role model to many, he deserves nothing less than our utmost respect and genuine appreciation. My actions not only fell short of these standards but also disrespected the values that Fred embodies.
+
+To the Fred VanVleet community, I extend my deepest apologies. I recognize that my actions have let you down and have tarnished the admiration and support we hold for Fred. It was a despicable lapse in judgment, and I take full responsibility for the disappointment and frustration it may have caused.
+
+"I come from a place where a young thug will take your cake" - Thomas Jefferson
+
+Moving forward, I am committed to learning from this experience and to making amends. I understand the importance of honesty, integrity, and authenticity, especially when it comes to our interactions with individuals we admire and respect.
+
+Once again, I apologize to Fred VanVleet and the entire community for my regrettable actions. Your forgiveness and understanding would mean a great deal to me as I strive to regain your trust.
+
+If any of you would like to discuss this matter further or have any concerns, please do not hesitate to reach out to me. Thank you for your attention to this issue.
+
+Sincerely,
+[Your Name]
+
+# Republican Liberty {data-stack-name="Republican Liberty"}
+
+## Negative Liberty $\rightarrow$ Republican Liberty {.crunch-title .title-09}
+
+* **Negative Liberty** ("Liberty of the moderns"): The absence of external interference in day-to-day life
+* (Contrasted with **Positive Liberty**/"Liberty of the ancients": The ability to actualize oneself and carry out one's will within society)
+* Utilitarian and Rawlsian frameworks both rooted in **negative** liberty, in ways... too complicated to describe in 30mins, tbh
+* **Republican Liberty**: The **inability** of others to interfere, **whether or not they actually want to**; **secured** absence of interference, **across** possible counterfactual worlds
+
+## Liberty = $\neg$ Slavery (not $\neg$ Interference) {.crunch-title .title-09}
+
+> The weight of chains, number of stripes, hardness of labour, and other effects of a master's cruelty, may make one servitude more miserable than another, but nevertheless, **he is a slave who serves the best
+and gentlest man in the world, as well as he who serves the worst**. [@sidney_discourses_1698].
+
+> Our home has been nothing but a playroom. I have been **your doll-wife**, just as at home I was **papa's doll-child**; and here the **children** have been **my dolls**. [@ibsen_doll_1879]
+
+## Interpersonal Domination: Mary Wollstonecraft, Frederick Douglass, and the Kindly Slavemaster {.crunch-title .title-07}
+
+> Weakness may gratify the arrogant pride of man; but the lordly caresses of a **protector** will not gratify a noble mind that yearns, and deserves, to be **respected**. **Fondness is a poor substitute for friendship**. [@wollstonecraft_vindication_1792]
+
+> My feelings [towards slave masters] were not the result of any marked cruelty in the treatment I received; they sprung from the consideration of my being a slave in the first place. **It was slavery---not its mere incidents---that I despised**. [@douglass_my_1855]
+
+## Republican Liberty as a Litmus Test {.crunch-title .crunch-ul .crunch-li-7}
+
+* Easy cases: Who is actively interfering to prevent others from actualizing their wills? (The cruel slavemaster)
+    * Complication: In some (rare) cases, interference may be **justifiable** to the person who was interfered with. (Pulling child out of road to prevent them being hit)
+* More difficult cases: Who is **not** actively interfering, but **only because they are currently choosing not to?**
+    * $\implies$ You must **remain on their good side** in order to avoid them turning from kindly $\rightarrow$ cruel
+    * $\implies$ Litmus test: if they decided one day that they hate you, what would they be able to inflict upon you?
+
+## But... Data Ethics and Policy? {.crunch-title}
+
+* These quotes, emerging out of different struggles over hundreds and hundreds of years, still tend to involve **people** dominating other **people**
+* But... What would it mean for an **algorithm** to dominate people?
+* I (and many others!) argue that this provides the **most promising** language within which one could frame the core, fundamental injustices induced by algorithms
+* But, requires integrating **interpersonal** (well-covered) with **structural domination** [@jacobs_operationalizing_2024]
+
+## Structural Domination: The Grapes of Wrath {.smaller .crunch-title .title-12}
+
+> "I built it with my hands. Straightened old nails to put the sheathing on."
+> 
+> "It's not me. There's nothing I can do. I'll lose my job if I don't do it. And look---suppose you kill me? They'll hang you, and long before you're hung there'll be another guy here, he'll bump the house down. You're not killing the right guy."
+> 
+> "That's so... Who gave you orders? I'll go after him. He's the one to kill."
+> 
+> "You're wrong. He got his orders from the bank. The bank told him, 'Clear those people out or it's your job.'"
+>
+> "Well, there's a president of the bank. There's a board of directors. I'll fill up the magazine of the rifle and go into the bank."
+>
+> The driver said, "Fellow was telling me the bank gets orders from the East. The orders were, 'Make the land show profit or we'll close you up.'"
+>
+> "We're sorry. It's not us. It's the monster. The bank isn't like a man.
+> 
+> "Yes, but the bank is only made of men."
+>
+> "No, you're wrong there---quite wrong there. The bank is something else than men. It happens that every man in a bank hates what the bank does, and yet the bank does it. The bank is something more than men, I tell you."
+> 
+> "I got to figure," the tenant said. "We all got to figure. **There's some way to stop this. There's got to be some way to stop this. It's not like lightning or earthquakes. We've got a bad thing made by men, and by God, isn't that something we should be able to change?**"
+> 
+> [@steinbeck_grapes_1939]
+
+## References
+
+::: {#refs}
+:::
+

@@ -1,0 +1,311 @@
+---
+title: "Week 7: Public Policy"
+subtitle: "*DSAN 5450: Data Ethics and Policy*<br><span class='subsubtitle'>Spring 2024, Georgetown University</span>"
+author: "Jeff Jacobs"
+institute: "<a href='mailto:jj1088@georgetown.edu' target='_blank'>`jj1088@georgetown.edu`</a>"
+bibliography: "../_DSAN5450.bib"
+date: 2024-03-13
+date-format: full
+lecnum: 7
+# categories:
+#   - "Class Sessions"
+format:
+  revealjs:
+    df-print: kable
+    footer: "DSAN 5450 Week 7: Public Policy"
+    output-file: "slides.html"
+    html-math-method: mathjax
+    theme: ["../_jjslides.scss"]
+    scrollable: true
+    slide-number: true
+    simplemenu:
+      flat: true
+      barhtml:
+        header: "<div class='menubar'><span style='position: absolute; left: 8; padding-left: 8px;'><a href='./index.html'>&larr; Return to Notes</a></span><ul class='menu'></ul></div>"
+      scale: 0.5
+    revealjs-plugins:
+      - simplemenu
+  html:
+    df-print: kable
+    output-file: "index.html"
+    html-math-method: mathjax
+---
+
+
+## Fairness Through Unawareness and Proxy Discrimination {.smaller .crunch-title}
+
+![From @tschantz_what_2022](images/proxy_paper.jpg){fig-align="center"}
+
+## Causal Fairness
+
+* From DSAN 5100 you know things like $\mathbb{E}[Y \mid X], \text{Cov}(X,Y)$, $X \perp Y$, and estimating $Y = \beta_0 + \beta_1X$
+* For **causal inference** however, there is a **qualitatively different** and **more strict** standard: $\mathbb{E}[Y \mid do(X)]$
+  * Literally called "Do-Calculus"
+
+# "Race" (Noun) vs. "Racecraft" (Social Practice) {data-stack-name="Racecraft"}
+
+## $\textsf{Race}_{\textsf{Variable}}$ vs. $\textsf{Race}_{\textsf{Construct}}$
+
+* Careful scientific, causal studies measure the effect that **changing $X$** ($do(X)$) has on $Y$, controlling for $C$ (via, at least under the hood, "Do-Calculus")
+* But, even the most careful, controlled (and thus informative!) experiments must, at some level, partition variables into "race" and "not race"
+* Keep in back of your mind as we look at just one example of how (measured by thorough, statistically-principled randomized experiment), **race can have direct, measurable, causal impacts on important aspects of our everyday lives**
+
+## Racial Discrimination {.smaller .crunch-title}
+
+* Marianne Bertrand and Sendhil Mullainathan. 2004. "Are Emily and Greg More Employable Than Lakisha and Jamal? A Field Experiment on Labor Market Discrimination." *American Economic Review*. [@bertrand_are_2004]
+
+> We study **race** in the labor market by sending fictitious resumes to help-wanted ads in Boston and Chicago newspapers. To manipulate perceived race, resumes are **randomly assigned** African-American- or White-sounding **names**. **White names** receive **50 percent more callbacks** for interviews. Callbacks are also more responsive to resume quality for White names than for African-American ones. The racial gap is uniform across occupation, industry, and employer size. We also find little evidence that employers are inferring social class from the names. Differential treatment by race still appears to still be prominent in the U.S. labor market.
+
+## "Controlling for" Everything Besides Race {.smaller .crunch-title .title-11}
+
+::: {layout="[1,1]" layout-valign="center"}
+
+![](images/resume_greg_baker.jpeg){fig-align="center"}
+
+![](images/resume_jamal_jones.jpeg){fig-align="center"}
+
+:::
+
+## Age Discrimination? {.smaller .crunch-title}
+
+::: {layout="[1,1]" layout-valign="center"}
+
+![](images/resume_age_12.jpeg){fig-align="center"}
+
+![](images/resume_age_22.jpeg){fig-align="center"}
+
+:::
+
+* Based on Lily Hu, <a href='https://www.youtube.com/watch?v=8qMC1fZJMi4' target='_blank'>*What is 'Race' in Algorithmic Discrimination on the Basis of Race? - IPAM at UCLA*</a> (YouTube)
+
+## "Cool Theory, I Guess..." {.smaller .crunch-title .crunch-quarto-layout-panel}
+
+* "Good luck measuring ideas inside of people's heads... I'll be over here measuring real things and doing real data science!" -My Opps
+
+::: {layout="[1,1]"}
+
+![](images/representations.jpeg){fig-align="center"}
+
+![](images/sperber.jpg){fig-align="center" width="320"}
+
+:::
+
+## "Cool Theory, I Guess..." {.smaller .crunch-title}
+
+![](images/representations_bilingual.jpeg){fig-align="center"}
+
+## Opening A Big Can Of Worms {.smaller .crunch-title .crunch-quarto-layout-panel .crunch-quarto-figure .crunch-quarto-layout-cell}
+
+::: {layout="[1,1]"}
+
+::: {#worms1-left}
+
+* Social interactions among $t^e_0$, $t^e_1$, $t^e_2$...
+
+:::
+::: {#worms-right}
+
+![](images/race_graph_step1.svg){fig-align="center" width="500"}
+
+:::
+:::
+
+## Opening A Big Can Of Worms {.smaller .crunch-title .crunch-quarto-layout-panel .crunch-quarto-figure .crunch-quarto-layout-cell}
+
+::: {layout="[1,1]"}
+::: {#worms2-left}
+
+* Social interactions among $t^e_0$, $t^e_1$, $t^e_2$...
+* **Mediated** by external things $o^e_3$ to $o^e_8$ (giving rise to **patterns of interaction**)...
+
+:::
+::: {#worms2-right}
+
+![](images/race_graph_step2.svg){fig-align="center" width="500"}
+
+:::
+:::
+
+## Opening A Big Can Of Worms {.smaller .crunch-title .crunch-quarto-figure .crunch-quarto-layout-panel .crunch-quarto-layout-cell}
+
+::: {layout="[1,1]"}
+::: {#worms3-left}
+
+* Social interactions among $t^e_0$, $t^e_1$, $t^e_2$...
+* **Mediated** by external things $o^e_3$ to $o^e_8$ (giving rise to **patterns of interaction**)...
+* Each person $x$ forming their own **internal representations** $\widetilde{t^x_0}$, $\widetilde{t^x_1}$, $\widetilde{t^x_2}$ of one another based on **patterns of interaction**, then
+* Generalizing to an internal representation of a **"type of person" $\widetilde{t^x_9}$**...
+
+:::
+::: {#worms3-right}
+
+![](images/race_graph_step3.svg){fig-align="center" width="600"}
+
+:::
+:::
+
+## Opening A Big Can Of Worms {.smaller .crunch-title .crunch-quarto-figure .crunch-quarto-layout-panel .crunch-quarto-layout-cell}
+
+::: {layout="[1,1]"}
+::: {#worms4-left}
+
+* Social interactions among $t^e_0$, $t^e_1$, $t^e_2$...
+* **Mediated** by external things $o^e_3$ to $o^e_8$ (giving rise to **patterns of interaction**)...
+* Each person $x$ forming their own **internal representations** $\widetilde{t^x_0}$, $\widetilde{t^x_1}$, $\widetilde{t^x_2}$ of one another based on **patterns of interaction**, then
+* Generalizing to an internal representation of a **"type of person" $\widetilde{t^x_9}$**...
+* Which they then **externalize** as $t^x_9$.
+* $t^0_9$, $t^1_9$, $t^2_9$ "congeal" into a **shared external representation** $t_9^e$ via social mechanism (discussion, media, culture, propaganda, parenting, religion, education, ...) $\Rightarrow t^e_9$ **"reified"** (causal effects on $t_0$, $t_1$, $t_2$)
+
+:::
+::: {#worms4-right}
+
+![](images/race_graph_step4.svg){fig-align="center" width="600"}
+
+:::
+:::
+
+## (More to Come on HW1!)
+
+![](images/sunny.jpg){fig-align="center"}
+
+# Defining Fairness in Economic Environments {data-stack-name="Overview"}
+
+::: {.hidden}
+
+{{< include ../_globals-tex.qmd >}}
+
+:::
+
+* Predictive Parity ("Parity")
+* Balance for the Positive Class ("Balance")
+
+## Mathematical Setup {.smaller}
+
+* We can define notions of fairness under a unified mathematical framework of **decision-making**
+* A decision-maker $\mathscr{D}$ solves the optimization problem $\max\{\mu\}$ where, given a set of individuals indexed by $i$,
+$$
+\underbrace{\mu}_{\mathclap{\text{Maximand}}} = \mathbb{E}_i[\underbrace{W_i}_{\mathclap{\text{Decision}}} \, \cdot \, (\underbrace{M_i}_{\mathclap{\small\substack{\text{Merit} \\ \text{(Unobserved)}}}} - \underbrace{c_i}_{\mathclap{\text{Cost}}})]
+$$
+* Since the $M_i$ are unobserved, $\mathscr{D}$ has to **estimate** them using a predictive model (e.g., a supervised ML algorithm):
+$$
+m(x) = \mathbb{E}[M \mid X = x].
+$$
+
+## General Solution
+
+* Without any **restrictions** on the set of admissible policies $\mathscr{W}$, the solution will satisfy
+
+$$
+w^*(\cdot) = \argmax_{w(\cdot) \in \mathscr{W}}\mathbb{E}[w(X) \cdot (m(X) - c)]
+$$
+
+## Fair Solution
+
+* Definitions of **fairness** under this framework, however, specify a variable $A_i$ for each individual, representing their status with respect to some **protected characteristic** like race, gender, or disability status
+* Then $A_i$ is **not allowed** to be included in $X$, at a minimum, and different definitions of fairness include additional constraints on $\mathscr{W}$ based on $A_i$.
+
+## Predictive Parity {data-stack-name="Parity"}
+
+* The fundamental criterion: for all values $a \in A$,
+
+$$
+\mathbb{E}[M \mid W = 1, A = a] = \mathbb{E}[M \mid W = 1]
+$$
+
+* For binary $A \in \{0, 1\}$, we can use this criterion to define a **parity score** $\pi$:
+
+$$
+\pi = \mathbb{E}[M \mid W = 1, A = 1] - \mathbb{E}[M \mid W = 1, A = 0]
+$$
+
+## Implementing Predictive Parity
+
+* Enforcing predictive parity means enforcing that $\pi = 0$
+* So, we restrict the set of rules that can be chosen, and solve
+
+$$
+\begin{align*}
+w^*(\cdot) &= \argmax_{w(\cdot) \in \mathscr{W}_\text{fair}}\mathbb{E}[w(X) \cdot (m(X) - c)], \\
+\mathscr{W}_{\text{fair}} &= \{w \in \mathscr{W} \mid \pi = 0\}
+\end{align*}
+$$
+
+## The Solution: Choice "Only On Merit"
+
+* If we can perfectly predict $M$ ($m(X) = M$), then
+
+$$
+w^*(x) = \begin{cases}
+1 &\text{if }m(X) > c, \\
+0 &\text{otherwise}
+\end{cases}
+$$
+
+* Firms are only being "unfair" if they disciminate **in a way that lowers their profits**
+* Implements definition of discrimination from @becker_economics_1957
+* But what are the **results** of this rule? And the results of changing it? And where did $M$ come from?
+
+## Reflective Equilibrium: Affirmative Action {.smaller}
+
+* Under this definition of fairness, **affirmative action is unfair**:
+* Policy $\alpha$: Employer is incentivized (via $1$ unit reward) for hiring people with $A_i = 1$
+* Policy $\beta$: No incentive for hiring $A_i = 1$ over $A_i = 0$
+* $W^*_\alpha = \begin{cases}1 &\text{if }M + A \geq 1 \\ 0 &\text{otherwise}\end{cases}, \; W^*_{\beta} = M$
+* Fairness scores:
+
+$$
+\begin{align*}
+\pi_\alpha &= \mathbb{E}[M \mid W^*_{\alpha} = 1, A = 1] - \mathbb{E}[M \mid W^*_{\alpha} = 1, A = 0] = 0.5 - 1 =  -0.5 \\
+\pi_\beta &= \mathbb{E}[M \mid W^*_{\beta} = 1, A = 1] - \mathbb{E}[M \mid W^*_{\beta} = 1, A = 0] = 1 - 1 = 0
+\end{align*}
+$$
+
+* So is fairness the right way to evaluate an algorithm?
+
+# Economic, Social, and Political Impacts {data-stack-name="Impact Functions"}
+
+## Affirmative Action: *Welfare* and *Inequality* {.smaller}
+
+* Now consider the **outcomes** from the perspective of the **employees** rather than the employer: $Y(w) = (1 - A) + w$. Then
+
+$$
+\begin{align*}
+Y(W_\alpha) &= 1 + \begin{cases}1 &\text{if }A = 0 \wedge M = 1 \\ 0&\text{otherwise}\end{cases} \\
+Y(W_\beta) &= (1 - A) + M
+\end{align*}
+$$
+
+* Which means
+
+$$
+\text{Var}[Y(W_\alpha)] = \frac{3}{16}, \text{Var}[Y(W_\beta)] = \frac{1}{2}
+$$
+
+## The Impact of *Changes* to an Algorithm {.smaller}
+
+* Once we've derived this optimal $w^*$, we can analyze how **changes** to the algorithm **affect** outcomes we care about! $\mu$ and $\pi$ are objective value as before, but let $\nu$ represent **inequality**
+* Say we are considering a new algorithm $w(x) = w^*(x) + \varepsilon \cdot dw(x)$. Then
+
+$$
+\begin{align*}
+\frac{\partial \mu}{\partial \varepsilon} &= \mathbb{E}[dw(X) \cdot \ell(X)], \; \ell(x) = \mathbb{E}[M \mid X = x] - c \\
+\frac{\partial \pi}{\partial \varepsilon} &= \mathbb{E}\left[dw(X) \cdot p(X)\right], \; p(x) = \mathbb{E}\mkern-4mu\left[\Delta^1\frac{A}{\mathbb{E}[WA]} - \Delta^0\frac{1-A}{\mathbb{E}[W(1-A)]} \; \middle|\; X = x\right], \\
+&\phantom{=} \; \Delta^i = M - \mathbb{E}[M \mid W = 1, A = i] \\
+\frac{\partial \nu}{\partial \varepsilon} &= \mathbb{E}[dw(X) \cdot n(X)], \; n(x) = \mathbb{E}[IF(Y^1, x) - IF(Y^0, x) \mid X = x]
+\end{align*}
+$$
+
+# Implicit Welfare Weights
+
+## Who Gets To Choose The Objective Function?
+
+* It turns out that any objective function is an **implicit implementation** of a **weighting** of each person's welfare relative to others
+
+## Appendix: Balance for the Positive Class
+
+* An alternative to predictive parity, though with similar results
+* Here the criterion is, for all $i$,
+
+$$
+\mathbb{E}[W_i \mid M_i = 1, A_i = 1] = \mathbb{E}[W_i \mid M_i = 1, A_i = 0]
+$$

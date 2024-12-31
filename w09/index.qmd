@@ -1,0 +1,318 @@
+---
+title: "Week 9: {{< var w09.title >}}"
+subtitle: "*DSAN 5450: Data Ethics and Policy*<br><span class='subsubtitle'>Spring 2024, Georgetown University</span>"
+author: "Jeff Jacobs"
+institute: "<a href='mailto:jj1088@georgetown.edu' target='_blank'>`jj1088@georgetown.edu`</a>"
+bibliography: "../_DSAN5450.bib"
+date: 2024-03-20
+date-format: full
+lecnum: 9
+categories:
+  - "Class Sessions"
+format:
+  revealjs:
+    df-print: kable
+    footer: "DSAN 5450 Week 9: {{< var w09.footer >}}"
+    output-file: "slides.html"
+    html-math-method: mathjax
+    theme: ["../_jjslides.scss"]
+    include-in-header:
+      text: "<link href='https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css' rel='stylesheet' integrity='sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN' crossorigin='anonymous'><link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css'>"
+    scrollable: true
+    slide-number: true
+    simplemenu:
+      flat: true
+      barhtml:
+        header: "<div class='menubar'><span style='position: absolute; left: 8; padding-left: 8px;'><a href='./index.html'>&larr; Return to Notes</a></span><ul class='menu'></ul></div>"
+      scale: 0.5
+    revealjs-plugins:
+      - simplemenu
+  html:
+    df-print: kable
+    output-file: "index.html"
+    html-math-method: mathjax
+---
+
+::: {.content-visible unless-format="revealjs"}
+
+<center>
+<a class="h2" href="./slides.html" target="_blank">Open slides in new window &rarr;</a>
+</center>
+
+:::
+
+# Week 8 Recap {data-stack-name="Week 8 Recap"}
+
+::: {.hidden}
+
+{{< include ../_globals-tex.qmd >}}
+
+:::
+
+![Ronnie The Bear, <a href='https://www.reaganfoundation.org/ronald-reagan/reagan-quotes-speeches/inaugural-address-2/' target='_blank'>Presidential Acceptance Speech</a>, 20 January 1981](images/ronnie_the_bear.png){fig-align="center"}
+
+## 1. Privacy Policies Take a Long Time to Read! {.crunch-title .title-11 .smaller .nostretch}
+
+![](images/terms_of_service_info.jpg){fig-align="center"}
+
+## 2. *Reading* Privacy Policies $\neq$ *Understanding* Privacy Policies! {.smaller .crunch-title .crunch-ul}
+
+* Reading vs. understanding **implications** / **contingencies** / **ambiguities**...
+* NLP *could* (and *should!*) be helpful (*"making privacy policies **machine readable** [...] would help users match **privacy preferences** against **policies** offered by web services"*), but mostly just reveals how bad the problem is:
+
+![Figure 15 from @wagner_privacy_2023. "Obfuscatory words" are words like *acceptable*, *significant*, *mainly*, or *predominantly*, interpretated at the discretion of companies rather than users (see next slide!)](images/wagner_fig.svg){fig-align="center"}
+
+## The Intuitive Problem of Contracts {.smaller .crunch-ul .crunch-title .crunch-quarto-figure .crunch-images}
+
+::: {layout="[60,40]"}
+::: {#intuitive-problem-left}
+
+* Hard to read, harder to understand, possibly rly bad stuff in them, won't know until you read + understand
+* Solution (in theory... in modern liberal market-based democracies): Collective action!
+* Option 1 (Exit): Find better platform, use it instead $\Rightarrow$ company dies (competitive market)
+* Option 2 (Voice): Raise a fuss, hoot and holler, make a big stink about it, etc.
+  * $\Rightarrow$ (2a) Company will change/remove it to avoid embarrassment and/or prevent Option 1 becoming an option
+  * $\Rightarrow$ (2b) Government intervention (hypothetical functional government)
+
+:::
+::: {#intuitive-problem-right}
+
+![](images/exit-voice-page.jpeg){fig-align="center" width="240"}
+
+![](images/corbyn_down.jpeg){fig-align="center" width="240"}
+
+:::
+:::
+
+## Understanding Rights $\leftrightarrow$ Fighting for Rights {.title-08 .crunch-ul}
+
+* "Hohfeldian" framework [@hohfeld_fundamental_1913]
+* A right $r_i$ granted to person $i$ $\implies$ A duty/obligation imposed on everyone in the world besides $i$ (to respect $r_i$)
+* A duty or obligation $d_i$ imposed on a person $i$ $\implies$ A right granted to everyone in the world besides $i$ (to... be a potential beneficiary of $d_i$)
+* $\implies$ rough measures of **relative power** in a contract:
+
+$$
+\frac{\text{rights}_i}{\text{rights}_j} = \frac{\text{obligations}_j}{\text{rights}_j} = \frac{\text{rights}_i}{\text{obligations}_j} = \frac{\text{obligations}_j}{\text{obligations}_i}
+$$
+
+## The Adversarial-Sisyphusian Problem of Contracts {.crunch-title .title-07}
+
+* Recall Intuitive Problem of Causal Inference: Correlation $\nimplies$ Causation, **but** can do a bunch of work to overcome
+* Adversarial-Sisyphusian Problem is **one level worse** 😱
+  * IPCI: You vs. discovered correlation (inanimate)
+  * ASPC: You vs. companies investing **resources** 💰 into making the problem **harder and harder for you**
+* tldr: The moment you ($N=1$, \$) finally find and "fix" bad thing, company ($N \gg 1$, \$\$\$) adds more ambiguity to re-enable / sends your data to \"\"\"new\"\"\", \"\"\"different\"\"\" 3rd-party processor 🥸
+
+## The Devastating Consequences of Corporate Scandals {.crunch-title .crunch-ul .title-07}
+
+* <a href='https://en.wikipedia.org/wiki/Nisour_Square_massacre' target='_blank'>Nisour Square Massacre</a> (16 Sept 2007): Four Blackwater private military contractors mow down unarmed Iraqi civilians, killing 17, injuring 20
+* Devastating for innocent Iraqis, but... perhaps even more devastating for Blackwater?
+* (TW for next slide: Horrific consequences for murdering 17 civilians in a country 6915 miles away)
+
+## Consequences for the Contractors {.crunch-title}
+
+* All pardoned (#GodsPlan)
+
+![From <a href='https://www.youtube.com/watch?v=DUvO0yO7N5I' target='_blank'>The Shawn Ryan Show</a>, Episode 11](images/pardoned.jpeg){fig-align="center"}
+
+* Can make <a href='https://pipehitterfoundation.org/blackwater4/' target='_blank'>tax-deductible donation</a> to charity supporting them (I couldn't find the tax-deductible donation page for the Iraqi families, lmk if you find)
+
+## Consequences for Blackwater {.crunch-images .crunch-title .crunch-ul .crunch-quarto-figure}
+
+* They had to, like, design a whole new logo and stuff
+
+![](images/academi.png){fig-align="center"}
+
+![](images/Constellis_logo.svg){fig-align="center" width="70%"}
+
+## *No Logo* / Why Johnny Can't Dissent {.crunch-title .crunch-ul .crunch-blockquote}
+
+* Naomi Klein's *No Logo* (1999) sparked a nationwide boycott of companies employing sweatshop labor
+* Great success; all companies responded and (out of the kindness of their hearts) cut ties with all of the sweatshops
+* Instead, they established ties with supply chain management companies, who made the profit-maximizing decision to re-establish ties with all of the sweatshops
+
+> "You can't outrun them, or even stay ahead of them for very long: it's their racetrack, and that's them waiting at the finish line to congratulate you" [@frank_dark_1994]
+
+## Conclusion
+
+![](images/my_life_dont_mean_shit.jpg){fig-align="center"}
+
+# Incomplete Contracts {data-stack-name="Incomplete Contracts"}
+
+## The Fundamental Problem of Contracts {.crunch-title .crunch-ul .title-09}
+
+* Just as we can't observe **two simultaneous worlds** $W_{X = 0}$ and $W_{X = 1}$ which differ only in the value of $X$,
+* We can't **foresee all possible contingencies** that need to be included in a **contract**
+  * (We can try, though! Hence use of obfuscatory words to **minimize liability**)
+* So, when a situation arises which is not covered by a clause in the contract, what happens? What principle determines **whose interpretation wins out**?
+  * (*Hint*: It is actually literally my legal middle name...)
+
+## ...POWER! {.crunch-title}
+
+* Examples from employment contracts (tooting own horn):
+* In a private, cooperatively-owned, democratic firm, outcome determined by *conversation*, *majority vote*, *unanimity*, etc.
+  * These technically exist in the US! Employing <a href='https://resources.uwcc.wisc.edu/Research/REIC_FINAL.pdf' target='_blank'>2,380 workers</a>, $\frac{2380}{127509000} \approx 0.0019\%$ of US workforce
+* Otherwise, in a non-unionized private firm (94% of total), the outcome is determined by *organizational hierarchy*
+  * This is the case for $\frac{125000000}{127509000} \approx 98.03\%$ of <a href='https://fred.stlouisfed.org/series/USPRIV' target='_blank'>US workforce</a>
+
+## Descriptive and Normative Considerations {.crunch-title .title-09 .crunch-ul .crunch-blockquote}
+
+> The combined effect of **incomplete contracts** and **conflicts of interest** is that the determination of outcomes depends on who exercises **power** in the transaction.
+> 
+> Power is generally exercised by those who hold the residual rights of control, meaning **the right to determine what is not specified contractually**
+
+* [Step 1: Measurable, empirically verifiable, etc.] **Who has power** w.r.t. a given incomplete contract?
+* [Step 2: Up to you and your ethical axioms] **Who ought to have power** w.r.t. incomplete contracts?
+
+<!-- * And now I can talk about the EU thing...
+  * (It wasn't implemented)
+  * (But idk statute of limitations)
+  * (Oh well)
+
+> 🔥*I think it's more useful to, like, make things happen now, and then, like, apologize later*🔥 ---<a href='https://www.snopes.com/fact-check/move-fast-break-things-facebook-motto/' target='_blank'>Mark Zuckerberg the 🐐</a> -->
+
+## Working Definition of Power
+
+::: {style="display: flex; justify-content: center; align-items: center; height: 80%;"}
+::: {.callout-note icon="false" title="<i class='bi bi-info-circle pe-1'></i> Defining (Dyadic) Power [@bowles_power_1992, 326-327]"}
+
+For agent $A$ to have power over agent $B$ it is sufficient that, by imposing or threatening to impose sanctions on $B$, $A$ is capable of affecting $B$'s actions in ways that further $A$'s interests, while $B$ lacks this capacity with respect to $A$.
+
+:::
+:::
+
+# Measuring Contractual Power {data-stack-name="Measuring Contractual Power"}
+
+## (Gist of) Wealth-Power Correspondence Theorem {.crunch-title .crunch-ul .title-08 .inline-09 .smallish}
+
+*[Axiom] Standard (Walrasian) perfectly-competitive equilibrium, no entry/exit barriers, **minus** complete-contracts assumption*
+
+1. "Individual wealth levels $\omega_{i,t}$ determine how individuals come to hold differing structural positions": $i$'s structural position $P_{i,t}$ determined by set of feasible contracts available at $t$
+2. Individual optimization of contractual arrangements between $i$ and $j$ (effort level $e_i^*$, monitoring $m_j^*$) gives rise to **authority structure** $\Rightarrow$ well-defined, **measurable degree of power** $\rho_{i \rightarrow j}(w_i, z_j)$ ($j$ has outside option $z_j$, $i$ offers wage $w_i > z_j$)
+3. [Given two agents $i, j$] $\rho_{i \rightarrow j} > \rho_{j \rightarrow i}$ if and only if $\omega_i > \omega_j$ 👀🧐
+
+## Possible Steady-State Equilibria (Skipping Lots of Math) {.crunch-title .smaller .title-09}
+
+```{=html}
+<table class='small-table'>
+<thead>
+<tr>
+  <!-- <th><span data-qmd="Equilibrium<br>$s_i^* = (x_i,y_i,z_i)$"></span></th> -->
+  <th>Produces for Self?</th>
+  <th>Hires Labor?</th>
+  <th>Sells Labor?</th>
+  <th>Agricultural</th>
+  <th>Industrial</th>
+  <th>Post-Industrial</th>
+  <th><span data-qmd="Wealth $\omega_i^*$"></span></th>
+</tr>
+</thead>
+<tbody>
+<tr class='td-section-head'>
+  <td colspan="7" align="center"><span data-qmd="**Bourgeoisie** (Bosses)"></span></td>
+</tr>
+<tr class='td-no-bottom'>
+  <!-- <td><span data-qmd="$(0,+,0)$"></span></td> -->
+  <td>❌</td>
+  <td>✅</td>
+  <td>❌</td>
+  <td>Landlord</td>
+  <td>Capitalist</td>
+  <td>CEO</td>
+  <td><span data-qmd="$\omega_i^* \geq \frac{b}{\pi}$"></span></td>
+</tr>
+<tr>
+  <td colspan="7" align="center">Doesn't need to work at all (provides capital to their workers)</td>
+</tr>
+<tr class='td-no-bottom'>
+  <!-- <td><span data-qmd="$(+,+,0)$"></span></td> -->
+  <td>✅</td>
+  <td>✅</td>
+  <td>❌</td>
+  <td>Rich peasant (Kulak)</td>
+  <td>Capitalist</td>
+  <td>Small business owner</td>
+  <td><span data-qmd="$\frac{ba}{1-a} < \omega_i^* < \frac{b}{\pi}$"></span></td>
+</tr>
+<tr>
+  <td colspan="7">Not enough capital to hire workers to produce full consumption bundle</td>
+</tr>
+<tr class='td-section-head'>
+  <td colspan="7" align="center"><span data-qmd="**Petit Bourgeoisie** (Independent / 'Yeoman' Workers)"></span></td>
+</tr>
+<tr class='td-no-bottom'>
+  <!-- <td><span data-qmd="$(+,0,0)$"></span></td> -->
+  <td>✅</td>
+  <td>❌</td>
+  <td>❌</td>
+  <td>Peasant</td>
+  <td>Artisan</td>
+  <td>Full-time Etsy</td>
+  <td><span data-qmd="$\omega_i^* = \frac{ba}{1-a}$"></span></td>
+</tr>
+<tr>
+  <td colspan="7">Has no boss; doesn't boss others</td>
+</tr>
+<tr class='td-section-head'>
+  <td colspan="7" align="center"><span data-qmd="**Proletariat** (Working Class)"></span></td>
+</tr>
+<tr class='td-no-bottom'>
+  <!-- <td><span data-qmd="$(+,0,+)$"></span></td> -->
+  <td>✅</td>
+  <td>❌</td>
+  <td>✅</td>
+  <td>Poor Peasant</td>
+  <td>Semi-Proletarian</td>
+  <td>Uber driver after work</td>
+  <td><span data-qmd="$0 < \omega_i^* < \frac{ba}{1-a}$"></span></td>
+</tr>
+<tr>
+  <td colspan="7">Small plot of land, insufficient for producing consumption bundle; "Proletarianizing"</td>
+</tr>
+<tr class='td-no-bottom'>
+  <!-- <td><span data-qmd="$(0,0,+)$"></span></td> -->
+  <td>❌</td>
+  <td>❌</td>
+  <td>✅</td>
+  <td>Landless peasant</td>
+  <td>Proletarian</td>
+  <td>Service worker</td>
+  <td><span data-qmd="$\omega_i^* = 0$"></span></td>
+</tr>
+<tr>
+  <td colspan="7">Nothing but labor power to sell ("Nothing but chains to lose")</td>
+</tr>
+</tbody>
+</table>
+```
+
+## The Crucial Input: Initial Conditions
+
+* Steady states on previous slide are **absorbing states** of stochastic process! $w_{i,0} \rightarrow w_{i,1} \rightarrow \cdots$
+* For every agent $i$, some time $T_i$ such that $\omega_{i,t}$ will be in one of those five states for $t \geq T_i$
+* But how do we know **which** of the five states a given person will end up in?
+  * It's a **stochastic system**, so can't say with certainty, but **can** derive results about which initial conditions maximize $\Pr(\omega_i^* = S \mid \omega_{i,0})$...
+
+## tldr
+
+::: {layout="[1,1]"}
+::: {#enclosure-left}
+
+* The full story: Late-feudal Enclosure Movement / Samir Amin, *Accumulation on a World Scale* (1970)
+* The overly-flippant gist &rarr;
+* The less-flippant gist: Locke's *Second Treatise of Government* (1689)
+
+:::
+
+![](images/fight_you.webp){fig-align="center" width="400"}
+
+:::
+
+# Contracts in the Wild {data-stack-name="Empirical Studies"}
+
+## 
+
+## References
+
+::: {#refs}
+:::

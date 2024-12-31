@@ -1,0 +1,128 @@
+---
+title: "Week 2 Resources / Priming Your Brain for HW1"
+author: "Jeff Jacobs"
+institute: "<a href='mailto:jj1088@georgetown.edu' target='_blank'>`jj1088@georgetown.edu`</a>"
+date: 2024-01-24
+sidebar: mainnav
+date-format: full
+categories:
+  - "Extra Writeups"
+format:
+  html:
+    df-print: kable
+---
+
+Hi all :) It's in my nature or something to kvetch about "loose ends" that haven't been tied up once class ends (plus, there are fun studies about so-called spaced repetition and how it massively increases retention and understanding, if u wanna be science about it), so I'll try to get into the habit of sending these after class, so you have some stuff to pursue in the intervening week, if you'd like! *(Update: I accidentally wrote way too much for an email, so, I'll also add these to the course webpage in the ["Writeups" section](https://jjacobs.me/dsan5450/writeups/), linked in the sidebar)*
+
+## 1. Things I Googled / Opened During Class
+
+### (a) Eugenia Cheng talk at Google, <a href='https://www.youtube.com/watch?v=YHZKX0H6cUE' target='_blank'>"The Art of Logic"</a> (YouTube)
+
+It's the part from 14 minutes onwards where she starts drawing the diagrams relevant to us: "tracing back" an ethically-charged scenario from observed *consequents* (e.g., person gets beaten up and taken off the plane) to the massive collection of hypothesized *antecedents* (e.g., flight delays, policies of overbooking, capitalism, efficiency of the airline, and the incentives thereof). To map it back into something from the slides for this class: this "tracing back" corresponds (in my view) to the term I mentioned in the slides from last week: "unraveling history".
+
+Hopefully the Eugenia Cheng talk, in combination with this notion of "unraveling history" or "tracing consequents to antecedents", can help you in seeing how difficult it is to answer the question of when to *stop* doing this "tracing back" and *start* intervening. If I was to keep ranting, I would mention how my "solution" here, to the extent that "solutions" are possible, is (i) humans aren't fully rational, but we can incorporate the limits of our own rationality into our models of humans in some sense, e.g. as is done in models of <a href='https://en.wikipedia.org/wiki/Bounded_rationality' target='_blank'>boundedly rational</a>; then, with a bounded-rationality-based model in hand, (ii) Bayes rule literally gives us a mathematically "optimal" rule, given an objective function of "choosing the best course of action given all information available to us at a given moment", for which course of action to choose. <a href='https://wiki.santafe.edu/images/2/2e/Bayesian-Reasoning-for-Intelligent-People-DeDeo.pdf' target='_blank'>This essay by Simon DeDeo from Carnegie Mellon University</a> does a better job than I ever could at explaining and justifying why this might be a good model for decision-making under uncertainty (and why it makes sense to call it "Bayesian Reasoning"), despite its horribly pretentious/condescending title :P
+
+### (b) Walter Thabit, *How East New York Became A Ghetto* (2003): <a href='https://www.dropbox.com/scl/fi/k4su8e09d2xxyzlrs4oo2/Walter_Thabit-_Frances_Fox_Piven-_How_East_New_Yo.pdf?rlkey=0u8qtz6xoe9df0dngdcca7lal&dl=1' target='_blank'>PDF</a>
+
+This one is a bit more peripheral to the main topics in this class, but yeah I wanted to bring it up in class and then also send the PDF here because: if **data science** in **urban policy** is your jam, it's a perfect example of how the data we have nowadays *about* differential health outcomes and correlates of crime and etc. for different neighborhoods in NYC didn't magically "appear" in nice .csv format -- it exists because of some combination of political organizing and agitation and etc. (which Walter Thabit himself very much took part in), in conjunction with the discrepancies that were pointed out in a more "qualitative" way by works in urban sociology like this one and its precursors...
+
+## 2. "Exploitation" as Descriptive vs. Normative Term in Economics
+
+I basically completely stammered my way through answering this question in-class, which I'm mad at myself for since imo "exploitation" is a 100% perfect example for looking at how words can have entirely different meanings, and how people can make diametrically opposed judgements of their validity, both *within* and *between* the "descriptive" and "normative" realms.
+
+In this case, analysis/discussion in the *descriptive* realm could look like: should we attach the label ["exploitation" (as descriptive term)] to [equation $A$] or [equation $B$]? Then, in the *normative* realm, analysis/discussion could look like: is ["exploitation" (as descriptive term, labeling equation $X \in \{A, B\}$)] morally objectionable? Is it something an institution *could* feasibly reduce, in theory? And if so, *should* they use the scarce resources available to them to try and reduce it?
+
+The reason I stammered and felt so embarrassed that I couldn't give a good succinct answer is because... I have no idea how to explain it without sounding like I'm doing a cringey flex/humblebrag type of thing but here goes:
+
+Princeton University Press literally commissioned me to write a book chapter answering exactly that question back in 2018 lol, as basically part of a little companion book to a <a href='https://press.princeton.edu/books/ebook/9780691240466/capital' target='_blank'>new edition of *Das Kapital*</a> coming out in September this year (as part of my role on the editorial board for that), woohoo! But then, 10% because of covid and 90% because of my inability to finish anything, the chapter still isn't finished and isn't coming out anytime soon. Worse, it's not even helpful to link the pdf draft in its current state (since there are literally like, half-finished equations in it, section headers without text, etc.). But if the question of different ethical perspectives on economically-defined exploitation is interesting to you, I am happy to send you a sloppy-but-finished pdf of the next draft in ~a week or two!
+
+So yeah, embarrassed because I couldn't just say "read my book!" given its current disheveled state, SO the resolution to all this is that I'm just going to link PDFs for two *finished* and *published* book! One by a person I mentioned in week 1, John Roemer:
+
+### (a) Roemer, *Free to Lose: An Introduction to Marxist Economic Philosophy* (1988) [<a href='https://www.dropbox.com/scl/fi/2bh9ydhvpjvk7369qrf6y/John_E._Roemer-_Free_to_Lose.pdf?rlkey=drao1xt5sse02hrm6ld3ypidn&dl=1' target='_blank'>PDF</a>], Chs. 2 and 4
+
+This book gives an "intuitive" model of exploitation in plain English in Chapter 2, then a mathematical model with a semi-formal microeconomic definition of exploitation in Chapter 4.[^roemer]
+
+### (b) Morishima, *Marx's Economics* (1973) [<a href='https://www.dropbox.com/scl/fi/php1kyss2xupsg6qm280a/Michio-Morishima-Marxs-Economics_-A-Dual-Theory-of-Value-and-Growth.pdf?rlkey=jzi4mnxa6srkxhn3agt9r75zw&dl=1' target='_blank'>PDF</a>], Ch. 5: "Surplus Value and Exploitation"
+
+If you were an econ major, and especially if you feel good about econometrics stuff that uses linear algebra and matrix equations, you might instead prefer [chapter 5 of this book] by Michio Morishima, which (a) is better in the sense that it uses more standard econ terms, but then (b) is worse in the sense that it is all building to the argument it became famous for (in chapter 14), that Marxian exploitation can be defined *without* assuming the so-called Labor Theory of Value. Which was interesting in the 70s when it came out, but by 1988 Roemer could mostly just get to the point of defining and discussing exploitation without having to call it Exploitation-but-not-the-kind-thats-defined-using-Labor-Theory-of-Value.
+
+Moving back on-topic to DSAN 5450, though, the Morishima book does have a nice feature in that Chapter 2 is called **"Hidden Assumptions"**! Where he goes more into what antecedents might be hiding behind the term "exploitation" when it is used by neoclassical economists vs. Marxian economists.
+
+## 3. HW1: Nuts and Bolts for Fairness in AI
+
+I've already written way too much and included way too many PDFs here, but I'd rather have you overly rather than under-ly prepared for HW1, so I just wanted to give a quick preview of what will be on it, with pointers towards stuff where, if you skim them for example, you'll know what to do when the homework comes along.
+
+To be clear: most of the contents of these readings *will* be scary and confusing, since (a) we haven't discussed them yet, but also (b) they're entire papers/books devoted solely to a single topic that is just one among several topics in this class. And so the idea is just: you can look at these, maybe read the ones that you find sufficiently interesting and ignore the ones you don't, and then your brain will be "primed" for the full-on understanding we'll develop through slides + homework! 
+
+### (a) Recovering "Race" from Proxy Variables
+
+There are a million bazillion books and articles and essays from humanities and the social sciences which I am forcing myself not to list here, because I want to just give yall a short-and-sweet primer you can use to understand the issue with "Step 1: remove the variable called 'race' -> Step 2: problem solved 🥳💯" from a straightforward, data-science-rooted standpoint. So, for that, I'd go with this one: 
+
+* Michael Carl Tschantz, ["What is Proxy Discrimination?"](https://dl.acm.org/doi/pdf/10.1145/3531146.3533242) (2022)
+
+### (b) Discrimination in Advertising
+
+* Ali et al. (2019). <a href='https://arxiv.org/abs/1904.02095' target='_blank'>"Discrimination through optimization: How Facebook's ad delivery can lead to skewed outcomes"</a>, *arXiv Preprint*
+
+This topic purposefully comes after (a) though (a) and (b) form a connected pair, since the results in this paper will seem very confusing/suspicious without knowledge about more and less valid ways of "recovering" race despite absence of a variable called "race" in the dataset. In the study, they employ an absolutely brilliant method (imo) for discovering discrimination in Facebook's ads, but then they do a bit of a "sleight of hand" in just saying "we've found that the discrimination is based on *race*", when in fact it's "we've found that the discrimination is based on [*estimated race* inferred from proxy variables in a way that you might think is valid but you also might think is invalid]".
+
+### (c) Confusion matrix fairness
+
+As you might see on the slides we haven't gotten to yet, the two main resources I'm drawing on for this part are:
+
+* [Chapter 3 of Barocas, Hardt, and Narayanan's *Fairness in Machine Learning* (2023)](https://fairmlbook.org/classification.html) (the full book is online for free, legally!), titled "Classification"
+* Mitchell et al. <a href='https://www.dropbox.com/scl/fi/qzobxulptvwrfxulr56au/mitchell-et-al-2021-algorithmic-fairness-choices-assumptions-and-definitions.pdf?rlkey=zcnm6f5a3p9it6ed4xs56hfpw&dl=1' target='_blank'>"Algorithmic Fairness: Choices, Assumptions, and Definitions"</a>. *Annual Review of Statistics and its Applications* (2021)
+
+But then, really, an approach to the confusion matrix-based definitions (among others!) that probably fits even better with the class is this presentation from Narayanan (the third author on the above Fairness in ML book), which is refreshing in that it explicitly links fairness definitions with political considerations, rather than trying to "hide" them behind... math/science/greek letters
+
+* Arvind Narayanan, <a href='https://www.youtube.com/watch?v=jIXIuYdnyyk' target='_blank'>"Tutorial: 21 Fairness Definitions and Their Politics"</a>, from *FAT-ML Conference*, 2018 (YouTube)
+
+### (d) Causal-path fairness
+
+* <a href='https://fairmlbook.org/causal.html' target='_blank'>Chapter 5</a> of the *Fairness in Machine Learning* book mentioned above is all about causality-based approaches.
+
+It's not my favorite starting point tbh, but since I already linked that book, if you find that you like its approach, you can read Ch 6 as well...
+
+To me, a central work in this sphere is:
+
+* Lily Hu, ["What is 'Race' in Algorithmic Discrimination on the Basis of Race?"](https://scholar.harvard.edu/sites/scholar.harvard.edu/files/lilyhu/files/what_is_race.pdf), *Journal of Moral Philosophy* (2024, forthcoming)
+
+This is the distillation of Lily's "thick constructivist" theory of race that I mentioned today. But the intuition behind it is broken down into maybe more digestible chunks with pictures and stuff in her blog posts on the <a href='https://www.phenomenalworld.org/author/lily-hu/' target='_blank'>*Phenomenal World* blog</a>. There are 5 things listed there, but the last 2 are interviews so just skip those, I'm referring to "Disparate Causes Pt. I", "Disparate Causes Pt. II", and "Direct Effects"
+
+The thing I'm scared of with this part, though, is that Lily's work is a *critique* of causal-path fairness definitions, meaning that it can be hard to start there if you don't know the thing she's critiquing in the first place... the issue is that the literature on causal pathways is really brutally tough to "break into", honestly. But, probably the book with the fewest barriers to entry---basically, a book that you have all the necessary background for, as DSAN students---is:
+
+* Morgan and Winship (2014). *Counterfactuals and Causal Inference* [<a href='https://www.dropbox.com/scl/fi/rmuw9yw0gflg9wprufzu4/Stephen-Morgan-Christopher-Winship-Counterfactuals-and-Causal-Inference_-Models-and-Principles-for-Social-Research.pdf?rlkey=gpzpuqgmzgsdwo18j22pl6yiw&dl=1' target='_blank'>PDF</a>]
+
+And then I'll just say that: a book with the full-on details of everything you'd ever want to know about causal pathways is:
+
+* Judea Pearl (2000). *Causality: Models, Reasoning, and Inference* [<a href='https://www.dropbox.com/scl/fi/4kfpro4gpx7tg55fwd7qt/Judea-Pearl-Causality_-Models-Reasoning-and-Inference.pdf?rlkey=f0abw0cgmsyiegx6xapq5z7j2&dl=1' target='_blank'>PDF</a>, <a href='https://www.dropbox.com/scl/fi/w0ddrn4wk02wrw7wssml1/Causality-Models-Reasoning-and-Inference.epub?rlkey=5godami9i3loglo41mnhojicl&dl=1' target='_blank'>EPUB</a>]
+
+### (e) Reverse fairness
+
+This one was rough tbh, in terms of trying to intro it in Week 2 without the details you'll have by Week ~7 to 9 when we'll get into this. Because, it's actually completely rooted in a topic that maybe sounds... either miserably boring or miserably presumptuous at first: "Optimal Tax Rate Theory" (<a href='https://en.wikipedia.org/wiki/Optimal_labor_income_taxation' target='_blank'>Optimal labor income taxation</a> / <a href='https://en.wikipedia.org/wiki/Optimal_capital_income_taxation ' target='_blank'>Optimal capital income taxation</a>)
+
+But, if you are willing to see what they mean when they say that a tax rate is quote-unquote "optimal", it will get you most of the way to understanding inverse fairness. As you're hopefully getting used to, descriptively it means something like:
+
+* "[set of criteria $C$ and objective function $f$] => [tax rate $z^*$ = maximum of $f$ subject to constraints $C$]",
+
+and then normatively it means something like:
+
+* "[if $(C,f)$ characterize your policy goal(s)] $\implies$ [you ought to set tax rate to be $z$]".
+
+That's not as fun or conclusive/satisfying as they way some economists present it ("this is the best most GOATed tax rate and if you don't choose this tax rate you're dumb and don't understand economics!!"), but it allows us to understand the word "optimal" as the $q$ in $p \implies q$ and move on 😜
+
+Because then, we can use Bayes' rule to go back and forth: from $p$ to $q$, **or** (!) from $q$ backwards to $p$. And in this case that means: given a set of distributional concerns ($p$), we can derive an optimal tax rate ($q$), **OR** (!) given an *existing* tax rate $q$, we can **infer** the distributional concerns $p$ that such a tax rate is **implicitly implementing**, in the sense of which groups in society are "weighted" higher and lower in the *aggregation* of individual preferences that manifests in the form of the tax policy.
+
+Since this is so much later in the class, and the HW1 problem will just be tiiny baby steps in that direction, I'm not too worried about specific articles or anything here -- instead, I think actually a really helpful thing to read (though it may seem totally out of nowhere) is:
+
+* Jean-Paul Sartre (1946) *Existentialism is a Humanism* [<a href='https://www.dropbox.com/s/hdgigec9xh41n7q/Jean-Paul%20Sartre_%20Annie%20Cohen-Solal_%20Arlette%20Elka%C3%AFm-Sartre_%20Carol%20Macomber%20-%20Existentialism%20Is%20a%20Humanism.pdf?dl=1' target='_blank'>PDF</a>, <a href='https://www.dropbox.com/scl/fi/vqu9987deagtlo69yk87g/Jean-Paul-Sartre-Existentialism-Is-a-Humanism-Yale-University-Press-2007.epub?rlkey=r0wl4jmxog5yra1avukhtkcgp&dl=1' target='_blank'>EPUB</a>], pgs. 30-34
+
+If you use the EPUB: it's the series of paragraphs starting with *"To give you an example that will help you to better understand what we mean by abandonment"*; it's a section where he talks about a student coming to him for help with "ethically deciding" whether to join the anti-Nazi resistance or stay home and care for his sick mother.
+
+The reason I cite that here is because it highlights how, once we've set up all these fancy definitions of fairness and causality and social welfare and etc., there is still always going to be an **indeterminacy** in ethical decision-making: Sartre's point in giving this anecdote, in my reading of it at least, was to drive home the fact that he could teach this student 20 years of seminars on ethics, and the student could know 500 ethical frameworks in minute detail, and he would still have to do the hard, agonizing emotional work of **making** the decision. I think that can be a pretty good lesson to help us "zoom out" a bit, if we find ourselves <a href='https://www.youtube.com/watch?v=g0-F88c6Hrk' target='_blank'>lost in the sauce</a> of "algorithms are gonna make all our decisions and fix everything!!"
+
+K I'm done,
+
+Jeff
+
+[^roemer]: If you want the full set of gruesome axioms/antecedents which give rise to this definition, that's in the more-intense-math but fully-axiomatized "version" of the book: <a href='https://www.dropbox.com/scl/fi/ex470vws246ptajknp6vh/John-E.-Roemer-Analytical-Foundations-of-Marxian-Economic-Theory.pdf?rlkey=uftbq4fkmujw1kcjr3womr5c4&dl=1' target='_blank'>*Analytical Foundations of Marxian Economic Theory*</a>

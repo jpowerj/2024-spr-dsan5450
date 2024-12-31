@@ -1,0 +1,62 @@
+
+* Let $Y_i$ be "desirable" outcome for person $i$, $D_i$ be algorithmic decision for person $i$
+* For binary $Y_i$ and $D_i$, there are **eight possible conditional probabilities** we might care about (whether **descriptively** or **normatively**!)
+
+::: {layout="[1,1]"}
+::: {#confusion-left}
+
+```{=html}
+<table>
+<thead>
+</thead>
+<tbody>
+<tr>
+  <td><span data-qmd="$\Pr(D_i \mid Y_i)$"></span></td>
+  <td><span data-qmd="$D_i = 0$"></span></td>
+  <td><span data-qmd="$D_i = 1$"></span></td>
+</tr>
+<tr>
+  <td><span data-qmd="$Y_i = 0$"></span></td>
+  <td>1</td>
+  <td>2</td>
+</tr>
+<tr>
+  <td><span data-qmd="$Y_i = 1$"></span></td>
+  <td>3</td>
+  <td>4</td>
+</tr>
+</tbody>
+</table>
+```
+
+:::
+::: {#confusion-right}
+
+```{=html}
+<table>
+<thead>
+</thead>
+<tbody>
+<tr>
+  <td><span data-qmd="$\Pr(Y_i \mid D_i)$"></span></td>
+  <td><span data-qmd="$D_i = 0$"></span></td>
+  <td><span data-qmd="$D_i = 1$"></span></td>
+</tr>
+<tr>
+  <td><span data-qmd="$Y_i = 0$"></span></td>
+  <td>5</td>
+  <td>6</td>
+</tr>
+<tr>
+  <td><span data-qmd="$Y_i = 1$"></span></td>
+  <td>7</td>
+  <td>8</td>
+</tr>
+</tbody>
+</table>
+```
+
+:::
+:::
+
+* Entry 5, for example, tells us: "**Given** that the algorithm **decided 0** for person $i$, what is the probability that the desirable outcome for person $i$ was 0?"

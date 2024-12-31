@@ -1,0 +1,241 @@
+---
+title: "Week 13: Standpoint Epistemology, Data Feminism"
+subtitle: "*DSAN 5450: Data Ethics and Policy*<br><span class='subsubtitle'>Spring 2024, Georgetown University</span>"
+author: "Jeff Jacobs"
+institute: "<a href='mailto:jj1088@georgetown.edu' target='_blank'>`jj1088@georgetown.edu`</a>"
+bibliography: "../_DSAN5450.bib"
+date: 2024-04-17
+date-format: full
+lecnum: 13
+categories:
+  - "Class Sessions"
+format:
+  revealjs:
+    df-print: kable
+    footer: "DSAN 5450 Week 13: {{< var w13.footer >}}"
+    output-file: "slides.html"
+    html-math-method: mathjax
+    theme: ["../_jjslides.scss"]
+    include-in-header:
+      text: "<link href='https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css' rel='stylesheet' integrity='sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN' crossorigin='anonymous'><link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css'><link rel='preconnect' href='https://fonts.googleapis.com'><link rel='preconnect' href='https://fonts.gstatic.com' crossorigin><link href='https://fonts.googleapis.com/css2?family=Honk&display=swap' rel='stylesheet'>"
+    scrollable: true
+    slide-number: true
+    simplemenu:
+      flat: true
+      barhtml:
+        header: "<div class='menubar'><span style='position: absolute; left: 8; padding-left: 8px;'><a href='./index.html'>&larr; Return to Notes</a></span><ul class='menu'></ul></div>"
+      scale: 0.4
+    revealjs-plugins:
+      - simplemenu
+  html:
+    df-print: kable
+    output-file: "index.html"
+    html-math-method: mathjax
+---
+
+::: {.content-visible unless-format="revealjs"}
+
+<center>
+<a class="h2" href="./slides.html" target="_blank">Open slides in new window &rarr;</a>
+</center>
+
+:::
+
+# The *Ordering* of Topics is Important Here! {data-stack-name="Standpoint Epistemology"}
+
+* Last week: Unfortunate-ness of white male teaching about race
+* This week: Unfortunate-ness of white male teaching about gender
+* But, also this week, a counterpoint: "Diversity in tech" $\overset{?}{\longleftrightarrow}$ The burden of "speaking for" one's identity group
+
+## Jeff's Laying-Out-Biases Corner {.crunch-title .crunch-ul .crunch-blockquote .crunch-p}
+
+* (aka <a href='https://www.youtube.com/watch?v=sWUyMBRDE2c' target='_blank'>60-second soapbox</a>)
+* I... spent most of my teens/20s in meetings, rallies, etc., yelling at capitalism, imperialism, and the like
+* Ex: Cringe-era Jeff did an interview with an HK newspaper, where I distinctly remember a whole spiel about:
+
+> I felt it was important to live and work specifically in Beijing, Shenzhen, and Hong Kong, because in the US we're taught that anything besides American Capitalism is monolithically evil, so I'm hoping to see for myself how both capitalism and its alternatives are experienced by people in all three
+
+## {.crunch-title .crunch-ul .crunch-quarto-figure .crunch-figures}
+
+* Which they dutifully reported in a very fair paraphrase:
+
+::: {layout="[3,4]" layout-valign="center"}
+
+![](images/hk_clip_sharpen.jpg){fig-align="center" width="400"}
+
+::: {#hk-right}
+
+![](images/hk_clip_translation.jpeg){fig-align="center" width="460"}
+
+![](images/obama_thumbsup.jpg){fig-align="center" width="380"}
+
+:::
+
+:::
+
+## The Reason I Mention That! {.crunch-title .crunch-ul .crunch-quarto-figure}
+
+::: {layout="[5,3]"}
+
+::: {#excluded-left}
+
+* **Acknowledging** exclusion vs. thinking through of **why** ppl are excluded and **fixing** it
+* Favorite non-controversial example: land acknowledgement at pro-Israel summer camps
+
+![](images/kodak_black.jpeg){fig-align="center" width="200"}
+
+:::
+::: {#excluded-right}
+
+![@fraser_redistribution_2003](images/redistribution.jpg){fig-align="center" width="350"}
+
+:::
+:::
+
+## The Standpoint Problem Revisited {.crunch-title .crunch-ul}
+
+* Problem statement: Jeff can't possibly "teach" data-ethical issues, w.r.t. how they affect women, in the same manner he can teach e.g. how to take a derivative
+* Solution 1: Have a woman teach a guest lecture $\rightarrow$ (Possibility) Problem solved; (Possibility) Forcing additional labor onto women (see: 3 slides from now)
+* Solution 2: Utilize the immense labor women have already put into trying to explain these issues to men with power, and amplify these already-existing products of this already-expended labor
+
+## Specifically-Chosen Examples {.crunch-title}
+
+::: {layout="[1,1,1]"}
+::: {#labor-left}
+
+![](images/lebron.jpg){fig-align="center" width="340"}
+
+:::
+::: {#labor-center}
+
+![](images/racist.jpg){fig-align="center" width="340"}
+
+:::
+::: {#labor-right}
+
+![](images/invisible_women.jpg){fig-align="center" width="340"}
+
+:::
+:::
+
+## With Great Privilege Comes Great Responsibility {.crunch-title .crunch-blockquote .title-07}
+
+> What is **the most damage I can do**, given my biography, abilities, and commitments, to the racial order and rule of capital? (<a href='https://en.wikipedia.org/wiki/Joel_Olson' target='_blank'>Joel Olson</a>)
+
+![](images/race_traitor_jacket.jpg){fig-align="center" width="300"}
+
+## (You're *Really* Not Gonna Like This One, So I'll Just Show It Real Quick And Move On) {.crunch-title .title-12 .smaller .crunch-blockquote}
+
+> Dolezal no doubt has her issues and idiosyncrasies, but, especially if the judgment of the NAACP counts for anything in the matter, I'd take her in a trade for Clarence Thomas, Cory Booker, and Condi Rice.
+
+> Or would Dolezal's "not even close to being black" mean that she was raised outside of "authentic" black idiom or cultural experience? But whose black idiom or cultural experience would that be? Is there really an irreducible, definitive one? If so, on which Racial Voice blog or Ivy League campus might we find it?
+
+> In Blay's narrow political universe, the NAACP branch presidency is an honorific to be awarded on the basis of ascriptive categories like race and gender, not the result of effective work on behalf of the Association's mission and goals.
+
+(Adolph Reed, <a href='https://www.commondreams.org/views/2015/06/15/jenner-dolezal-one-trans-good-other-not-so-much' target='_blank'>"From Jenner to Dolezal: One Trans Good, the Other Not So Much"</a>)
+
+## The "Diversity in Tech"-Industrial Complex {.crunch-title .title-08 .crunch-li-6}
+
+* Problem: Not enough diversity in tech
+* Solution 1: Intervene on the causal pathways leading to this outcome (incl. studying/tracing causal pathways)
+    * Costs borne by tech companies; benefits accrue to marginalized ppl ❌🙅‍♂️⏹️
+* Solution 2: Make marginalized ppl in tech jobs do tech jobs plus also extra job of explaining their marginalization to non-marginalized ppl (Third Shift?), who go home feeling good that they went to the diversity in tech panel (Brecht)
+    * Costs borne by marginalized ppl; benefits accrue to tech companies ✅🎰🤑
+
+## (See Also) {.crunch-title}
+
+![](images/mlk_dream.jpg){fig-align="center"}
+
+## "Diversity" vs. Fairness / Justice
+
+* (Only single-quoted, bc not as bad as """terrorism""" or """smartness""", but still p ill-defined!)
+
+::: {layout="[1,1]" layout-valign="center"}
+::: {#diversity-left}
+
+![](images/oakland_small.jpeg)
+
+:::
+::: {#diversity-right}
+
+![](images/dc.jpeg)
+
+:::
+:::
+
+## Diversity vs. Fairness / Justice
+
+::: {layout="[1,1]" layout-valign="center"}
+
+![](images/oakland_map2.jpeg)
+
+![](images/dc_map.jpeg)
+
+:::
+
+# Data Feminism {data-stack-name="Data Feminism"}
+
+## Epistemological One-Way Mirror 2: Electric Boogaloo
+
+> Representation of the world, like the world itself, is the work of men; they describe it from their own point of view, which they confuse with the absolute truth.<br><div style='float: right;'>[@beauvoir_second_1949]</div>
+
+## "It Goes Without Saying" {.crunch-title .crunch-blockquote .crunch-p}
+
+>  Whiteness and maleness are implicit. They are unquestioned. They are the default. And this reality is inescapable for anyone whose identity does not go without saying [...] For anyone who is used to jarring up against a world that has not been designed around them and their needs.
+
+> Belief in the objectivity, the rationality, the, as Catherine Mackinnon has it, "point-of-viewlessness" of the white, male perspective. Because this perspective is not articulated as white and male (because it doesn’t need to be), because it is the norm, it is presumed not to be subjective.
+
+## People = Male, Animal = Male {.crunch-title .crunch-ul}
+
+* *"When I say 'he' I really mean 'he or she', obviously"*
+* Except... irrespective of what you really mean, or whether it's 'obvious', it goes out into the world and has effects (reification),
+* From <a href='https://www.sciencedirect.com/science/article/abs/pii/S0001879113000304' target='_blank'>childhood</a> [@vervecken_changing_2013]
+* To <a href='https://onlinelibrary.wiley.com/doi/abs/10.1111/j.1559-1816.1973.tb01290.x' target='_blank'>job-hunting</a> [@bem_does_1973]
+* <a href='https://www.frontiersin.org/journals/psychology/articles/10.3389/fpsyg.2016.00025/full#B111' target='_blank'>And beyond</a> [@sczesny_can_2016]
+* A stuffed animal must be "super-feminine" before "even close to half of participants will refer to it as she rather than he". [@lambdin_animal_2003]
+
+
+## The Cowan "Paradox" {.crunch-title .smaller}
+
+::: {layout="[1,1]"}
+::: {#cowan-left}
+
+> For many ages to come the old Adam will be so strong in us that everybody will need to do some work if he [sic] is to be contented [...] But beyond this, we shall endeavour to spread the bread thin on the butter---to make what work there is still to be done to be as widely
+shared as possible. Three-hour shifts or a fifteen-hour week may put off the
+problem for a great while. For three hours a day is quite enough to satisfy the old Adam in most of us!
+
+(John Maynard Keynes, <a href='http://www.econ.yale.edu/smith/econ116a/keynes1.pdf' target='_blank'>"Economic Possibilities for our Grandchildren"</a>, 1930)
+
+:::
+::: {#cowan-right}
+
+![@cowan_more_1983](images/more_work.jpg){fig-align="center" width="350"}
+
+:::
+:::
+
+# Solving All the Problems {data-stack-name="Solving All the Problems"}
+
+## Solutions via Causal Historical Analysis
+
+* The data: historical cases of attempts to end oppression
+* Dependent variable: Did they succeed or were they successfully repressed?
+* (You're not gonna like this one either...)
+
+## Instances of Oppression and their Termination
+
+* Slavery?
+* Colonialism?
+* Apartheid in South Africa / Rhodesia?
+* The Ethnic Cleansing of Palestine?
+* Thankfully, all of these were ended peacefully, and in ways that were agreeable to everyone involved, especially those who benefitted from them!!! 🥳🕺
+
+## Great Moments in Peaceful Protest History {.crunch-title .title-12 .smaller}
+
+![From The Nib (<a href='https://thenib.com/great-moments-in-peaceful-protest-history-44bdadb44cf/' target='_blank'>*The Revolution WILL Be Given Permission*</a>)](images/great-moments-in-peaceful-protest-history.jpg){fig-align="center"}
+
+## References
+
+::: {#refs}
+:::
+
